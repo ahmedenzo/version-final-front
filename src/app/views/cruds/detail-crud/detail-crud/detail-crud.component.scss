@@ -1,0 +1,48 @@
+.card-container {
+  font-family: Arial, sans-serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 25px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.card-details-section {
+  width: 45%;
+  padding: 25px;
+  position: relative; /* Add this line */
+}
+
+.card-details-section:nth-child(2)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #ccc; /* Adjust the color to match your design */
+}
+
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.card-label {
+  font-weight: bold;
+  color: #555;
+  min-width: 150px;
+}
+
+.card-value {
+  color: #333;
+  flex-grow: 1;
+  text-align: right;
+}

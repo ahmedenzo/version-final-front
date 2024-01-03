@@ -1,0 +1,518 @@
+<mat-card class="p-0">
+
+  
+ <mat-card-title class="">
+      <div class="card-title-text">Form CardHolder ETTADHAMEN LIBYE</div>
+      <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+      <form [formGroup]="basicForm" (ngSubmit)="submit()">
+          <div fxLayout="row wrap" fxLayout.lt-sm="column">
+              <div fxFlex="100" fxFlex.gt-xs="33" class="pr-16">
+                  <div class="pb-16">
+
+                    <div class="pb-16" >
+                      <mat-radio-group formControlName="Card" (change)="updateCardValue()">
+                        <mat-radio-button class="example-margin" value="Platinum">MasterCard Platinum</mat-radio-button>
+                        <mat-radio-button class="example-margin" value="Elite">MasterCard World Elite</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                    
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input matInput formControlName="CardType" placeholder="CardType" [value]="cardValue">
+                      </mat-form-field>
+                      <small class="input-label">CardType</small>
+                    </div>
+
+
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input matInput formControlName="BankIdCode" placeholder="BankIdCode">
+                        </mat-form-field>
+                        <small class="input-label">BankIdCode</small>
+                      </div>
+                      <div class="pb-16">
+                        <mat-form-field class="full-width">
+                          <input
+                            matInput
+                            name="currencycode"
+                            formControlName="currencycode"
+                            placeholder="CurrencyCode"
+                            value=""
+                            pattern="^[0-9]+$"
+                            minlength="3" 
+                            maxlength="3"
+                          >
+                        </mat-form-field>
+                        <small *ngIf="basicForm.controls['currencycode'].hasError('pattern') && basicForm.controls['currencycode'].touched" class="form-error-msg">currencycode must contain only numbers</small>
+                        <small *ngIf="basicForm.controls['currencycode'].hasError('minlength') && basicForm.controls['currencycode'].touched" class="form-error-msg">currencycode must be 3 digits long</small>
+                        <small class="input-label">CurrencyCode</small>
+                      </div>
+                      <div class="pb-16">
+                        <mat-form-field >
+                          <input matInput formControlName="countryCode" placeholder="countryCode">
+                          </mat-form-field>
+                          <small class="input-label">countryCode</small>
+                        </div>
+                 
+                      
+                   
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input matInput formControlName="cityCode" placeholder="cityCode">
+                        </mat-form-field>
+                        <small class="input-label">cityCode</small>
+                      </div>
+
+                      
+
+                      
+                      <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="cardHolder"
+                          formControlName="FirstAccount"
+                          placeholder="First Account"
+                          value=""
+                          pattern="^[0-9]+$"
+                          minlength="24"
+                          maxlength="24"
+                        >
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['FirstAccount'].hasError('pattern') && basicForm.controls['FirstAccount'].touched" class="form-error-msg">First Account must contain only numbers</small>
+                      <small *ngIf="basicForm.controls['FirstAccount'].hasError('minlength') && basicForm.controls['FirstAccount'].touched" class="form-error-msg">First Account must be 24 digits long</small>
+                      <small class="input-label">First Account</small>
+                      </div>
+                  </div>
+                    
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="Branchcode"
+                          formControlName="Branchcode"
+                          placeholder="BranchCode"
+                          value=""
+                          pattern="^[0-9]+$"
+                          minlength="5"
+                          maxlength="5"
+                        >
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['Branchcode'].hasError('pattern') && basicForm.controls['Branchcode'].touched" class="form-error-msg">First Account must contain only numbers</small>
+                      <small *ngIf="basicForm.controls['Branchcode'].hasError('minlength') && basicForm.controls['Branchcode'].touched" class="form-error-msg">First Account must be 5 digits long</small>
+                      <small class="input-label">BranchCode</small>
+                    </div>
+
+
+                    
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="Address"
+                          formControlName="Address"
+                          placeholder="Address 1"
+                          value=""
+                          pattern="[a-zA-Z0-9 ]*"
+                        >
+                      </mat-form-field>
+                    
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="Address2"
+                          formControlName="Addresstwo"
+                          placeholder="Address 2"
+                          value=""
+                          pattern="[a-zA-Z0-9]*"
+                        >
+                        <small *ngIf="basicForm.controls['Addresstwo'].hasError('pattern') && basicForm.controls['Addresstwo'].touched" class="form-error-msg">Address 2 must contain only characters and numbers</small>
+                      </mat-form-field>
+                    
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="Address3"
+                          formControlName="Addressthree"
+                          placeholder="Address 3"
+                          value=""
+                          pattern="[a-zA-Z0-9]*"
+                        >
+                        <small *ngIf="basicForm.controls['Addressthree'].hasError('pattern') && basicForm.controls['Addressthree'].touched" class="form-error-msg">Address 3 must contain only characters and numbers</small>
+                      </mat-form-field>
+                    
+                      <small *ngIf="basicForm.controls['Address'].hasError('required') && basicForm.controls['Address'].touched" class="form-error-msg">Address 1 is required</small>
+                      <small *ngIf="basicForm.controls['Address'].hasError('pattern') && basicForm.controls['Address'].touched" class="form-error-msg">Address 1 must contain only characters and numbers</small>
+                    
+                      <small class="input-label">Address</small>
+                    </div>
+                    
+                    
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="CorporateName"
+                          formControlName="CorporateName"
+                          placeholder="CorporateName"
+                          pattern="[a-zA-Z ]*"
+                          value=""
+                        >
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['CorporateName'].hasError('pattern') && basicForm.controls['CorporateName'].touched" class="form-error-msg">CorporateName must contain only characters</small>
+                      <small *ngIf="basicForm.controls['CorporateName'].hasError('required') && basicForm.controls['CorporateName'].touched" class="form-error-msg">CorporateName is required</small>
+                      <small class="input-label">CorporateName</small>
+                    </div>
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="Name"
+                          formControlName="Name"
+                          placeholder="Name"
+                          pattern="[a-zA-Z ]*"
+                          value=""
+                        >
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['Name'].hasError('pattern') && basicForm.controls['Name'].touched" class="form-error-msg">Name must contain only characters</small>
+                      <small *ngIf="basicForm.controls['Name'].hasError('required') && basicForm.controls['Name'].touched" class="form-error-msg">Name is required</small>
+                      <small class="input-label">Name</small>
+                    </div>
+                    
+                    
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <input
+                          matInput
+                          name="PostalCode"
+                          formControlName="PostalCode"
+                          placeholder="Zip Code"
+                          value=""
+                          pattern="^[0-9]+$"
+                          maxlength="24"
+                        >
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['PostalCode'].hasError('pattern') && basicForm.controls['PostalCode'].touched" class="form-error-msg">Postal must contain only numbers</small>
+                      <small *ngIf="basicForm.controls['PostalCode'].hasError('required') && basicForm.controls['PostalCode'].touched" class="form-error-msg">Postal Code is required</small>
+                      <small class="input-label">Postal Code</small>
+                    </div>
+                   
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                      <input
+                          matInput
+                          type="email"
+                          name="email"
+                          formControlName="email"
+                          placeholder=" Email"
+                          value="">
+                      </mat-form-field>
+                      <small 
+                      *ngIf="basicForm.controls['email'].hasError('required') && basicForm.controls['email'].touched" 
+                      class="form-error-msg"> Email is required </small>
+                      <small 
+                      *ngIf="basicForm.controls['email'].hasError('email') && basicForm.controls['email'].touched" 
+                      class="form-error-msg"> Invaild email address </small>
+                      <small class="input-label">email</small>
+                  </div>
+                </div>
+                <div fxFlex="100" fxFlex.gt-xs="33" class="pr-16">
+                    
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <mat-label>RenewOption</mat-label>
+                        <mat-select formControlName="RenewOption">
+                          <mat-option *ngFor="let option of renewOptions" [value]="option">{{ option }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['RenewOption'].hasError('required') && basicForm.controls['RenewOption'].touched" class="form-error-msg">RenewOption is required</small>
+                      <small class="input-label">RenewOption</small>
+                    </div>
+
+                    <div class="pb-16">
+                      <mat-form-field class="full-width">
+                        <mat-label>CardProcessIndicator</mat-label>
+                        <mat-select formControlName="CardProcessIndicator">
+                          <mat-option *ngFor="let option of CardProcessIndicator" [value]="option">{{ option }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <small *ngIf="basicForm.controls['CardProcessIndicator'].hasError('required') && basicForm.controls['CardProcessIndicator'].touched" class="form-error-msg">CardProcessIndicator is required</small>
+                      <small class="input-label">CardProcessIndicator</small>
+                    </div>
+
+                                          
+                    
+        
+                  <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <mat-label>Update Code</mat-label>
+                      <mat-select formControlName="updatecode">
+                        <mat-option *ngFor="let option of updatecode" [value]="option">{{ option }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['updatecode'].hasError('required') && basicForm.controls['updatecode'].touched" class="form-error-msg">Update code is required</small>
+                    <small class="input-label">Update Code</small>
+                  </div>
+
+
+
+                  <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <mat-label>Sourcecode</mat-label>
+                      <mat-select formControlName="Sourcecode">
+                        <mat-option *ngFor="let option of Sourcecode" [value]="option">{{ option }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['Sourcecode'].hasError('required') && basicForm.controls['Sourcecode'].touched" class="form-error-msg">Sourcecode code is required</small>
+                    <small class="input-label">Sourcecode</small>
+                  </div>
+
+
+
+                  <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <mat-label>PKIIndicator</mat-label>
+                      <mat-select formControlName="PKIiNDICATOR">
+                        <mat-option *ngFor="let option of PKIiNDICATOR" [value]="option">{{ option }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['PKIiNDICATOR'].hasError('required') && basicForm.controls['PKIiNDICATOR'].touched" class="form-error-msg">PKIiNDICATOR is required</small>
+                    <small class="input-label">PKIiNDICATOR</small>
+                  </div>
+
+
+
+                  <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <mat-label>ACS</mat-label>
+                      <mat-select formControlName="ACS">
+                        <mat-option *ngFor="let option of ACS" [value]="option">{{ option }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['ACS'].hasError('required') && basicForm.controls['ACS'].touched" class="form-error-msg">ACS is required</small>
+                    <small class="input-label">ACS</small>
+                  </div>
+
+
+                  <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <mat-label>TerritoryCode</mat-label>
+                      <mat-select formControlName="TerritoryCode">
+                        <mat-option *ngFor="let option of TerritoryCode" [value]="option">{{ option }}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['TerritoryCode'].hasError('required') && basicForm.controls['TerritoryCode'].touched" class="form-error-msg">TerritoryCode code is required</small>
+                    <small class="input-label">TerritoryCode</small>
+                  </div>
+
+                  
+                  <div class="pb-16" >
+                    <mat-form-field >
+                      <mat-label>Select Country:</mat-label>
+                      <mat-select [(value)]="selectedCountry" formControlName="countrycodess">
+                        <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                          {{ country.name }} (+{{ country.code }})
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  
+                    <mat-form-field >
+                      <mat-label>Phone Number:</mat-label>
+                      <input matInput type="tel" formControlName="phoneNumber" [(ngModel)]="phoneNumber" />
+                    </mat-form-field>
+                    <small class="input-label">phoneNumber</small>
+                  </div>
+                  
+          
+                  
+               
+                 <div class="pb-16">
+                  <mat-form-field class="full-width">
+                    <input matInput formControlName="CardholderNumber" placeholder="CardholderNumber">
+                    </mat-form-field>
+                    <small class="input-label">CardholderNumber</small>
+                  </div>
+
+
+                    <div class="pb-16">
+                    <mat-form-field class="full-width">
+                      <input matInput formControlName="CustomerId" placeholder="CustomerId">
+                      </mat-form-field>
+                      <small class="input-label">CustomerId</small>
+                    </div>
+        
+
+                        <div class="pb-16">
+                          <mat-form-field class="full-width">
+                            <input matInput formControlName="OperatorUserCode" placeholder="OperatorUserCode">
+                            </mat-form-field>
+                            <small class="input-label">OperatorUserCode</small>
+                          </div>
+
+                          <div class="pb-16">
+                            <mat-form-field class="full-width">
+                              <input matInput formControlName="Pinoffset" placeholder="Pinoffset">
+                              </mat-form-field>
+                              <small class="input-label">Pinoffset</small>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+                            <div class="pb-16">
+                              <mat-form-field class="full-width">
+                                <input matInput formControlName="FreesCode" placeholder="FreesCode">
+                                </mat-form-field>
+                                <small class="input-label">FreesCode</small>
+                              </div>
+
+                              <div class="pb-16">
+                                <mat-form-field class="full-width">
+                                <input matInput formControlName="birthdayControl" type="date" placeholder="Birthday">
+                              </mat-form-field>
+                              <small class="input-label">birthdayControl</small>
+                                </div>
+                          
+                        </div>
+                        <div fxFlex="100" fxFlex.gt-xs="33" >
+      
+
+ 
+
+                              
+  
+                                
+
+
+                                <div class="pb-16">
+                                <mat-form-field class="full-width">
+                                  <input matInput formControlName="PkiMembership" placeholder="PkiMembership">
+                                  </mat-form-field>
+                                  <small class="input-label">PkiMembership</small>
+                                </div>
+
+                                  <div class="pb-16">
+                                  <mat-form-field class="full-width">
+                                    <input matInput formControlName="SecondAccount" placeholder="SecondAccount">
+                                    </mat-form-field>
+                                    <small class="input-label">SecondAccount</small>
+                                  </div>
+
+                                    <div class="pb-16">
+                                    <mat-form-field class="full-width">
+                                      <input matInput formControlName="AcsMembership" placeholder="AcsMembership">
+                                      </mat-form-field>
+                                      <small class="input-label">AcsMembership</small>
+                                    </div>
+
+
+                  
+                <div class="form-container">
+                  <mat-checkbox formControlName="usePassport">Use Passport ID</mat-checkbox>
+                
+                  <div *ngIf="basicForm.controls['usePassport'].value || basicForm.controls['usePassport'].invalid" class="pb-16">
+                    <mat-form-field class="full-width">
+                      <input
+                        matInput
+                        name="passportId"
+                        formControlName="passportId"
+                        placeholder="Passport ID"
+                        pattern="^[0-9]*$"
+                        minlength="10"
+                        maxlength="32"
+                      >
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['passportId'].hasError('pattern') && basicForm.controls['passportId'].touched" class="form-error-msg">Passport ID must contain only numbers</small>
+                    <small *ngIf="basicForm.controls['passportId'].hasError('minlength') && basicForm.controls['passportId'].touched" class="form-error-msg">Passport ID must be a minimum of 10 and a maximum of 32 digits long</small>
+                  
+                    <small class="input-label">Passport ID</small>
+                  </div>
+                
+                  <div *ngIf="!basicForm.controls['usePassport'].value || basicForm.controls['usePassport'].invalid" class="pb-16">
+                    <mat-form-field class="full-width">
+                      <input
+                        matInput
+                        name="cin"
+                        formControlName="CIN"
+                        placeholder="CIN"
+                        pattern="^[0-9]*$"
+                        minlength="8"
+                        maxlength="16"
+                      >
+                    </mat-form-field>
+                    <small *ngIf="basicForm.controls['CIN'].hasError('pattern') && basicForm.controls['CIN'].touched" class="form-error-msg">CIN must contain only numbers</small>
+                    <small *ngIf="basicForm.controls['CIN'].hasError('minlength') && basicForm.controls['CIN'].touched" class="form-error-msg">CIN must be a minimum of 8 and a maximum of 16 digits long</small>
+            
+                    <small class="input-label">CIN</small>
+                  </div>
+                  
+                </div>
+
+
+
+                <div class="form-container">
+                  <div class="pb-16">
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="dp1" [formControl]="date1" required>
+                      <mat-hint>VALID FROM</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="dp1"></mat-datepicker-toggle>
+                      <mat-datepicker #dp1
+                                      startView="multi-year"
+                                      (monthSelected)="setMonthAndYear($event, dp1, date1)"
+                                      panelClass="example-month-picker">
+                      </mat-datepicker>
+                    </mat-form-field>
+                  
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="dp2" [formControl]="date2" required>
+                      <mat-hint>VALID TO</mat-hint>
+                      <mat-datepicker-toggle matIconSuffix [for]="dp2"></mat-datepicker-toggle>
+                      <mat-datepicker #dp2
+                                      startView="multi-year"
+                                      (monthSelected)="setMonthAndYear($event, dp2, date2)"
+                                      panelClass="example-month-picker">
+                      </mat-datepicker>
+                    </mat-form-field>
+                    <small class="input-label">Valid Card</small>
+                  </div>
+                  
+ 
+                  
+                 
+                </div>
+
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Julian Date</mat-label>
+                  <input matInput [value]="julianDate" formControlName="julianDate"readonly>
+                </mat-form-field>
+                
+                
+                
+
+                
+
+
+                
+              </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+            <button mat-raised-button color="primary" [disabled]="basicForm.invalid" type="submit">Submit</button>
+          </div>
+          
+      </form>
+  </mat-card-content>
+</mat-card>
+

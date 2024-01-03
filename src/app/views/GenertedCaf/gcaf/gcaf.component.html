@@ -1,0 +1,87 @@
+
+  
+  
+  <mat-accordion>
+    <ng-container *ngFor="let group of groupedDataKeys; let i = index">
+      <mat-expansion-panel [class.all-generated]="isAllGenerated(group)" [class.partially-generated]="isPartiallyGenerated(group)">
+  
+  
+  
+  
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ 'CARD_TO_GENERATE' | translate }}: {{ group }} 
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        
+        <mat-card-content class="p-0">
+          <button mat-raised-button color="primary" (click)="generateFileForData(group)">{{ 'GENERATE_FILE' | translate }}</button>
+                                                           
+       
+        
+  
+          <mat-table [dataSource]="groupedData[group]" matSort>
+  
+          
+  
+            <ng-container matColumnDef="name">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+                <mat-cell *matCellDef="let row" data-label="name"> {{row.cafCardHolder.name}} </mat-cell>
+              </ng-container>
+            <ng-container matColumnDef="cardholderNumber">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pan.substr(0, 8) +'*******' + row.pan.substr(-4) }}</mat-cell>
+            </ng-container>
+            <ng-container matColumnDef="Account">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="Account"> {{ row.acctNum.substr(0, 4) +'*******' + row.acctNum.substr(-4) }}</mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="Valid">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Expiret date  </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="Valid"> {{row.cafCardHolder.date2}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="cardStatus">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> cardStatus </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="cardStatus"> {{ convertNumericToEnum(row.cardStatus) }} </mat-cell>
+            </ng-container>
+  
+                  
+      
+                  
+                  <ng-container matColumnDef="createdAt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "createdAt" | translate }}  </mat-header-cell>
+                    <mat-cell *matCellDef="let row" [style.color]="row.createdAt" data-label="createdAt">
+                      {{ row.createdAt | date:'dd/MM/yyyy' }}
+                    </mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="updatedAt">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>   {{ "UpdateddAt" | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let row" [style.color]="row.updatedAt" data-label="updatedAt">
+                      {{ row.updatedAt | date:'dd/MM/yyyy' }}
+                    </mat-cell>
+                  </ng-container>
+        
+                  <ng-container matColumnDef="status">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "status" | translate }}</mat-header-cell>
+                    <mat-cell *matCellDef="let row" [style.color]="getStatusColor(row.statuscard)" data-label="color">
+                      <mat-chip mat-sm-chip [color]="getStatusChipColor(row.statuscard)" [selected]="row.statuscard">{{ getStatusTranslationKey(row.statuscard) | translate }}</mat-chip>
+                    </mat-cell>
+                  </ng-container>
+                  
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-card-content>
+      </mat-expansion-panel>
+    </ng-container>
+  </mat-accordion>
+  <div class="no-data-container" *ngIf="groupedDataKeys.length === 0">
+    <div class="no-data-message">No CAF Record Available</div>
+  </div>
+  <mat-accordion *ngIf="groupedDataKeys.length > 0">
+    <!-- Your existing code for mat-accordion goes here -->
+  </mat-accordion>
+  

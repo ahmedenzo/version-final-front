@@ -1,0 +1,72 @@
+<div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+
+    <div class="info-card primary">
+      <div class="description">PBF CARD</div>
+
+
+
+  </div>
+  <div class="filter-container">
+    <mat-form-field class="filter-input">
+      <input matInput (keyup)="applyFilter($event)" [placeholder]="'Search' | translate">
+
+    </mat-form-field>
+  </div>
+  <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+    <mat-card-content class="p-0">
+      <mat-table [dataSource]="dataSource" matSort>
+
+ 
+      
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="name"> {{row.pbfCardHolder.name}} </mat-cell>
+          </ng-container>
+        <ng-container matColumnDef="cardholderNumber">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pbfCardHolder.cardholderNumber.substr(0, 8) +'*******' + row.pbfCardHolder.cardholderNumber.substr(-4) }}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Account">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="Account"> {{ row.numAccount.substr(0, 4) +'*******' + row.numAccount.substr(-4) }}</mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="Valid">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Valid </mat-header-cell>
+          <mat-cell *matCellDef="let row" data-label="Valid"> {{row.pbfCardHolder.date1}}-{{row.pbfCardHolder.date2}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="available_balance">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> available_balance </mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="available_balance"> {{row.availBal}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="ledgBal">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> ledgBal </mat-header-cell>
+          <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="ledgBal"> {{row.ledgBal}} </mat-cell>
+        </ng-container>
+  
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            
+           
+  
+  
+  
+            <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUp(row) ">
+           <mat-icon>monetization_on</mat-icon>
+            </button>
+
+          </mat-cell>
+        </ng-container>
+
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  
+    </mat-card-content>
+  </mat-card>

@@ -1,0 +1,60 @@
+/* styles.css or your.component.css */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns layout */
+    grid-gap: 16px; /* Gap between grid items */
+  }
+  
+  .form-field {
+    grid-column: span 2; /* Each form field spans two columns */
+  }
+  
+  .upload-container {
+    grid-column: span 2; /* Upload container spans two columns */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .progress-container {
+    grid-column: span 2; /* Progress bar spans two columns */
+    margin-top: 16px;
+  }
+  
+  .button-container {
+    grid-column: span 2; /* Button container spans two columns */
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  /* Additional styles for buttons */
+  .mat-button {
+    text-transform: none; /* Prevent uppercase transformation */
+  }
+  
+  /* styles.css or your.component.css */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    grid-gap: 16px; /* Gap between grid items */
+  }
+  
+  .form-field {
+    width: 100%;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+  }
+  
+  /* Additional styles for buttons */
+  .mat-button {
+    text-transform: none; /* Prevent uppercase transformation */
+  }
+  .medium-width {
+    width: 300px; /* You can adjust the width according to your preference */
+  }
+  

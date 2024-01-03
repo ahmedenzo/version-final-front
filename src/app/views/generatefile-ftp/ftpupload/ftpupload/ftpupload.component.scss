@@ -1,0 +1,139 @@
+.file-upload-form {
+    display: flex;
+    align-items: center;
+  }
+  
+  .file-upload-label {
+    display: inline-block;
+    padding: 12px 16px;
+    background-color: #f2f2f2;
+    color: #333;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .file-upload-label:hover {
+    background-color: #ddd;
+  }
+  
+  .file-upload-label input[type="file"] {
+    display: none;
+  }
+  
+  .submit-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-left: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submit-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .submit-button:hover:not(:disabled) {
+    background-color: #45a049;
+  }
+  .success-snackbar {
+    background-color: #43a047;
+    color: #ffffff;
+  }
+  
+  .error-snackbar {
+    background-color: #d32f2f;
+    color: #ffffff;
+  }
+  .upload-form {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .upload-label {
+    font-size: 18px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .upload-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .upload-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .success-snackbar {
+    background-color: green;
+    color: white;
+  }
+  
+  .error-snackbar {
+    background-color: red;
+    color: white;
+  }
+  ::ng-deep .success-snackbar {
+    background-color: green;
+    color: white;
+  }
+  
+  ::ng-deep .error-snackbar {
+    background-color: red;
+    color: white;
+  }
+  /* Component's CSS file or global styles */
+/* Component's CSS file or global styles */
+/* Component's CSS file or global styles */
+.success-bg {
+  background-color: rgb(213, 230, 213);
+}
+
+.error-bg {
+  background-color: lightcoral;
+}
+/* Styles for the filter arrow */
+.mat-header-cell {
+  position: relative;
+}
+
+.filter-arrow {
+  position: absolute;
+  top: 50%;
+  right: 8px; /* Adjust the value as needed to position the arrow correctly */
+  transform: translateY(-50%);
+}
+
+/* Styles for the regular header text */
+.header-text {
+  display: flex;
+  align-items: center;
+}
+.history-button {
+  background-color: #007bff; /* Blue background */
+  border: none;
+  color: white; /* White text */
+  padding: 10px 20px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px; /* Spacing between the Send and History buttons */
+  transition: 0.3s; /* Smooth transition on hover */
+}
+
+.history-button:hover {
+  background-color: #0056b3; /* Darker blue background on hover */
+}

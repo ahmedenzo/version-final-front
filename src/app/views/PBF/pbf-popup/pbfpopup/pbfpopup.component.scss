@@ -1,0 +1,19 @@
+.horizontal-form {
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  .horizontal-form .mat-form-field {
+    flex-basis: calc(50% - 32px); /* Adjust width as needed */
+    margin-right: 10px; /* Adjust margin between fields as needed */
+  }
+  
+  /* Adjust the styles for small screens */
+  @media screen and (max-width: 600px) {
+    .horizontal-form .mat-form-field {
+      flex-basis: calc(100% - 32px); /* Full width for small screens */
+      margin-right: 0; /* No margin between fields for small screens */
+    }
+  }
+  

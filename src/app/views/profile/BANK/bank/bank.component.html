@@ -1,0 +1,211 @@
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label=" Bank Settings">
+      <br>
+      <br>
+
+  
+        <button mat-raised-button color="primary" (click)="openPopUp({}, true )">Creat New Bank</button>  
+       
+      <mat-card-content class="p-0" *ngIf="roles.includes('Admin_SMT') ">
+          <mat-table [dataSource]="dataSource" matSort   >
+      
+            <ng-container matColumnDef="bankName">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Bank Name </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="bankName"> {{row.bankName}} </mat-cell>
+            </ng-container>
+      
+      
+      
+            <ng-container matColumnDef="bankIdCode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Bank Code </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="bankIdCode"> {{row.bankIdCode}} </mat-cell>
+            </ng-container>
+      
+            
+           <ng-container matColumnDef="bankLocation">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Bank Location </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="bankLocation"> {{row.bankLocation}} </mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="contactEmail">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Email </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="contactEmail"> {{row.contactEmail}} </mat-cell>
+            </ng-container>
+     
+            <ng-container matColumnDef="contactPhone">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Contact Phone </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="contactPhone"> {{row.contactPhone}} </mat-cell>
+            </ng-container>
+
+      
+            <ng-container matColumnDef="countryCode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Country Code </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="countryCode"> {{row.countryCode}} </mat-cell>
+            </ng-container>
+      
+      
+      
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+              <mat-cell *matCellDef="let row">
+                
+                <button mat-icon-button mat-sm-button color="primary" class="mr-16" *ngIf="roles.includes('ROLE_Admin') ||roles.includes('Admin_SMT')" (click)="openPopUp(row)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button mat-sm-button color="warn" *ngIf="roles.includes('Admin_SMT')"(click)="deleteItem(row.bankId)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+      
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      
+      </mat-card-content>
+    
+     
+    </mat-tab>
+  
+    ********************
+    
+    <mat-tab label="Bin Settings">
+      <mat-card-content class="card-content">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let bank of banks" [expanded]="isPanelOpen(bank.bankId)" (opened)="panelOpenState = true"  (closed)="panelOpenState = false ">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ bank.bankName }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+       
+            <button mat-raised-button color="primary" (click)="openPopUpbin(bank, {},true)">Creat New Bin</button>
+
+ 
+            <mat-table *ngIf="bank.data && bank.data.length > 0" [dataSource]="bank.data">
+              <ng-container matColumnDef="binValue">
+                <mat-header-cell *matHeaderCellDef> Bin Value </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.binValue }} </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="expireRange">
+                <mat-header-cell *matHeaderCellDef> Expire Range </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.expireRange }} </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="moneyCode">
+                <mat-header-cell *matHeaderCellDef> Money Code </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.moneyCode }} </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="cardBrand">
+                <mat-header-cell *matHeaderCellDef> Card Brand </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.cardBrand }} </mat-cell>
+              </ng-container>
+      
+              <ng-container matColumnDef="cardType">
+                <mat-header-cell *matHeaderCellDef> Card Type </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.cardType }} </mat-cell>
+              </ng-container>
+        
+              <ng-container matColumnDef="territorycode">
+                <mat-header-cell *matHeaderCellDef> Territory </mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                
+                  {{ data.territorycode == 1 ? 'International' : 'National' }}
+                </mat-cell>
+              </ng-container>
+              
+
+              <ng-container matColumnDef="Configuration">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Configuration </mat-header-cell>
+                <mat-cell *matCellDef="let row">
+                  
+
+        
+                  <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openPopUpconf(row)">
+                    <mat-icon>settings</mat-icon>
+                  </button>
+     
+                </mat-cell>
+              </ng-container> 
+
+              <ng-container matColumnDef="actions">
+                <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                <mat-cell *matCellDef="let data">
+                  <button mat-icon-button color="primary" (click)="openPopUpbin(bank, data)"><mat-icon>edit</mat-icon></button>
+                  <button mat-icon-button color="warn" (click)="deleteItembin(data)"> <mat-icon>delete</mat-icon> </button>
+                </mat-cell>
+              </ng-container>
+      
+              <mat-header-row *matHeaderRowDef="['binValue', 'expireRange', 'moneyCode', 'cardBrand', 'cardType','Configuration', 'actions']"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['binValue', 'expireRange', 'moneyCode', 'cardBrand', 'cardType','Configuration', 'actions']"></mat-row>
+            </mat-table>
+      
+            <div *ngIf="!bank.data || bank.data.length === 0">No data available.</div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+      
+      
+      
+    </mat-tab>
+
+
+    <mat-tab label="Agency Settings">
+      <mat-card-content class="card-content">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let bank of banks" [expanded]="isPanelOpen(bank.bankId)" (opened)="panelOpenState = true"  (closed)="panelOpenState = false ">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ bank.bankName }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+    
+            <button mat-raised-button color="primary" (click)="openPopUpbagency(bank , {},true)">Creat New Agency</button>
+    
+            <mat-table *ngIf="bank.agencies && bank.agencies.length > 0" [dataSource]="bank.agencies">
+              <ng-container matColumnDef="agenceName">
+                <mat-header-cell *matHeaderCellDef> Agency Name </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.agenceName }} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="agenceAdresse">
+                <mat-header-cell *matHeaderCellDef> Address </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.agenceAdresse }} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="contactEmail">
+                <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.contactEmail }} </mat-cell>
+              </ng-container>
+    
+              <ng-container matColumnDef="contactPhone">
+                <mat-header-cell *matHeaderCellDef> Contact Phone </mat-header-cell>
+                <mat-cell *matCellDef="let data"> {{ data.contactPhone }} </mat-cell>
+              </ng-container>
+    
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell *matCellDef="let data">
+                      <button mat-icon-button color="primary" (click)="openPopUpbagency(bank, data)"><mat-icon>edit</mat-icon></button>
+                      <button mat-icon-button color="warn" (click)="deleteItemagence(data)"> <mat-icon>delete</mat-icon> </button>
+                    </mat-cell>
+                  </ng-container>
+             
+    
+              <mat-header-row *matHeaderRowDef="['agenceName', 'agenceAdresse', 'contactEmail', 'contactPhone', 'actions'];"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: ['agenceName', 'agenceAdresse', 'contactEmail', 'contactPhone', 'actions'];"></mat-row>
+            </mat-table>
+    
+            <div *ngIf="!bank.agencies || bank.agencies.length === 0">No agencies available.</div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+    </mat-tab>
+    
+    
+  </mat-tab-group>
+</mat-card>

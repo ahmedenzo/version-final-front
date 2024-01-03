@@ -1,0 +1,102 @@
+<mat-card class="p-0">
+  <mat-tab-group>
+    <mat-tab label="Account Settings">
+      <mat-card-content class="mt-16">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          <div class="grid-container">
+            <div class="form-field">
+              <mat-form-field class="medium-width">
+                <input matInput formControlName="username" placeholder="Username">
+              </mat-form-field>
+            </div>
+          
+            <div class="form-field" *ngIf="roles && !roles.includes('Admin_SMT')">
+              <mat-form-field class="medium-width">
+                <input matInput formControlName="email" placeholder="Email">
+              </mat-form-field>
+            </div>
+          
+            <div class="form-field" *ngIf="roles && !roles.includes('Admin_SMT')">
+              <mat-form-field class="medium-width">
+                <input matInput formControlName="fullname" placeholder="Fullname">
+              </mat-form-field>
+            </div>
+          
+            <div class="form-field" *ngIf="roles && !roles.includes('Admin_SMT')">
+              <mat-form-field class="medium-width" >
+                <input matInput formControlName="phone" placeholder="Phone">
+              </mat-form-field>
+            </div>
+          
+            <div class="upload-container" *ngIf="roles && !roles.includes('Admin_SMT')">
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+              <button mat-button color="primary" (click)="uploadImage()">Upload</button>
+            </div>
+          
+            <div class="progress-container" *ngIf="uploadProgress !== null">
+          
+            </div>
+          
+            <div class="button-container" *ngIf="roles && !roles.includes('Admin_SMT')">
+              <button *ngIf="!submitted" mat-raised-button color="primary" type="submit">Save</button>
+              <button *ngIf="submitted" mat-raised-button color="accent" type="button" (click)="onUpdate()">Update</button>
+            </div>
+          </div>
+          
+        </form>
+      </mat-card-content>
+      
+    </mat-tab>
+    ********************
+ 
+
+
+    <mat-tab label="Privacy Settings">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Change Password</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="mt-16">
+          <form [formGroup]="passwordChangeForm" (ngSubmit)="changePassword()">
+            <div class="grid-container">
+              <div class="form-field">
+                <mat-form-field appearance="fill">
+                  <mat-label>Old Password</mat-label>
+                  <input matInput type="text" formControlName="oldPassword">
+                </mat-form-field>
+              </div>
+        
+              <div class="form-field">
+                <mat-form-field appearance="fill">
+                  <mat-label>New Password</mat-label>
+                  <input matInput type="text" formControlName="newPassword">
+                  <mat-error *ngIf="passwordChangeForm.get('newPassword').hasError('required')">New Password is required</mat-error>
+                  <mat-error *ngIf="passwordChangeForm.get('newPassword').hasError('weakPassword')">Password must contain at least one alphabet character, one digit, and one symbol</mat-error>
+                </mat-form-field>
+              </div>
+        
+              <div class="form-field">
+                <mat-form-field appearance="fill">
+                  <mat-label>Confirm New Password</mat-label>
+                  <input matInput type="text" formControlName="confirmPassword">
+                  <mat-error *ngIf="passwordChangeForm.get('confirmPassword').hasError('required')">Confirm Password is required</mat-error>
+                </mat-form-field>
+              </div>
+        
+              <div class="button-container">
+                <button mat-raised-button color="primary" type="submit" [disabled]="passwordChangeForm.invalid">Change Password</button>
+              </div>
+            </div>
+          </form>
+        </mat-card-content>
+        
+        
+      </mat-card>
+      
+      
+      
+      
+    </mat-tab>
+    
+  </mat-tab-group>
+</mat-card>

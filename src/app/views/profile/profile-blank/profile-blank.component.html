@@ -1,0 +1,13 @@
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Role</mat-label>
+    <mat-select formControlName="Role">
+      <mat-option *ngFor="let role of roles" [value]="role.name">{{ role.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="16px" class="mt-16">
+    <button mat-flat-button color="primary" type="submit">{{ "SAVE" | translate }}</button>
+    <button mat-flat-button color="warn" type="button" (click)="dialogRef.close(false)">{{ "CANCEL" | translate }}</button>
+  </div>
+</form>

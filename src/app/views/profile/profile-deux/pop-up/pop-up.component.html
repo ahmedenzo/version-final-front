@@ -1,0 +1,89 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"ADD" | translate }} {{"User" | translate }}
+  <form [formGroup]="itemForm" (ngSubmit)="submit()" >
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+
+
+          <div fxFlex="50"  class="pr-16">
+            <mat-form-field class="full-width">
+              <input
+              matInput
+              name="username"
+              [formControlName]="'username'"
+              placeholder="username">
+            </mat-form-field>
+          </div>
+
+          <div fxFlex="50"  class="pr-16">
+            <mat-form-field class="full-width">
+              <input
+              matInput
+              type="email"
+              name="email"
+              [formControlName]="'email'"
+              placeholder="Email">
+            </mat-form-field>
+            <small 
+            *ngIf="itemForm.controls['email'].hasError('required') && itemForm.controls['email'].touched" 
+            class="form-error-msg"> Email is required </small>
+
+            <small 
+              *ngIf="itemForm.controls['email'].hasError('email') && itemForm.controls['email'].touched" 
+              class="form-error-msg"> Invaild email address </small>
+          </div>
+
+          <div fxFlex="50"  class="pr-16">
+            <mat-form-field class="full-width">
+              <input
+              matInput
+              type="password"
+              name="password"
+              [formControlName]="'password'"
+              placeholder="password">
+            </mat-form-field>
+            <small 
+            *ngIf="itemForm.controls['password'].hasError('required') && itemForm.controls['password'].touched" 
+            class="form-error-msg"> Password is required </small>
+          </div>
+
+          <ng-container *ngIf="roles && roles.includes('Admin_SMT')">
+            <mat-form-field>
+              <mat-label>Select Bank</mat-label>
+              <mat-select formControlName="bankName">
+                <mat-option *ngFor="let bank of banks" [value]="bank.bankName">{{ bank.bankName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          
+          
+          <ng-container *ngIf="roles && roles.includes('Admin_Bank')">
+            <mat-form-field>
+              <mat-label>Select Agency</mat-label>
+              <mat-select formControlName="agenceName">
+                <mat-option *ngFor="let agency of agency" [value]="agency.agenceName">{{ agency.agenceName }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+          
+          
+          
+          
+
+
+        
+
+        
+
+
+  
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+</div>
+  </form>
+

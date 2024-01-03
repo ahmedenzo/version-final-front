@@ -1,0 +1,67 @@
+<div class="page-wrap h-full slate">
+  <div class="session-form-hold">
+    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
+    <mat-card>
+      <mat-card-content>
+        <div class="text-center pt-8 pb-16">
+          <img width="160px" src="assets/images/smt.jpg" alt="">
+          <p class="text-muted m-0">Sign in to your account</p>
+        </div>
+
+        <p *ngIf="errorMsg" class="text-center"><small class="text-red">{{errorMsg}}</small></p>
+        
+        <form [formGroup]="signinForm" (ngSubmit)="signin()">
+          <div>
+            <mat-form-field class="full-width">
+              <input
+                matInput
+                name="username"
+                formControlName="username"
+                placeholder="Username">
+              <mat-error *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched">Username is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field class="full-width">
+              <input 
+                type="password"
+                name="password"
+                matInput
+                formControlName="password"
+                placeholder="Password">
+              <mat-error *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched">Password is required</mat-error>
+            </mat-form-field>
+          </div>
+
+         <!--<div class="">
+            <mat-form-field class="full-width">
+                <input
+                    matInput
+                    name="qrcode"
+                    [formControl]="signinForm.controls['qrcode']"
+                    placeholder="2FA Code"
+                    value="">
+            </mat-form-field>
+            <small 
+                *ngIf="signinForm.controls['qrcode'].hasError('required') && signinForm.controls['qrcode'].touched" 
+                class="form-error-msg"> 2FA Code is required </small>
+        </div>--> 
+        
+        
+          
+          <div class="pb-16">
+            <mat-checkbox
+              name="rememberMe"
+              formControlName="rememberMe"
+              class="pb-16">Remember this computer</mat-checkbox>
+          </div>
+          
+          <button mat-raised-button class="mat-primary full-width mb-16" [disabled]="signinForm.invalid">Sign in</button>
+          <a [routerLink]="'/sessions/forgot-password'" class="mat-primary text-center full-width">Forgot password</a>
+ 
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

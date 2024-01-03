@@ -1,0 +1,99 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"Add" | translate }} {{"Bank" | translate }}
+  <form [formGroup]="itemForm" (ngSubmit)="submit()" >
+    <div fxLayout="row wrap" fxLayout.lt-sm="column">
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="bankName"
+        [formControlName]="'bankName'"
+        placeholder="bankName">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="bankIdCode"
+        type="bankIdCode"
+        [formControlName]="'bankIdCode'"
+        placeholder="bankIdCode">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="bankLocation"
+        [formControlName]="'bankLocation'"
+        placeholder="bankLocation">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="contactEmail"
+        [formControlName]="'contactEmail'"
+        placeholder="contactEmail">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        type="contactPhone"
+        name="contactPhone"
+        [formControlName]="'contactPhone'"
+        placeholder="contactPhone">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          type="countryCode"
+          name="countryCode"
+          [formControlName]="'countryCode'"
+          placeholder="countryCode">
+        </mat-form-field>
+      </div>
+
+
+          <div fxFlex="50"  class="pr-16">
+            <mat-form-field class="full-width">
+              <input
+              matInput
+              name="mainOfficeAddress"
+              type="text"
+              [formControlName]="'mainOfficeAddress'"
+              placeholder="mainOfficeAddress">
+            </mat-form-field>
+          </div>
+
+
+
+
+
+
+
+        
+
+
+  
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" >{{"SAVE" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

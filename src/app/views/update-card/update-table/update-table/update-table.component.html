@@ -1,0 +1,119 @@
+<div class="m-12" [@animate]="{value:'*',params:{y:'40px',delay:'300ms'}}">
+
+ 
+  <div class="info-card primary">
+    <mat-form-field appearance="fill" class="filter-input">
+      <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'FILTER' | translate }}">
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill" class="filter-input">
+      <mat-label>{{ 'FILTER_BY_STATUS' | translate }}:</mat-label>
+      <mat-select (selectionChange)="applyUpdateCodeFilter($event)">
+        <mat-option value="">{{ 'ALL' | translate }}</mat-option>
+        <mat-option *ngFor="let code of updateCodeOptions" [value]="code">{{ getTranslatedStatus(code) }}</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+  </div>
+  
+      
+      
+
+      
+          
+  </div>
+  <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+    <mat-card-content class="p-0">
+      <mat-table [dataSource]="dataSource" matSort>
+
+  
+        <ng-container matColumnDef="CardholderNumber" style="width:100%">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardholderNumber" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="CardholderNumber"> {{ row.cardholderNumber.substr(0, 8) +'*******' + row.cardholderNumber.substr(-4) }} </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="Valid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "Valid" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Valid">
+              {{ row.date1 | date:'MM/yy' }} - {{ row.date2 | date:'MM/yy' }}
+            </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="CardHolderName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "Name" | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Name"> {{ row.name }} </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="CIN">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "CIN" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.CIN" data-label="CIN"> {{ row.cin }} </mat-cell>
+          </ng-container>
+    
+          <ng-container matColumnDef="FirstAccount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "FirstAccount" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.FirstAccount" data-label="FirstAccount">
+              {{ row.firstAccount.substr(0, 4) + '****' + row.firstAccount.substr(-4) }}
+            </mat-cell>
+          </ng-container>
+          
+    
+          <ng-container matColumnDef="phoneNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "phoneNumber" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.phoneNumber" data-label="phoneNumber"> +{{ row.countryPhonecode }}{{ row.phoneNumber }} </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "createdAt" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.createdAt" data-label="createdAt">
+              {{ row.createdAt | date:'dd/MM/yyyy' }}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "status" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="getStatusColor(row.statuscard)" data-label="color">
+              <mat-chip mat-sm-chip [color]="getStatusChipColor(row.statuscard)" [selected]="row.statuscard">{{ getStatusTranslationKey(row.statuscard) | translate }}</mat-chip>
+            </mat-cell>
+          </ng-container>
+          
+          
+  
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "actions" | translate }} </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "actions" | translate }} </mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <button mat-icon-button mat-sm-button color="primary" [matMenuTriggerFor]="actionMenu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #actionMenu="matMenu">
+              <button mat-menu-item (click)="openPopUp(row, 'updated')">{{ 'UPDATE' | translate }}</button>
+              <button mat-menu-item (click)="openPopUp(row, 'canceled')">{{ 'CANCEL' | translate }}</button>
+              <button mat-menu-item (click)="openPopUp(row, 'renewed')">{{ 'RENEW' | translate }}</button>
+              
+            </mat-menu>
+
+          
+
+
+            <button 
+            mat-icon-button
+            [routerLink]="'/create/' + row.customerId"
+            routerLinkActive="router-link-active"
+            color="primary">
+            <mat-icon>credit_card</mat-icon>
+              </button>
+
+
+
+             
+
+          </mat-cell>
+        </ng-container>
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+  
+    </mat-card-content>
+  </mat-card>

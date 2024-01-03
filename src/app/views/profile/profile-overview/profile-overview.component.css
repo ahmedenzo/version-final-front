@@ -1,0 +1,9 @@
+/* styles.css or your.component.css */
+.mat-column-email {
+    flex: 2; /* Adjust the flex value as needed */
+    max-width: 300px; /* Set a maximum width to prevent excessively long emails from disrupting the layout */
+    white-space: nowrap; /* Prevent email text from wrapping */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Display ellipsis (...) for truncated text */
+  }
+  

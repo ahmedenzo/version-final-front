@@ -1,0 +1,26 @@
+
+<mat-form-field>
+  <input matInput [matDatepicker]="picker" placeholder="{{ 'SEARCH_BY_DATE' | translate }}" (dateChange)="applyFilter('date', $event.value)">
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<input type="text" placeholder="{{ 'SEARCH_BY_FILE_NAME' | translate }}" (keyup)="applyFilter('file', $event.target.value)">
+<div class="table-container">
+  <mat-table [dataSource]="filteredData">
+  <!-- rest of your table -->
+
+  <!-- Column for Uploaded At -->
+  <ng-container matColumnDef="uploadedAt">
+      <mat-header-cell *matHeaderCellDef>{{ 'SEND_AT' | translate }}</mat-header-cell>
+      <mat-cell *matCellDef="let data"> {{ data.uploadedAt | date:'yyyy-MM-dd HH:mm' }} </mat-cell>
+    </ng-container>
+
+  <!-- Column for File Name -->
+  <ng-container matColumnDef="fileName">
+    <mat-header-cell *matHeaderCellDef>{{ 'FILE_NAME' | translate }}</mat-header-cell>
+    <mat-cell *matCellDef="let data"> {{data.fileName}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

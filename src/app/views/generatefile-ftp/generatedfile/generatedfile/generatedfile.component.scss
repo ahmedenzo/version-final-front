@@ -1,0 +1,21 @@
+.all-generated {
+    background-color:#90EE90;
+}
+
+.partially-generated {
+    background-color: #FFF9A6;
+}
+.no-data-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh; /* Adjust the height as needed */
+    font-size: 36px;
+    color: #ff0000; /* Customize the text color */
+    font-weight: bold;
+  }
+  
+  .no-data-message {
+    text-align: center;
+  }
+  

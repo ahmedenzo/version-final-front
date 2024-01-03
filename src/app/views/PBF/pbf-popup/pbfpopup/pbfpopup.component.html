@@ -1,0 +1,39 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"ADD" | translate }} {{"PBF" | translate }}
+<form [formGroup]="itemForm" (ngSubmit)="submit()" class="horizontal-form">
+    <div fxLayout="column" fxLayout.lt-sm="column">
+
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>availBal</mat-label>
+                <input matInput name="availBal" formControlName="availBal" placeholder="availBal">
+                <mat-error *ngIf="itemForm.get('availBal').hasError('required')">Field is required</mat-error>
+                <mat-error *ngIf="itemForm.get('availBal').hasError('pattern')">Must be numeric</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>ledgBal</mat-label>
+                <input matInput name="ledgBal" formControlName="ledgBal" placeholder="ledgBal">
+                <mat-error *ngIf="itemForm.get('ledgBal').hasError('required')">Field is required</mat-error>
+                <mat-error *ngIf="itemForm.get('ledgBal').hasError('pattern')">Must be numeric</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="50" class="pr-16">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>numAccount</mat-label>
+                <input matInput name="numAccount" formControlName="numAccount" placeholder="numAccount">
+                <mat-error *ngIf="itemForm.get('numAccount').hasError('required')">Field is required</mat-error>
+                <mat-error *ngIf="itemForm.get('numAccount').hasError('pattern')">Must be numeric</mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxFlex="100" class="mt-16">
+          <button mat-raised-button color="primary" [disabled]="!itemForm.valid">{{"SAVE" | translate }}</button>
+          <span fxFlex></span>
+          <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+      </div>
+    </div>
+</form>

@@ -1,0 +1,21 @@
+<form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="upload-form" [ngClass]="{ 'success-bg': uploadSuccess, 'error-bg': uploadError }">
+  <label for="file" class="upload-label">{{ 'FILE_TRANSFER' | translate }}</label>
+  <input type="file" id="file" formControlName="file" (change)="onFileSelected($event)" multiple>
+
+
+  <button type="submit" [disabled]="!uploadForm.get('file')?.value" class="upload-button">{{ 'SEND' | translate }}</button>
+
+  <!-- Button for viewing upload history -->
+  <button type="button" class="history-button" (click)="viewHistory()">{{ 'HISTORY' | translate }}</button>
+
+  <!-- Green div for success -->
+  <div *ngIf="uploadSuccess" class="success-div">
+    {{ 'FILE_SENT_SUCCESSFULLY' | translate }}
+  </div>
+
+  <!-- Red div for error -->
+  <div *ngIf="uploadError" class="error-div">
+    {{ 'FILE_SEND_FAILED' | translate }}
+  </div>
+</form>
+

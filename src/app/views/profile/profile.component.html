@@ -1,0 +1,146 @@
+<div fxLayout="row wrap">
+  <div fxFlex="100" fxFlex.gt-md="340px" fxFlex.gt-sm="50">
+    <mat-card class="profile-sidebar mb-16 pb-0">
+      <div class="propic text-center">
+        <img [src]="imageUrl || (roles && roles.includes('Admin_SMT') && 'assets/images/smtt.jpg')" 
+           >
+      </div>
+      
+      <div class="profile-title text-center mb-16">
+
+        <div class="subtitle mb-8">Hello {{username | titlecase}}</div>
+
+      </div>
+      <div class="profile-actions mb-16" fxLayoutAlign="center center">
+    
+        <span fxFlex="8px"></span>
+   
+      </div>
+      <div class="profile-nav" >
+        <mat-nav-list>
+
+          <mat-list-item routerLink="/profile/SMT" routerLinkActive="list-item-active" *ngIf="roles && roles.includes('Admin_SMT')">
+            <mat-icon>account_box</mat-icon>
+            Administration SMT
+          </mat-list-item>
+
+          <mat-list-item routerLink="/profile/overview" routerLinkActive="list-item-active" *ngIf="roles && (roles.includes('Admin_Bank') || roles.includes('Admin_SMT'))">
+            <mat-icon>account_box</mat-icon>
+            Administration Users
+          </mat-list-item>
+          <mat-divider></mat-divider>
+
+          <mat-list-item routerLink="/profile/settings" routerLinkActive="list-item-active" >
+            <mat-icon>settings</mat-icon>
+            Settings
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-nav-list>
+      </div>
+      
+    </mat-card>
+
+    <!-- Chart grid -->
+    <!-- <mat-card class="default">
+      <mat-card-title>Summary</mat-card-title>
+      <mat-card-content>
+          <div fxLayout="row wrap" class="doughnut-grid text-center">
+              <div fxFlex="50" class="doughnut-grid-item mat-bg-primary">
+                  <canvas 
+                  baseChart
+                  class="chart"
+                  [data]="doughnutChartData1"
+                  [options]="doughnutOptions"></canvas>
+                  <small>Space: {{data1}}/{{total1}} GB</small>
+            </div>
+            <div fxFlex="50" class="doughnut-grid-item light-gray">
+                <canvas  
+                baseChart 
+                class="chart"
+                [data]="doughnutChartData2"
+                [options]="doughnutOptions"></canvas>
+                <small>Sales: 450</small>
+          </div>
+          <div fxFlex="50" class="doughnut-grid-item light-gray">
+              <canvas  
+              baseChart 
+              class="chart"
+              [data]="doughnutChartData2"
+              [options]="doughnutOptions"></canvas>
+              <small>Spent: $500</small>
+        </div>
+        <div fxFlex="50" class="doughnut-grid-item mat-bg-primary">
+            <canvas 
+            baseChart 
+            class="chart"
+            [data]="doughnutChartData2"
+            [options]="doughnutOptions"></canvas>
+            <small>Follower: 2000</small>
+      </div>
+        </div>
+      </mat-card-content>
+    </mat-card> -->
+
+
+    <!-- Contact Information -->
+    <mat-card class="default" *ngIf="roles && !roles.includes('Admin_SMT')">
+      <h3 class="mx-80 my-27">Contact Information</h3>
+      <mat-card-content class="pt-0">
+        <mat-list>
+       
+
+          <mat-list-item><mat-icon class="mr-16">account_box</mat-icon> {{fullname}}</mat-list-item>
+          <mat-list-item><mat-icon class="mr-16">email</mat-icon> {{email}}</mat-list-item>
+          <mat-list-item><mat-icon class="mr-16">phone</mat-icon> {{phone}}</mat-list-item>
+   
+      
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+
+
+
+
+    <mat-card class="default" *ngIf="roles && !roles.includes('Admin_SMT')">
+      <h3 class="mx-80 my-27">Permission List</h3>
+      <mat-card-content class="pt-0">
+        <mat-list>
+          <mat-list-item><mat-icon class="mr-16">Role</mat-icon> {{roles}}</mat-list-item>
+          <ng-container *ngIf="roles.includes('Admin_Bank'); else limitedAccess">
+            <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon> Full Access</mat-list-item>
+          </ng-container>
+          <ng-template #limitedAccess>
+            <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon>
+              <ul>
+                <ng-container *ngIf="roles.includes('Simple_User'); then role1Permissions else emptyTemplate"></ng-container>
+                
+              </ul>
+            </mat-list-item>
+          </ng-template>
+        </mat-list>
+      </mat-card-content>
+    
+      <ng-template #role1Permissions>
+        <li *ngFor="let permission of limitedAccessPermissions['Simple_User']">{{ permission }}</li>
+      </ng-template>
+    
+      <ng-template #role2Permissions>
+        <li *ngFor="let permission of limitedAccessPermissions['Role2']">{{ permission }}</li>
+      </ng-template>
+    
+      <ng-template #role3Permissions>
+        <li *ngFor="let permission of limitedAccessPermissions['Role3']">{{ permission }}</li>
+      </ng-template>
+    
+      <ng-template #emptyTemplate></ng-template>
+    </mat-card>
+    
+    
+    
+  </div>
+
+<!-- Profile Views -->
+  <div fxFlex="100" fxFlex.gt-sm="70" fxFlex.gt-md="calc(100% - 600px)">
+    <router-outlet></router-outlet>
+  </div>
+</div>

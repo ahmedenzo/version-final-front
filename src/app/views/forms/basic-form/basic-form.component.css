@@ -1,0 +1,28 @@
+.mat-card-content {
+  padding: 30px;
+}
+
+.pb-16 {
+  padding-bottom: 16px;
+}
+
+
+.input-label {
+  font-weight: bold;
+}
+
+
+.mat-form-field {
+  border: 2px solid #adbfe4;
+  
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 0 10px;
+}

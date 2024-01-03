@@ -1,0 +1,250 @@
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="itemForm1">
+     
+          <form [formGroup]="itemForm1">
+            <ng-template matStepLabel>ATM Data</ng-template>
+  
+            <mat-form-field style="margin-bottom: 20px;">
+              <mat-label>Use Limit</mat-label>
+              <input matInput formControlName="useLimit" required>
+            </mat-form-field>
+      
+            <mat-form-field style="margin-bottom: 20px;">
+              <mat-label>Total Withdrawal Limit</mat-label>
+              <input matInput formControlName="totalWithdrawalLimit" required>
+            </mat-form-field>
+      
+            <mat-form-field style="margin-bottom: 20px;">
+              <mat-label>Offline Withdrawal Limit</mat-label>
+              <input matInput formControlName="offlineWithdrawalLimit" required>
+            </mat-form-field>
+      
+            <mat-form-field class="custom-margin">
+              <mat-label>Total Cash Advance Limit</mat-label>
+              <input matInput formControlName="totalCashAdvanceLimit" required>
+            </mat-form-field >
+      
+            <mat-form-field class="custom-margin">
+              <mat-label>Offline Cash Advance Limit</mat-label>
+              <input matInput formControlName="offlineCashAdvanceLimit" required>
+            </mat-form-field>
+      
+            <mat-form-field class="custom-margin">
+              <mat-label>Maximum Deposit Credit Amount</mat-label>
+              <input matInput formControlName="maximumDepositCreditAmount" required>
+            </mat-form-field>
+      
+            <mat-form-field class="custom-margin">
+              <mat-label>Last Used</mat-label>
+              <input matInput formControlName="lastUsed" required>
+            </mat-form-field>
+      
+            <mat-form-field class="custom-margin">
+              <mat-label>Issuer Transaction Profile</mat-label>
+              <input matInput formControlName="issuerTransactionProfile" required>
+            </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+        <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+
+
+
+<mat-step [stepControl]="itemForm2">
+  <ng-template matStepLabel>EMV Data</ng-template>
+  <form [formGroup]="itemForm2">
+
+    <mat-form-field>
+      <mat-label>ATC Limit</mat-label>
+      <input matInput formControlName="atcLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Send Card Block</mat-label>
+      <input matInput formControlName="sendCardBlock" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Send Put Data</mat-label>
+      <input matInput formControlName="sendPutData" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Velocity Limits Lower Consecutive Limit</mat-label>
+      <input matInput formControlName="velocityLimitsLowerConsecutiveLimit" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Send Pin Unblock</mat-label>
+      <input matInput formControlName="sendPinUnblock" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Send Pin Change</mat-label>
+      <input matInput formControlName="sendPinChange" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Pin Sync Act</mat-label>
+      <input matInput formControlName="pinSyncAct" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Access Script Management Subsystem</mat-label>
+      <input matInput formControlName="accessScriptMgmtSubSys" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Issuer Application Data Format</mat-label>
+      <input matInput formControlName="issApplDataFmt" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Action Table Index</mat-label>
+      <input matInput formControlName="actionTableIndex" required>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+      <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-step>
+
+
+<mat-step [stepControl]="itemForm3">
+  <ng-template matStepLabel>POSPBFXD Data</ng-template>
+  <form [formGroup]="itemForm3">
+
+
+    <mat-form-field>
+      <mat-label>Segment Length</mat-label>
+      <input matInput formControlName="segxLgth" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Total Float</mat-label>
+      <input matInput formControlName="ttlFloat" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Days Delinquent</mat-label>
+      <input matInput formControlName="daysDelinq" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Months Active</mat-label>
+      <input matInput formControlName="monthsActive" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cycle 1</mat-label>
+      <input matInput formControlName="cycle1" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cycle 2</mat-label>
+      <input matInput formControlName="cycle2" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Cycle 3</mat-label>
+      <input matInput formControlName="cycle3" required>
+    </mat-form-field>
+    <div>
+      <button mat-button matStepperNext>Next</button>
+      <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-step>
+
+<mat-step [stepControl]="itemForm4">
+  <ng-template matStepLabel>PosData</ng-template>
+  <form [formGroup]="itemForm4">
+  
+
+    <mat-form-field>
+      <mat-label>Total Purchase Limit</mat-label>
+      <input matInput formControlName="totalPurchaseLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Offline Purchase Limit</mat-label>
+      <input matInput formControlName="offlinePurchaseLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Total Cash Advance Limit</mat-label>
+      <input matInput formControlName="totalCashAdvanceLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Offline Cash Advance Limit</mat-label>
+      <input matInput formControlName="offlineCashAdvanceLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Total Withdrawal Limit</mat-label>
+      <input matInput formControlName="totalWithdrawalLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Offline Withdrawal Limit</mat-label>
+      <input matInput formControlName="offlineWithdrawalLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Use Limit</mat-label>
+      <input matInput formControlName="useLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Total Refund Credit Limit</mat-label>
+      <input matInput formControlName="totalRefundCreditLimit" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Offline Refund Credit Limit</mat-label>
+      <input matInput formControlName="offlineRefundCreditLimit" required>
+    </mat-form-field>
+  
+    <mat-form-field>
+      <mat-label>Issuer Transaction Profile</mat-label>
+      <input matInput formControlName="issuerTransactionProfile" required>
+    </mat-form-field>
+
+    <div>
+      <button mat-button matStepperNext>Next</button>
+      <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </form>
+</mat-step>
+
+
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
+        <mat-icon>close</mat-icon>
+      </button>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    
+      <button mat-button color="primary" (click)="submit()">Save</button>
+
+
+    </div>
+    
+  </mat-step>
+</mat-stepper>

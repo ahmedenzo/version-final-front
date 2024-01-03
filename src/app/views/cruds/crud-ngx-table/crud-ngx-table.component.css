@@ -1,0 +1,156 @@
+/* Styles for the .filter-input class */
+.filter-input {
+  margin-right: 12px;
+  width: 130px;
+}
+
+.filter-input input {
+  border-radius: 4px;
+ 
+  padding: 8px;
+  font-size: 14px;
+  width: 100%; /* Adjusted to take full width of the .filter-input container */
+}
+
+.filter-input input::placeholder {
+  color: #999;
+}
+
+/* Styles for the .outer-container class */
+.outer-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Styles for the .m-5 class */
+.m-5 {
+  display: flex;
+  align-items: center;
+}
+
+/* Styles for the .m-6 class */
+.m-6 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Styles for the .sidebar-container class */
+.sidebar-container {
+  flex: 1;
+  max-height: 100px;
+}
+
+/* Styles for the .filter-container class */
+.filter-container {
+  max-width: 200px;
+}
+
+/* Styles for the .sidebar-content class */
+.sidebar-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+/* Styles for the .sidebar-item class */
+.sidebar-item {
+  flex: 1;
+  max-width: 220px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+/* Optional styles for buttons */
+button.apply-button, button.clear-button {
+  width: 150px;
+  height: 40px;
+}
+
+/* Optional styles for the .center-align class */
+.center-align {
+  display: flex;
+  justify-content: center;
+}
+
+/* Styles for the active, confirmed, and not-confirmed buttons */
+.count-button {
+  margin-right: 5px;
+  width: 100%;
+}
+
+.count-button button {
+  width: 100%;
+  height: 100%;
+  text-align: left;
+}
+
+.active {
+  background-color: #8bc34a;
+}
+
+.confirmed {
+  background-color: #c8e6c9;
+}
+
+.not-confirmed {
+  background-color: #ffcdd2;
+}
+.example-container mat-form-field + mat-form-field {
+  margin-left: 2px;
+}
+
+.active-button {
+  background-color: #007bff; /* Replace with your desired active background color */
+  color: #fff; /* Replace with your desired active text color */
+}
+.mat-stepper-vertical {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+.circle-button {
+  background-color: #f44336; /* This is a typical Material Design 'warn' color. Adjust if needed. */
+  border-radius: 50%; /* Makes it circular */
+  width: 40px; /* Set the desired width */
+  height: 40px; /* Set the desired height */
+  display: flex; /* These properties will center the icon */
+  align-items: center;
+  justify-content: center;
+}
+
+/* You may need to adjust the icon size if it's too big or small for your circle. */
+.circle-button mat-icon {
+  font-size: 20px;
+  line-height: 20px;
+}
+.wider-stepper {
+  width: 100%; /* This will make the stepper take up the full width of its parent container. */
+}
+.custom-container {
+  width: 100%;
+  font-size: 13px;
+}
+
+.error-step .mat-step-label {
+  color: red !important; /* Change the label color to red */
+}
+
+.greent {
+  background-color: #90EE90 !important;
+}
+.confirmed-and-generated {
+  background-color: blueviolet;
+}
+
+.confirmed {
+  background-color: blue; /* Or any other color for confirmed */
+}
+
+.warn {
+  background-color: red; /* Or any other color for not confirmed */
+}
+

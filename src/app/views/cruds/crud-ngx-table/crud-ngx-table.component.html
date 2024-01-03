@@ -1,0 +1,203 @@
+
+<div class="info-card primary" style="display:  flex; justify-content: space-between; align-items: center;">
+  <!-- Left container -->
+  <div >
+    <!-- Apply margin to the app-uploadftp element -->
+     <!--  <app-uploadftp (fileUploaded)="openPopupftp($event)" style="margin-right: 10px;"></app-uploadftp>-->
+    <div style="display: flex; align-items:  center; flex-grow: 1;">
+      <!-- Wrap the ADD Card button in a div and add padding -->
+      <div style="padding-right: 10px;">
+        <button mat-raised-button class="mb-8" color="primary" (click)="openPopUp({}, true)">{{ "ADD NEWCard" | translate }}</button>
+      </div>
+      <button mat-raised-button class="mb-8 confirmation-button"
+      
+        color="primary" (click)="openConfirmationDialog()"
+        [disabled]="selection.selected.length === 0"
+        [ngClass]="{'inactive-button': selection.selected.length === 0}"
+        [style.background-color]="selection.selected.length > 0 ? 'green' : 'white'"
+        [style.color]="selection.selected.length > 0 ? 'primary' : 'primary'"
+        style="font-weight: bold;">
+         {{ "Confirm Card" | translate }}
+      </button> 
+    </div>
+  </div>
+  <div>
+    <div style="display: flex; align-items: center; padding-right: 8px;">
+      <span style="margin-right: 5px;">{{ "Date" | translate }}</span>
+      <span>{{ currentDate }}</span> 
+      <div style="margin-left: 20px;padding: 15px;">
+        <mat-slide-toggle [(ngModel)]="showOnlyToday" (change)="toggleDateFilter()">{{ "Show Only Today's Cards" | translate }}</mat-slide-toggle>
+      </div>
+    </div>
+  
+
+    </div>
+    
+    
+
+
+    
+    
+
+
+
+  
+  
+
+  
+  
+  
+  
+
+
+  <div  style="display: flex; align-items: center; padding-right: 40px;">
+   
+    <div class="filter-container">
+      <mat-form-field class="filter-input">
+        <input matInput (keyup)="applyFilter($event)" [placeholder]="'Search' | translate">
+
+      </mat-form-field>
+    </div>
+        <mat-form-field>
+          <mat-label>  {{ "CreatedAt" | translate }}</mat-label>
+          <input matInput [matDatepicker]="dp" class="small-input" (dateChange)="dateChanged($event)">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <button mat-raised-button class="apply-button button" color="primary" (click)="applyCreatedAtFilter()"> {{ "Search Date Filter" | translate }}</button>
+        <button mat-raised-button class="clear-button button" color="warn" *ngIf="showOnlyToday === false && selectedDate" (click)="clearDateFilter()">{{ "Clear Date Filter" | translate }}</button>
+        
+  </div>
+</div>
+
+
+
+<mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
+  <mat-card-content class="p-0">
+    
+
+    <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" >
+
+      
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                        [aria-label]="checkboxLabel()">
+          </mat-checkbox>
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)"
+                        [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+      
+
+
+
+      <ng-container matColumnDef="Card">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Card </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Card"> {{ row.Card }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="CardholderNumber" style="width:100%">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardholderNumber" | translate }} </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="CardholderNumber"> {{ row.cardholderNumber.substr(0, 8) +'*******' + row.cardholderNumber.substr(-4) }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="Valid">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "Valid" | translate }} </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Valid">
+          {{ row.date1 | date:'Mm/yy' }} - {{ row.date2 | date:'Mm/yy' }}
+        </mat-cell>
+      </ng-container>
+      
+      <ng-container matColumnDef="CardHolderName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "Name" | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="Name"> {{ row.name }} </mat-cell>
+      </ng-container>
+
+      
+
+      <ng-container matColumnDef="CIN">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "CIN" | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.CIN" data-label="CIN"> {{ row.cin }} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="FirstAccount">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "FirstAccount" | translate }} </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.FirstAccount" data-label="FirstAccount">
+          {{ row.firstAccount.substr(0, 4) + '****' + row.firstAccount.substr(-4) }}
+        </mat-cell>
+      </ng-container>
+      
+
+      <ng-container matColumnDef="phoneNumber">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "phoneNumber" | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.phoneNumber" data-label="phoneNumber"> +{{ row.countryPhonecode }}{{ row.phoneNumber }} </mat-cell>
+      </ng-container>
+      
+<ng-container matColumnDef="status">
+  <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "status" | translate }} </mat-header-cell>
+  <mat-cell *matCellDef="let row" data-label="status">
+    <mat-chip mat-sm-chip [ngClass]="getColor(row)" [selected]="isSelected(row)">
+      {{ translateStatus(getStatus(row)) | translate }}
+    </mat-chip>
+  </mat-cell>
+</ng-container>
+
+      
+      
+      
+      
+      
+      
+      
+      
+
+      <ng-container matColumnDef="createdAt">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>   {{ "createdAt" | translate }} </mat-header-cell>
+        <mat-cell *matCellDef="let row" [style.color]="row.createdAt" data-label="createdAt">
+          {{ row.createdAt | date:'dd/MM/yyyy' }}
+        </mat-cell>
+      </ng-container>
+      
+
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>   {{ "actions" | translate }}</mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <button mat-icon-button mat-sm-button color="primary" class="mr-16"
+          [disabled]="row.confirmation"  
+          (click)="openPopUp(row, false)">
+    <mat-icon>edit</mat-icon>
+  </button>
+  
+  
+  <button mat-icon-button mat-sm-button color="warn"
+          [disabled]="row.confirmation"   
+          (click)="deleteItem(row.customerId)">
+    <mat-icon>delete</mat-icon>
+  </button>
+          <button
+                mat-icon-button
+                [routerLink]="'/create/' + row.customerId"
+                routerLinkActive="router-link-active"
+                color="primary">
+                <mat-icon>visibility</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+
+  </mat-card-content>
+</mat-card>

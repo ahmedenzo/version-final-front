@@ -1,0 +1,197 @@
+$spaces: (
+  0: 0px,
+  4: 4px,
+  8: 8px,
+  12: 12px,
+  16: 16px,
+  24: 24px,
+  28: 28px,
+  32: 32px,
+  36: 36px,
+  40: 40px,
+  44: 44px,
+  48: 48px
+);
+
+$utilities: map-merge((
+  "margin": (
+    // responsive: true,
+    property: margin,
+    class: m,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-x": (
+    // responsive: true,
+    property: margin-right margin-left,
+    class: mx,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-y": (
+    // responsive: true,
+    property: margin-top margin-bottom,
+    class: my,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-top": (
+    // responsive: true,
+    property: margin-top,
+    class: mt,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-right": (
+    // responsive: true,
+    property: margin-right,
+    class: mr,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-bottom": (
+    // responsive: true,
+    property: margin-bottom,
+    class: mb,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  "margin-left": (
+    // responsive: true,
+    property: margin-left,
+    class: ml,
+    values: map-merge($spaces, (auto: auto))
+  ),
+  // Padding utilities
+  "padding": (
+    // responsive: true,
+    property: padding,
+    class: p,
+    values: $spaces
+  ),
+  "padding-x": (
+    // responsive: true,
+    property: padding-right padding-left,
+    class: px,
+    values: $spaces
+  ),
+  "padding-y": (
+    // responsive: true,
+    property: padding-top padding-bottom,
+    class: py,
+    values: $spaces
+  ),
+  "padding-top": (
+    // responsive: true,
+    property: padding-top,
+    class: pt,
+    values: $spaces
+  ),
+  "padding-right": (
+    // responsive: true,
+    property: padding-right,
+    class: pr,
+    values: $spaces
+  ),
+  "padding-bottom": (
+    // responsive: true,
+    property: padding-bottom,
+    class: pb,
+    values: $spaces
+  ),
+  "padding-left": (
+    // responsive: true,
+    property: padding-left,
+    class: pl,
+    values: $spaces
+  ),
+), $utilities);
+
+
+
+// Old Spacing classes
+.m-033 {
+  margin: .333333rem !important;
+}
+.m-333 {
+  margin: .333333rem !important;
+}
+.margin-333 {
+  margin: .333333rem !important;
+}
+
+
+
+[dir=rtl] {
+  .pr-16 {
+    padding-left: 14px;
+    padding-right: 0 !important;
+    
+
+    
+ 
+  }
+  .mr-16 {
+    margin-right: 0 !important;
+    margin-left: 16px;
+  }
+}
+
+.small-input {
+  width: 30%; /* Ajustez la valeur en fonction de vos besoins */
+}
+
+.large-input {
+  width: 70%; /* Ajustez la valeur en fonction de vos besoins */
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-field-container {
+  display: flex;
+  align-items: center;
+}
+
+.form-field {
+  flex: 1;
+  margin-right: 16px;
+}
+
+.input-label {
+  margin-left: 16px;
+}
+.small-selected {
+  ::ng-deep .mat-select-value {
+    font-size: 12px; /* Adjust the size to your preference */
+  }
+}
+
+.example-margin {
+  margin-right: 10px; /* Adjust the value to control the spacing */
+}
+.radio-group {
+  display: flex;
+  gap: 10px; /* Adjust the value to control the spacing */
+}
+.use-passport-active {
+  display: block;
+}
+
+.use-passport-inactive {
+  display: none;
+}
+.radio-group-container {
+  margin-bottom: 20px; /* Adjust the value to control the spacing */
+}
+
+.input-field {
+  margin-top: 10px; /* Adjust the value to control the spacing */
+}
+.custom-container {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+
+
+

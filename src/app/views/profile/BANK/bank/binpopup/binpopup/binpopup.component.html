@@ -1,0 +1,99 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"Add" | translate }} {{"Bin" | translate }}
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="binValue"
+        [formControl]="itemForm.controls['binValue']"
+        placeholder="binValue">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+    
+        name="moneyCode"
+        [formControl]="itemForm.controls['moneyCode']"
+        placeholder="MoneyCode">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        
+        name="cardBrand"
+        [formControl]="itemForm.controls['cardBrand']"
+        placeholder="cardBrand">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="cardType"
+        [formControl]="itemForm.controls['cardType']"
+        placeholder="cardType">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="currency"
+        [formControl]="itemForm.controls['currency']"
+        placeholder="currency">
+      </mat-form-field>
+    </div>
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="codeType"
+        [formControl]="itemForm.controls['codeType']"
+        placeholder="codeType">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <mat-select
+          matInput
+          name="expireRange"
+          [formControl]="itemForm.controls['expireRange']"
+          placeholder="Select a Number"
+        >
+          <mat-option *ngFor="let number of numbersArray" [value]="number">{{ number }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    
+    <div fxFlex="45" class="pr-16">
+      <mat-form-field class="full-width">
+        <mat-label>{{ 'TERRITORY_CODE' | translate }}</mat-label>
+        <mat-select formControlName="territorycode">
+          <mat-option *ngFor="let option of territorycode" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      
+    </div>
+    
+
+
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

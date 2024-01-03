@@ -1,0 +1,219 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+
+
+
+
+<div *ngIf="data.payload.actionType === 'canceled'">
+  <!-- Confirmation Dialog Section -->
+ 
+  <div mat-dialog-content>
+    {{ 'CANCEL_CARD_CONFIRMATION' | translate }}
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="dialogRef.close(false)">{{ 'CANCEL' | translate }}</button>
+    <button mat-raised-button color="warn" (click)="submitcanacel()">{{ 'CONFIRM' | translate }}</button>
+  </div>
+</div>
+
+
+    <form [formGroup]="itemForm" (ngSubmit)="submit()" *ngIf="data.payload.actionType !== 'canceled'">
+      <ng-template matStepLabel>{{ 'CARD_INFORMATION' | translate }}</ng-template>
+    <div fxLayout="row wrap" fxLayout.xs="column" style="font-size: 14px" class="custom-container">
+
+
+
+
+    <div fxFlex="45" *ngIf="data.payload.actionType === 'updated'">
+      <mat-form-field class="full-width">
+        <mat-label>CardProcessIndicator</mat-label>
+        <mat-select formControlName="cardProcessIndicator" required>
+          <mat-option *ngFor="let option of cardProcessIndicator" [value]="option">{{ option }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="itemForm.get('cardProcessIndicator').hasError('required')">Card Process Indicator is required</mat-error>
+      </mat-form-field>
+      
+    </div>
+
+    <div fxFlex="45"  class="pr-16">
+              <mat-form-field class="full-width" #inputField>
+                <input
+                  matInput
+                  name="firstAccount"
+                  formControlName="firstAccount"
+                  placeholder="{{ 'FIRST_ACCOUNT_LABEL' | translate }}"
+                  value=""
+                  pattern="^[0-9]+$"
+                  minlength="24"
+                  maxlength="24"
+                  required
+                >
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['firstAccount'].hasError('required') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_REQUIRED' | translate }}</small>
+              <small *ngIf="itemForm.controls['firstAccount'].hasError('pattern') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_PATTERN' | translate }}</small>
+              <small *ngIf="itemForm.controls['firstAccount'].hasError('minlength') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_LENGTH' | translate }}</small>
+              
+              
+              </div>
+          
+
+
+                <div fxFlex="45"  class="pr-16" >
+                  <mat-form-field class="full-width" >
+                    <input
+                      matInput
+                      name="Name"
+      
+                      formControlName="name"
+                      placeholder=" {{ 'CardHolderName' | translate }}"
+                      pattern="[a-zA-Z ]*"
+                      value=""
+                    >
+                  </mat-form-field>
+                  <small *ngIf="itemForm.controls['name'].hasError('required') && itemForm.controls['name'].touched" class="form-error-msg">{{ 'CARD_HOLDER_NAME_REQUIRED' | translate }}</small>
+                  <small *ngIf="itemForm.controls['name'].hasError('pattern') && itemForm.controls['name'].touched" class="form-error-msg">{{ 'CARD_HOLDER_NAME_PATTERN' | translate }}</small>
+                  
+                </div>
+                <div fxFlex="45"  class="pr-16">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="Address"
+                      formControlName="address"
+                      placeholder="{{ 'ADDRESS1' | translate }}"
+                      value=""
+                      pattern="[a-zA-Z0-9 ]*"
+                      maxlength="32"
+                    >
+                  </mat-form-field>
+                  <small *ngIf="itemForm.controls['address'].hasError('required') && itemForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS1_REQUIRED' | translate }}</small>
+                </div>
+
+      
+
+
+ 
+    
+    
+      
+                
+                  <small *ngIf="itemForm.controls['address'].hasError('required') && itemForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_REQUIRED' | translate }}</small>
+                  <small *ngIf="itemForm.controls['address'].hasError('pattern') && itemForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_PATTERN' | translate }}</small>
+                  
+                
+       
+
+                <div fxFlex="45"  class="pr-16">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="CorporateName"
+                      formControlName="corporateName"
+                      placeholder="{{ 'CORPORATE_NAME' | translate }}"
+                      pattern="[a-zA-Z ]*"
+                      value=""
+                    >
+                  </mat-form-field>
+                  <small *ngIf="itemForm.controls['corporateName'].hasError('pattern') && itemForm.controls['corporateName'].touched" class="form-error-msg">{{ 'CORPORATE_NAME_PATTERN' | translate }}</small>
+    
+                 
+                </div>
+
+
+                
+            <div fxFlex="45"  class="pr-16">
+              <mat-form-field class="full-width">
+              <input
+                  matInput
+                  type="email"
+                  name="email"
+                  formControlName="email"
+                  placeholder="{{ 'EMAIL' | translate }}"
+                  value="">
+              </mat-form-field>
+              <small *ngIf="itemForm.controls['email'].hasError('required') && itemForm.controls['email'].touched" class="form-error-msg">{{ 'EMAIL_REQUIRED' | translate }}</small>
+              <small *ngIf="itemForm.controls['email'].hasError('email') && itemForm.controls['email'].touched" class="form-error-msg">{{ 'EMAIL_INVALID' | translate }}</small>
+            
+          </div>
+
+
+          <div fxFlex="45"  class="pr-16">
+            <mat-form-field class="full-width">
+            <input matInput formControlName="birthDate" type="date" placeholder="{{ 'BIRTHDAY' | translate }}">
+          </mat-form-field>
+         
+            </div>
+
+
+                <div fxFlex="45"  class="pr-16">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="cin"
+                      formControlName="cin"
+                      placeholder="{{ 'CIN' | translate }}"
+                      value=""
+                      pattern="^[0-9]+$"
+                      maxlength="24"
+                    >
+                  </mat-form-field>
+                  <small *ngIf="itemForm.controls['cin'].hasError('pattern') && itemForm.controls['cin'].touched" class="form-error-msg">{{ 'CIN_PATTERN' | translate }}</small>
+  <small *ngIf="itemForm.controls['cin'].hasError('required') && itemForm.controls['cin'].touched" class="form-error-msg">{{ 'CIN_REQUIRED' | translate }}</small>
+                  
+                </div>
+
+
+                <div fxFlex="45"  class="pr-16">
+                  <mat-form-field class="full-width">
+                    <input
+                      matInput
+                      name="passportId"
+                      formControlName="passportId"
+                      placeholder="{{ 'PASSPORT_ID' | translate }}"
+                      value=""
+                      pattern="^[0-9]+$"
+                      maxlength="10"
+                    >
+                  </mat-form-field>
+                  <small *ngIf="itemForm.controls['passportId'].hasError('pattern') && itemForm.controls['passportId'].touched" class="form-error-msg">{{ 'PASSPORT_ID_PATTERN' | translate }}</small>
+                  
+                  
+                </div>
+
+
+
+
+<!-- RenewOption Section -->
+
+
+<!-- Sourcecode Section -->
+<div fxFlex="45" class="pr-16">
+  <mat-form-field class="full-width">
+    <mat-label>{{ 'SOURCE_CODE' | translate }}</mat-label>
+    <mat-select formControlName="sourcecode">
+      <mat-option *ngFor="let option of sourcecode" [value]="option">{{ option }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <small *ngIf="itemForm.controls['sourcecode'].hasError('required') && itemForm.controls['sourcecode'].touched" class="form-error-msg">{{ 'SOURCE_CODE_REQUIRED' | translate }}</small>
+</div>
+
+<!-- Phone Number Section -->
+<div fxFlex="45" class="pr-16">
+  <mat-form-field class="small-input">
+    <mat-label>{{ 'SELECT_COUNTRY' | translate }}</mat-label>
+    <mat-select [(value)]="selectedCountry" formControlName="countryPhonecode">
+      <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+        {{ country.name }} (+{{ country.code }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="large-input">
+    <mat-label>{{ 'PHONE_NUMBER' | translate }}</mat-label>
+    <input matInput type="tel" formControlName="phoneNumber" />
+  </mat-form-field>
+</div>
+<div fxFlex="45" class="pr-16">
+    <button mat-raised-button color="primary" (click)="submit()" >{{ 'SAVE' | translate }}</button>
+    <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">{{ 'CANCEL' | translate }}</button>
+  </div>
+  </div>
+  </form>
