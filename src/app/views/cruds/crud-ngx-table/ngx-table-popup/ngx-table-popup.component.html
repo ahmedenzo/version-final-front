@@ -190,7 +190,7 @@
     <mat-label>{{ 'SELECT_COUNTRY' | translate }}</mat-label>
     <mat-select [(value)]="selectedCountry" formControlName="countryPhonecode">
       <mat-option *ngFor="let country of countryCodes" [value]="country.code">
-        {{ country.name }} (+{{ country.code }})
+        {{ country.name }} ({{ country.code }})
       </mat-option>
     </mat-select>
   </mat-form-field>

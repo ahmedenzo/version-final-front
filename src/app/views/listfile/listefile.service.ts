@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ListefileService {
   items: any[];
-  private apiUrl = 'http://localhost:8085/api/auth/card';
-  private apiUrlupload = 'http://localhost:8085/api/auth/card/upload';
+  private apiUrl = 'http://localhost:8084/api/auth/card';
+  private apiUrlupload = 'http://localhost:8084/api/auth/card/upload';
 
   constructor(   private http: HttpClient,
     private JwtAuthService :JwtAuthService) { }

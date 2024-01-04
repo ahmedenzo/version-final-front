@@ -38,24 +38,16 @@ export class NavigationService {
   
   iconMenu: IMenuItem[] = [
 
-
-
-    {
-      type: 'separator',
-      name: 'Main Items' ,
-      role: ['Admin_SMT','Admin_Bank'],
-
-    },
     {
       name: 'PROFILE',
       type: 'dropDown',
       tooltip: 'Profile',
       icon: 'person',
-      role: ['Admin_SMT','Admin_Bank','Simple_User'],    
+      role: ['Admin_SMT','Admin_Bank','Simple_User','Admin_Agence'],    
       badges: [{ color: 'primary', value: '2' }],
       sub: [
       
-        { name: 'Profile Settings', state: 'profile/settings', role: ['Admin_SMT','Admin_Bank','Simple_User'] }
+        { name: 'Profile Settings', state: 'profile/settings', role: ['Admin_SMT','Admin_Bank','Simple_User','Admin_Agence'] }
 
       ]
  
@@ -81,21 +73,21 @@ export class NavigationService {
       name: 'Card Files Management',
       type: 'dropDown',
       icon: 'list',
-      role: ['Admin_SMT','Admin_Bank'],
+      role: ['Admin_Bank','Admin_Agence','Admin_SMT'],
       sub: [
         {
           name: 'Generate Files',
           type: 'dropDown',
-          role: ['Admin_Agence'],
+          role: ['Admin_Bank'],
           sub: [
-            { name: 'Generate CardHolder File', state: 'gfile/generated-card', role: ['Admin_Agence'] },
-            { name: 'Generate PBF File', state: 'cafcard/generated-pbf' , role: ['Admin_Agence']},
-            { name: 'Generate CaF File', state: 'cafgen/generated-caf', role: ['Admin_Agence'] },
+            { name: 'Generate CardHolder File', state: 'gfile/generated-card', role: ['Admin_Bank'] },
+            { name: 'Generate PBF File', state: 'cafcard/generated-pbf' , role: ['Admin_Bank']},
+            { name: 'Generate CaF File', state: 'cafgen/generated-caf', role: ['Admin_Bank'] },
           
 
           ]
         },
-        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_SMT','Admin_Bank'],},
+        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_SMT','Admin_Bank','Admin_Agence'],},
     
       ]
     },  

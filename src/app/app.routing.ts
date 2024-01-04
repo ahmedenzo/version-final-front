@@ -47,7 +47,7 @@ export const rootRouterConfig: Routes = [
         path: 'update',
         loadChildren: () => import('./views/update-card/update-card.module').then(m => m.UpdateCardModule),
         canActivate: [PermissionGuard],
-        data: { title: 'Card', breadcrumb: 'Card', role: ['Admin_SMT','Simple_User','Admin_Bank']}
+        data: { title: 'Card', breadcrumb: 'Card', role: ['Simple_User','Admin_Bank']}
       },
 
       
@@ -55,45 +55,45 @@ export const rootRouterConfig: Routes = [
         path: 'pbfcard',
         loadChildren: () => import('./views/PBF/pbf.module').then(m => m.PbfModule),
         canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_Agence','Admin_Bank']}
       },
       {
         path: 'cafcard',
         loadChildren: () => import('./views/CAF/caf.module').then(m => m.CafModule),
         canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_Agence','Admin_Bank']}
       },
       {
         path: 'list',
         loadChildren: () => import('./views/listfile/listefile.module').then(m => m.ListefileModule),
         canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
       },
       {
         path: 'cafcard',
         loadChildren: () => import('./views/generetepbf/gpbf.module').then(m => m.GpbfModule),
         canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
       },
       {
         path: 'cafgen',
         loadChildren: () => import('./views/GenertedCaf/gcaf.module').then(m => m.GcafModule),
         canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
       },
 
       {
         path: 'gfile',
         loadChildren: () => import('./views/generatefile-ftp/generatedfile.module').then(m => m.GeneratedfileModule),
         canActivate: [PermissionGuard],
-        data: { title: 'Card', breadcrumb: 'Card', role: ['Admin_SMT','Admin_Bank']}
+        data: { title: 'Card', breadcrumb: 'Card', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
       },
       
       {
         path: 'profile',
         loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule),
         canActivate: [PermissionGuard],
-        data: { title: 'Profile', breadcrumb: 'PROFILE', role: ['Admin_SMT','Admin_Bank','Simple_User']}
+        data: { title: 'Profile', breadcrumb: 'PROFILE', role: ['Admin_SMT','Admin_Bank','Simple_User','Admin_Agence']}
       },
   
 
