@@ -64,7 +64,7 @@ export class NavigationService {
         {name: 'Create New Card', state: 'create/create-card',role :['Simple_User']},
         {name: 'Manage PBF Card', state: 'pbfcard/pbf-class',       role: ['Admin_Agence']},
         {name: 'Manage CAF Card', state: 'cafcard/caf-class', role: ['Admin_Agence']},
-        {name: 'Update Card Operations', state: 'update/update-card', role: ['Simple_User']},
+        {name: 'Update Card Operations', state: 'update/update-card', role: ['Admin_Agence','Simple_User']},
 
      
       ]
@@ -87,7 +87,7 @@ export class NavigationService {
 
           ]
         },
-        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_Bank','Admin_SMT'],},
+        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_SMT','Admin_Bank'],},
     
       ]
     },  

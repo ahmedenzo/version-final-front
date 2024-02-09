@@ -13,6 +13,7 @@ import { reverseUpdateCode, reverseCardProcessIndicator, reverseACS, reverseSour
 import { JwtAuthService } from 'app/shared/services/auth/jwt-auth.service';
 import { Notifications2Service } from 'app/shared/components/egret-notifications2/notifications2.service';
 
+
 import { CrudService } from '../../crud.service';
 import {STEPPER_GLOBAL_OPTIONS} from '@angular/cdk/stepper';
 import { Bin } from 'app/shared/models/bank';
@@ -232,17 +233,15 @@ export class NgxTablePopupComponent implements OnInit {
      
       cardtype:  new UntypedFormControl(''),
       bin  :  new UntypedFormControl('', [Validators.required]),
-      Card: new UntypedFormControl('', [Validators.required]),
+      Card: new UntypedFormControl(''),
       countryCode: new UntypedFormControl(''),
 
       statuscard: new UntypedFormControl(''),
 
  
-      birthDate : new UntypedFormControl(this.getFormDataValue('birthDate') || ''),
+
     
 
-      phoneNumber: new FormControl(  this.getFormDataValue('phoneNumber') || '', [Validators.required]),
-      countryPhonecode: new UntypedFormControl( this.getFormDataValue('countryPhonecode') || '', [Validators.required]),
   
       sourcecode: new UntypedFormControl(this.initializesourcecodeControl(), [Validators.required]),
       territorycode: new UntypedFormControl(''),
@@ -253,12 +252,8 @@ export class NgxTablePopupComponent implements OnInit {
  
 
 
-      firstAccount: new UntypedFormControl(this.getFormDataValue('firstAccount') || '', [
-        Validators.minLength(24),
-        Validators.maxLength(24),
-        Validators.pattern('^[0-9]+$'),
-        Validators.required
-      ]),
+      firstAccount: new UntypedFormControl({ value: '', disabled: true },
+      ),
 
       address: new UntypedFormControl(this.getFormDataValue('address') || '', [
         Validators.required,
@@ -281,8 +276,10 @@ export class NgxTablePopupComponent implements OnInit {
         nameValidator,
       ]),
    
+      phoneNumber: new FormControl(  this.getFormDataValue('phoneNumber') || '', [Validators.required]),
+      countryPhonecode: new UntypedFormControl( this.getFormDataValue('countryPhonecode') || '', [Validators.required]),
     
- 
+      birthDate : new UntypedFormControl(this.getFormDataValue('birthDate') || '',[Validators.required]),
       cin: new UntypedFormControl(this.getFormDataValue('cin') ||'', [
         Validators.pattern('^[0-9]*$'),
         Validators.minLength(8),
@@ -335,8 +332,9 @@ export class NgxTablePopupComponent implements OnInit {
 
 
 
-  submitForm() {
-    if (this.data.payload.isNew) {
+  submitForm() 
+{
+    if (this.data.payload.isNew && this.basicForm.valid) {
  
     
         this.generateValueSourceCode();
@@ -367,7 +365,7 @@ export class NgxTablePopupComponent implements OnInit {
 
 
 
-    }  else {
+    }  else if (this.basicForm.valid){
       
   
   

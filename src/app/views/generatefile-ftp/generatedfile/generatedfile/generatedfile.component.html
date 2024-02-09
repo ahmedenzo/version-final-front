@@ -33,7 +33,7 @@
                 <ng-container matColumnDef="Valid">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Valid" | translate }} </mat-header-cell>
                   <mat-cell *matCellDef="let row" data-label="Valid">
-                    {{ row.date1 | date:'MM/yy' }} - {{ row.date2 | date:'MM/yy' }}
+                    {{ row.date1.substring(0, 2) }}/{{ row.date1.substring(2, 4) }} - {{ row.date2.substring(0, 2) }}/{{ row.date2.substring(2, 4) }}
                   </mat-cell>
                 </ng-container>
                 

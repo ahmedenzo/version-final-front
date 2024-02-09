@@ -65,6 +65,8 @@ export class CaftableComponent implements OnInit {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   public displayedColumns: any;
   public getItemSub: Subscription;
+  showOnlyTodayCreated: boolean = false;
+ 
 
 
   constructor(  private dialog: MatDialog,private snackBar: MatSnackBar,
@@ -93,22 +95,16 @@ export class CaftableComponent implements OnInit {
     }
   
 
-    getitems(){
-
-   this.getItemSub = this.cafService.getItems().subscribe(data => {
-
-    this.dataSource = new MatTableDataSource(data);
-    this.dataSource.data.forEach(row => {
-      row.originalCardStatus = row.cardStatus;
-    });
-
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-   
-
-   })
-
+    getitems() {
+      this.getItemSub = this.cafService.getItems().subscribe(data => {
+    
+        data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+            this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     }
+    
 
     convertNumericToEnum(value: any): CardStatus {
       switch (value) {
@@ -193,4 +189,54 @@ export class CaftableComponent implements OnInit {
       };
     }
 
-  } 
+    applyFilter2(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+  
+      // Filter the data source
+      this.dataSource.filterPredicate = (data: any) => {
+        const createdAt = new Date(data.createdAt);
+        const today = new Date();
+        return (
+          createdAt.getDate() === today.getDate() &&
+          createdAt.getMonth() === today.getMonth() &&
+          createdAt.getFullYear() === today.getFullYear()
+        );
+      };
+      this.dataSource.filter = filterValue;
+  
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
+    }
+
+    applyTodayFilter() {
+      const today = new Date();
+      const todayFormatted = `${today.getFullYear()}-${(today.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
+  
+      // Filter the data source
+      this.dataSource.filterPredicate = (data: any) => {
+        const createdAt = new Date(data.createdAt);
+        const createdAtFormatted = `${createdAt.getFullYear()}-${(
+          createdAt.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, '0')}-${createdAt.getDate().toString().padStart(2, '0')}`;
+        return createdAtFormatted === todayFormatted;
+      };
+  
+      // Apply the filter value
+      this.dataSource.filter = this.showOnlyTodayCreated ? 'showOnlyToday' : '';
+    }
+  
+    // Other existing methods...
+  
+    toggleTodayFilter() {
+      this.applyTodayFilter();
+    }
+    
+
+  }
+
+  

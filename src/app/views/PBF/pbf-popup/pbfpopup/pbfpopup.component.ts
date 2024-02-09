@@ -11,7 +11,7 @@ import { PopupUpdateComponent } from 'app/views/update-card/update-table/popup-u
 })
 export class PbfpopupComponent implements OnInit {
   public itemForm: FormGroup;
-  isInputEnabled = false;
+  public isInputDisabled: boolean = true;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<PbfpopupComponent>,
   private fb: FormBuilder,) { }
@@ -21,18 +21,24 @@ export class PbfpopupComponent implements OnInit {
   }
 
   buildItemForm(item){
+    const availBalDisplay = item.availBal / 100;
+    const ledgBalDisplay = item.ledgBal / 100;
     this.itemForm = this.fb.group({
-      availBal : [item.availBal || '',[Validators.required, Validators.pattern('^[0-9]+$')]],
-      ledgBal : [item.ledgBal || '',[Validators.required, Validators.pattern('^[0-9]+$')]], 
-      numAccount : [item.numAccount || '',[Validators.required, Validators.pattern('^[0-9]+$')] ],   
+      availBal : [availBalDisplay || '',[Validators.required, Validators.pattern('^[0-9]+$')]],
+      ledgBal : [ledgBalDisplay|| '',[Validators.required, Validators.pattern('^[0-9]+$')]], 
+      numAccount: [{ value: item.numAccount || '', disabled: this.isInputDisabled }, [Validators.required, Validators.pattern('^[0-9]+$')]],   
     });
 
   }
+  submit(): void {
+    const formValues = this.itemForm.value;
+    formValues.availBal *= 100;
+    formValues.ledgBal *= 100;
 
-  submit() {
-    
-    this.dialogRef.close(this.itemForm.value)
+    // Use the original numAccount value from the data payload
+    formValues.numAccount = this.data.payload.numAccount;
 
-
+    this.dialogRef.close(formValues);
   }
+  
 }

@@ -11,3 +11,14 @@
         display: none;
     }
 }
+
+.filter-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .today-filter {
+    margin-left: 20px;
+    padding: 15px;
+  }
+  

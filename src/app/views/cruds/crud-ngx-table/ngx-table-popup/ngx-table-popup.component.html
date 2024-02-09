@@ -28,17 +28,10 @@
                   formControlName="firstAccount"
                   placeholder="{{ 'FIRST_ACCOUNT_LABEL' | translate }}"
                   value=""
-                  pattern="^[0-9]+$"
-                  minlength="24"
-                  maxlength="24"
-                  required
+ 
                 >
               </mat-form-field>
-              <small *ngIf="basicForm.controls['firstAccount'].hasError('required') && basicForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_REQUIRED' | translate }}</small>
-              <small *ngIf="basicForm.controls['firstAccount'].hasError('pattern') && basicForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_PATTERN' | translate }}</small>
-              <small *ngIf="basicForm.controls['firstAccount'].hasError('minlength') && basicForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_LENGTH' | translate }}</small>
-              
-              
+            
               </div>
           
 
@@ -74,19 +67,8 @@
                   <small *ngIf="basicForm.controls['address'].hasError('required') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS1_REQUIRED' | translate }}</small>
                 </div>
 
-      
-
-
- 
-    
-    
-      
-                
                   <small *ngIf="basicForm.controls['address'].hasError('required') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_REQUIRED' | translate }}</small>
                   <small *ngIf="basicForm.controls['address'].hasError('pattern') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_PATTERN' | translate }}</small>
-                  
-                
-       
 
                 <div fxFlex="45"  class="pr-16">
                   <mat-form-field class="full-width">
@@ -165,15 +147,6 @@
                   
                 </div>
 
-
-
-
-
-
-<!-- RenewOption Section -->
-
-
-<!-- Sourcecode Section -->
 <div fxFlex="45" class="pr-16">
   <mat-form-field class="full-width">
     <mat-label>{{ 'SOURCE_CODE' | translate }}</mat-label>
@@ -184,7 +157,7 @@
   <small *ngIf="basicForm.controls['sourcecode'].hasError('required') && basicForm.controls['sourcecode'].touched" class="form-error-msg">{{ 'SOURCE_CODE_REQUIRED' | translate }}</small>
 </div>
 
-<!-- Phone Number Section -->
+
 <div fxFlex="45" class="pr-16">
   <mat-form-field class="small-input">
     <mat-label>{{ 'SELECT_COUNTRY' | translate }}</mat-label>
@@ -200,7 +173,10 @@
   </mat-form-field>
 </div>
 <div fxFlex="45" class="pr-16">
-    <button mat-raised-button color="primary" (click)="submitForm()" >{{ 'SAVE' | translate }}</button>
+  <button mat-raised-button color="primary"  (click)="submitForm()">
+    {{ 'SAVE' | translate }}
+  </button>
+  
     <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">{{ 'CANCEL' | translate }}</button>
   </div>
   </div>
