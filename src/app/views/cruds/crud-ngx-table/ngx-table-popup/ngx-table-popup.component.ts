@@ -284,12 +284,14 @@ export class NgxTablePopupComponent implements OnInit {
         Validators.pattern('^[0-9]*$'),
         Validators.minLength(8),
         Validators.maxLength(16),
-        Validators.required,
+    
       ]),
       passportId: new UntypedFormControl(this.getFormDataValue('passportId') || '', [
-        Validators.pattern('^[0-9]*$'),
-        Validators.minLength(10),
-        Validators.maxLength(32),
+        Validators.pattern('[a-zA-Z0-9 ]*'),
+        Validators.minLength(8),
+        Validators.maxLength(10),
+        Validators.required,
+        nameValidator,
       ]),
      
     

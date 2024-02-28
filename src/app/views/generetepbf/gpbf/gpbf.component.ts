@@ -75,8 +75,11 @@ export class GpbfComponent implements OnInit {
   }
   
 
-
-
+  getCardCountToGenerate(group: string): number {
+    const dataSet = this.groupedData[group];
+    return dataSet.reduce((sum, row) => sum + (row.cardgenerated ? 1 : 0), 1);
+  }
+  
   
   private formatDate(date: Date | string): string {
     const d = new Date(date);

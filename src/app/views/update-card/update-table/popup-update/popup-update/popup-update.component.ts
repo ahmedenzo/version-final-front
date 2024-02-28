@@ -71,7 +71,8 @@ export class PopupUpdateComponent implements OnInit {
   Sourcecodevalue: number ;
   PKIiNDICATORvalue: number ;
   operatorUserCode: any;
-  secondAccount: any;
+ 
+
   BankIdCode:any;
   birthDate: any;
   territorycode= Object.values(TerritoryCode);
@@ -112,8 +113,8 @@ export class PopupUpdateComponent implements OnInit {
 
   buildItemForm(item){
     this.itemForm = this.fb.group({
+    
       firstAccount : [item.firstAccount || '', Validators.required],
-      secondAccount : [item.secondAccount || ''], 
       name : [item.name || '', Validators.required],
       address : [item.address || '', Validators.required],
       corporateName : [item.corporateName || ''],
@@ -137,6 +138,38 @@ export class PopupUpdateComponent implements OnInit {
     
       
         
+    });
+    this.itemForm.get('cardProcessIndicator').valueChanges.subscribe(value => {
+
+      if (value === 'Pin_Mailer_Reminder') {
+        this.itemForm.controls['name'].disable();
+        this.itemForm.controls['address'].disable();
+        this.itemForm.controls['corporateName'].disable();
+        this.itemForm.controls['sourcecode'].disable();
+        this.itemForm.controls['territorycode'].disable();
+        this.itemForm.controls['birthDate'].disable();
+        this.itemForm.controls['cin'].disable();
+        this.itemForm.controls['passportId'].disable();
+        this.itemForm.controls['countryPhonecode'].disable();
+        this.itemForm.controls['phoneNumber'].disable();
+        this.itemForm.controls['email'].disable();
+
+       
+      } else {
+        
+        this.itemForm.controls['name'].enable();
+        this.itemForm.controls['address'].enable();
+        this.itemForm.controls['corporateName'].enable();
+        this.itemForm.controls['sourcecode'].enable();
+        this.itemForm.controls['territorycode'].enable();
+        this.itemForm.controls['birthDate'].enable();
+        this.itemForm.controls['cin'].enable();
+        this.itemForm.controls['passportId'].enable();
+        this.itemForm.controls['countryPhonecode'].enable();
+        this.itemForm.controls['phoneNumber'].enable();
+        this.itemForm.controls['email'].enable();
+       
+      }
     });
 
   }

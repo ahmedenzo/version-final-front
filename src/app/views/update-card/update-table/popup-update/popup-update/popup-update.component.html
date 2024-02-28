@@ -1,4 +1,5 @@
-<h1 matDialogTitle>{{data.title}}</h1>
+<h1 matDialogTitle>{{ data.title }}</h1>
+
 
 
 
@@ -7,7 +8,7 @@
   <!-- Confirmation Dialog Section -->
  
   <div mat-dialog-content>
-    {{ 'CANCEL_CARD_CONFIRMATION' | translate }}
+    {{ 'CANCEL CARD' | translate }}
   </div>
   <div mat-dialog-actions>
     <button mat-button (click)="dialogRef.close(false)">{{ 'CANCEL' | translate }}</button>
@@ -34,26 +35,7 @@
       
     </div>
 
-    <div fxFlex="45"  class="pr-16">
-              <mat-form-field class="full-width" #inputField>
-                <input
-                  matInput
-                  name="firstAccount"
-                  formControlName="firstAccount"
-                  placeholder="{{ 'FIRST_ACCOUNT_LABEL' | translate }}"
-                  value=""
-                  pattern="^[0-9]+$"
-                  minlength="24"
-                  maxlength="24"
-                  required
-                >
-              </mat-form-field>
-              <small *ngIf="itemForm.controls['firstAccount'].hasError('required') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_REQUIRED' | translate }}</small>
-              <small *ngIf="itemForm.controls['firstAccount'].hasError('pattern') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_PATTERN' | translate }}</small>
-              <small *ngIf="itemForm.controls['firstAccount'].hasError('minlength') && itemForm.controls['firstAccount'].touched" class="form-error-msg">{{ 'FIRST_ACCOUNT_LENGTH' | translate }}</small>
-              
-              
-              </div>
+ 
           
 
 
@@ -67,6 +49,7 @@
                       placeholder=" {{ 'CardHolderName' | translate }}"
                       pattern="[a-zA-Z ]*"
                       value=""
+                      
                     >
                   </mat-form-field>
                   <small *ngIf="itemForm.controls['name'].hasError('required') && itemForm.controls['name'].touched" class="form-error-msg">{{ 'CARD_HOLDER_NAME_REQUIRED' | translate }}</small>

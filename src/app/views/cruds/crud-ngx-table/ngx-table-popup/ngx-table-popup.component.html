@@ -52,6 +52,7 @@
                   <small *ngIf="basicForm.controls['name'].hasError('pattern') && basicForm.controls['name'].touched" class="form-error-msg">{{ 'CARD_HOLDER_NAME_PATTERN' | translate }}</small>
                   
                 </div>
+
                 <div fxFlex="45"  class="pr-16">
                   <mat-form-field class="full-width">
                     <input
@@ -64,11 +65,9 @@
                       maxlength="32"
                     >
                   </mat-form-field>
-                  <small *ngIf="basicForm.controls['address'].hasError('required') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS1_REQUIRED' | translate }}</small>
-                </div>
-
                   <small *ngIf="basicForm.controls['address'].hasError('required') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_REQUIRED' | translate }}</small>
                   <small *ngIf="basicForm.controls['address'].hasError('pattern') && basicForm.controls['address'].touched" class="form-error-msg">{{ 'ADDRESS_1_PATTERN' | translate }}</small>
+                </div>
 
                 <div fxFlex="45"  class="pr-16">
                   <mat-form-field class="full-width">
@@ -99,19 +98,30 @@
                   value="">
               </mat-form-field>
               <small *ngIf="basicForm.controls['email'].hasError('required') && basicForm.controls['email'].touched" class="form-error-msg">{{ 'EMAIL_REQUIRED' | translate }}</small>
-              <small *ngIf="basicForm.controls['email'].hasError('email') && basicForm.controls['email'].touched" class="form-error-msg">{{ 'EMAIL_INVALID' | translate }}</small>
+       
             
           </div>
 
 
-          <div fxFlex="45"  class="pr-16">
-            <mat-form-field class="full-width">
-            <input matInput formControlName="birthDate" type="date" placeholder="{{ 'BIRTHDAY' | translate }}">
-          </mat-form-field>
-         
+
+
+            <div fxFlex="45"  class="pr-16">
+              <mat-form-field class="full-width">
+                <input
+                  matInput
+                  name="passportId"
+                  formControlName="passportId"
+                  placeholder="{{ 'PASSPORT_ID' | translate }}"
+                  value=""
+                  pattern="[a-zA-Z0-9 ]*"
+                  maxlength="10"
+                >
+              </mat-form-field>
+              <small *ngIf="basicForm.controls['passportId'].hasError('pattern') && basicForm.controls['passportId'].touched" class="form-error-msg">{{ 'PASSPORT_ID_PATTERN' | translate }}</small>
+              <small *ngIf="basicForm.controls['passportId'].hasError('required') && basicForm.controls['passportId'].touched" class="form-error-msg">{{ 'PASSPORT_ID_REQUIRED' | translate }}</small>
+              
+              
             </div>
-
-
                 <div fxFlex="45"  class="pr-16">
                   <mat-form-field class="full-width">
                     <input
@@ -125,27 +135,17 @@
                     >
                   </mat-form-field>
                   <small *ngIf="basicForm.controls['cin'].hasError('pattern') && basicForm.controls['cin'].touched" class="form-error-msg">{{ 'CIN_PATTERN' | translate }}</small>
-  <small *ngIf="basicForm.controls['cin'].hasError('required') && basicForm.controls['cin'].touched" class="form-error-msg">{{ 'CIN_REQUIRED' | translate }}</small>
+
                   
                 </div>
-
 
                 <div fxFlex="45"  class="pr-16">
                   <mat-form-field class="full-width">
-                    <input
-                      matInput
-                      name="passportId"
-                      formControlName="passportId"
-                      placeholder="{{ 'PASSPORT_ID' | translate }}"
-                      value=""
-                      pattern="^[0-9]+$"
-                      maxlength="10"
-                    >
-                  </mat-form-field>
-                  <small *ngIf="basicForm.controls['passportId'].hasError('pattern') && basicForm.controls['passportId'].touched" class="form-error-msg">{{ 'PASSPORT_ID_PATTERN' | translate }}</small>
-                  
-                  
-                </div>
+                  <input matInput formControlName="birthDate" type="date" placeholder="{{ 'BIRTHDAY' | translate }}">
+                </mat-form-field>
+               
+                  </div>
+
 
 <div fxFlex="45" class="pr-16">
   <mat-form-field class="full-width">

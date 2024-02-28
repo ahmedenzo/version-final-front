@@ -266,7 +266,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ['select','CardholderNumber', 'FirstAccount' ,'Valid','CardHolderName', 'CIN','phoneNumber', 'status','createdAt','actions'];
+    return ['select','CardNumber' ,'Valid','CardHolderName', 'PASSPORT_ID','PhoneNumber', 'status','createdAt','actions'];
   }
   getItems() {
     this.getItemSub = this.crudService.getItems().subscribe(data => {
@@ -334,7 +334,16 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
 
 
   deleteItem(row) {
-
+    const title = this.translate.instant('CONFIRMATION');
+    const text = this.translate.instant('DO YOU WANT TO DELETE THIS CARD?');
+    const dialogRef = this.dialog.open(FileConfirmationDialogComponent, {
+      width: '400px',
+      data: { title, text },
+      panelClass: 'red-dialog'
+    });
+  
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed) {
         this.loader.open('Deleting card');
         this.crudService.deleteCardHolder(row).subscribe(
           data => {
@@ -353,7 +362,8 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
           }
         );
       }
-
+    });
+  }
   
   
   

@@ -12,12 +12,13 @@
         <div class="card-value">{{ cardHolder.name }}</div>
       </div>
       
-      
- 
-
       <div class="card-item">
-        <label class="card-label">{{ 'phoneNumber' | translate }}:</label>
+        <label class="card-label">{{ 'PhoneNumber' | translate }}:</label>
         <div class="card-value">{{ cardHolder.countryPhonecode }}{{ cardHolder.phoneNumber }}</div>
+      </div>
+      <div class="card-item">
+        <label class="card-label">{{ 'PASSPORT_ID' | translate }} :</label>
+        <div class="card-value"> {{ cardHolder.passportId }}</div>
       </div>
       <div class="card-item">
         <label class="card-label">{{ 'Email' | translate }}:</label>
@@ -27,10 +28,7 @@
         <label class="card-label">{{ 'BirthDate' | translate }}:</label>
         <div class="card-value">{{ cardHolder.birthDate }}</div>
       </div>
-      <div class="card-item">
-        <label class="card-label">{{ 'PASSPORT_ID' | translate }} | {{ 'CIN' | translate }}   :</label>
-        <div class="card-value">{{ cardHolder.cin }} | {{ cardHolder.passportId }}</div>
-      </div>
+
   
       <!-- ... additional public details ... -->
     </div>
@@ -38,10 +36,7 @@
 
     <div class="card-details-section">
     
-      <div class="card-item">
-      <label class="card-label">{{ 'FirstAccount' | translate }}:</label>
-      <div class="card-value">{{ formatAccountNumber(cardHolder.firstAccount) }}</div>
-    </div>
+
     <div class="card-item">
       <label class="card-label">{{ 'CardholderNumber' }}:</label>
       <div class="card-value">{{ cardHolder.cardholderNumber}}</div>    
@@ -50,7 +45,7 @@
 
     <div class="card-item">
       <label class="card-label">{{ 'ValidCard' | translate }}:</label>
-      <div class="card-value">{{ cardHolder.date1 | date:'MM/yy' }}-{{ cardHolder.date2 | date:'MM/yy' }}</div>
+      <div class="card-value">{{ cardHolder.date1 | date:'MM/yy' }}--{{ cardHolder.date2 | date:'MM/yy' }}</div>
     </div>
     <div class="card-item">
       <label class="card-label">{{ 'CardType' | translate }}:</label>

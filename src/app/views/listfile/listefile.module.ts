@@ -27,6 +27,7 @@ import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'app/shared/shared.module';
 import { NgPaymentCardModule } from 'ng-payment-card';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
 
@@ -50,6 +51,7 @@ import { NgPaymentCardModule } from 'ng-payment-card';
     MatSelectModule,
     MatTooltipModule,
     MatDatepickerModule,
+    MatExpansionModule,
     MatTableModule,
     MatDialogModule,
     MatSnackBarModule,

@@ -154,3 +154,6 @@ button.apply-button, button.clear-button {
   background-color: red; /* Or any other color for not confirmed */
 }
 
+.red-dialog {
+  color: red;
+}

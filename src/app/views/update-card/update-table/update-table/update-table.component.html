@@ -44,17 +44,12 @@
             <mat-cell *matCellDef="let row" data-label="Name"> {{ row.name }} </mat-cell>
           </ng-container>
     
-          <ng-container matColumnDef="CIN">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "CIN" | translate }} </mat-header-cell>
-            <mat-cell *matCellDef="let row" [style.color]="row.CIN" data-label="CIN"> {{ row.cin }} </mat-cell>
+          <ng-container matColumnDef="PASSPORT_ID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "PASSPORT_ID" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.PASSPORT_ID" data-label="PASSPORT_ID"> {{ row.passportId }} </mat-cell>
           </ng-container>
     
-          <ng-container matColumnDef="FirstAccount">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "FirstAccount" | translate }} </mat-header-cell>
-            <mat-cell *matCellDef="let row" [style.color]="row.FirstAccount" data-label="FirstAccount">
-              {{ row.firstAccount.substr(0, 4) + '****' + row.firstAccount.substr(-4) }}
-            </mat-cell>
-          </ng-container>
+    
           
     
           <ng-container matColumnDef="phoneNumber">

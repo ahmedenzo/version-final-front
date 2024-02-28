@@ -40,7 +40,7 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
     this.displayedColumns = this.getDisplayedColumns();
     this.getItems()
     console.log("data",this.dataSource.data.values())
-    
+
   
   }
   getTranslatedStatus(status: string): string {
@@ -79,7 +79,7 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
 
 
   getDisplayedColumns() {
-    return ['CardholderNumber','CardHolderName', 'FirstAccount' ,'Valid', 'CIN','phoneNumber','createdAt', 'status','actions'];
+    return ['CardholderNumber','CardHolderName','PASSPORT_ID','Valid','phoneNumber','createdAt', 'status','actions'];
   }
 
   getItems() {    

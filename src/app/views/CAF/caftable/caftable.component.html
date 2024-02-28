@@ -28,11 +28,11 @@
           </ng-container>
         <ng-container matColumnDef="cardholderNumber">
           <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pan.substr(0, 8) +'*******' + row.pan.substr(-4) }}</mat-cell>
+          <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pan }}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="Account">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="Account"> {{ row.acctNum.substr(0, 4) +'*******' + row.acctNum.substr(-4) }}</mat-cell>
+          <mat-cell *matCellDef="let row" data-label="Account"> {{ row.acctNum }}</mat-cell>
         </ng-container>
   
         <ng-container matColumnDef="Valid">

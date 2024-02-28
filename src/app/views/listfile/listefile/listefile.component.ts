@@ -10,6 +10,19 @@ import { CrudService } from 'app/views/cruds/crud.service';
 import { Subscription } from 'rxjs';
 import { ListefileService } from '../listefile.service';
 
+
+interface File {
+  bankName: string;
+  fileName: string;
+  generatedBy: string;
+  createdAt: Date;
+}
+
+// Define an interface to represent the grouped files by date
+interface GroupedFiles {
+  [date: string]: File[]; // Use string as the key (date) and File[] as the value (files)
+}
+
 @Component({
   selector: 'app-listefile',
   templateUrl: './listefile.component.html',
@@ -19,17 +32,18 @@ export class ListefileComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
+  public cafFiles: any[] = [];
+  public pbfFiles: any[] = [];
+  public portFiles: any[] = [];
   public dataSource: any;
   public displayedColumns: any;
   public getItemSub: Subscription;
   public fileInformationIds: number[] = [];
   constructor(
-    private dialog: MatDialog,
+  
     private snack: MatSnackBar,
     private crudService: ListefileService,
-    private confirmService: AppConfirmService,
-    private loader: AppLoaderService
+
   ) { }
 
   ngOnInit() {
@@ -47,19 +61,61 @@ export class ListefileComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['bankName', 'fileName', 'generatedBy', 'createdAt', 'actions'];
+    return ['bankName', 'fileName', 'generatedBy', 'createdAt','Send', 'actions'];
   }
-
-
+  getStatusColor(row: any): any {
+    if (row.sent) {
+      return { 'background-color': 'lightgreen' };
+    } else {
+      return { 'background-color': '#ffffcc' }; // Soft yellow color
+    }
+  }
+  
+  
   getItems() {
     this.getItemSub = this.crudService.getItems().subscribe(data => {
+      // Clear the arrays before populating them
+      this.cafFiles = [];
+      this.pbfFiles = [];
+      this.portFiles = [];
+  
+      // Sort the data by createdAt field
       data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  
+      // Categorize files based on their names
+      data.forEach(file => {
+        if (file.fileName.includes('CAF')) {
+          this.cafFiles.push(file);
+        } else if (file.fileName.includes('PBF')) {
+          this.pbfFiles.push(file);
+        } else if (file.fileName.includes('PORT')) {
+          this.portFiles.push(file);
+        }
+        // Ensure sent property is added to each file object
+        file.sent = file.sent ? 1 : 0; // Convert boolean sent to 1 or 0
+      });
+  
+      // Initialize the data source with the categorized files
       this.dataSource = new MatTableDataSource(data);
       
       // Populate fileInformationIds with IDs from the retrieved items
       this.fileInformationIds = data.map(item => item.fileId);
     });
   }
+  
+  // Group files by date for each type of file
+groupFilesByDate(files: any[]) {
+  const groupedFiles = {};
+  files.forEach(file => {
+    const date = new Date(file.createdAt).toDateString();
+    if (!groupedFiles[date]) {
+      groupedFiles[date] = [];
+    }
+    groupedFiles[date].push(file);
+  });
+  return groupedFiles;
+}
+
 
   uploadFiles(fileId: number) {
     this.crudService.uploadFiles(fileId).subscribe(

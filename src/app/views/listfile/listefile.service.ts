@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtAuthService } from 'app/shared/services/auth/jwt-auth.service';
 import { Observable } from 'rxjs';
+import { environment } from 'environments/environment.prod';
 @Injectable({
   providedIn: 'root'
 })
 export class ListefileService {
   items: any[];
-  private apiUrl = 'http://localhost:8084/api/auth/card';
-  private apiUrlupload = 'http://localhost:8084/api/auth/card/upload';
-
+  private apiUrl = environment.port+'/api/auth/card';
+  private apiUrlupload = environment.port+'/api/auth/card/upload';
   constructor(   private http: HttpClient,
     private JwtAuthService :JwtAuthService) { }
 

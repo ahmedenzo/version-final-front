@@ -73,7 +73,10 @@ export class GeneratedfileComponent implements OnInit, OnDestroy {
   }    
   
 
-
+  getCardCountToGenerate(group: string): number {
+    const dataSet = this.groupedData[group];
+    return dataSet.reduce((sum, row) => sum + (Number(row.cardgenerated) === 0 ? 1 : 0), 0);
+  }
 
   getPanelColor(dateKey: string): string {
     const panelIndex = this.groupedDataKeys.indexOf(dateKey);

@@ -1,54 +1,190 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-
-    <div class="info-card primary">
-      <div class="description">SEND FILE TO FTP SERVER OR DOWNLOAD IN YOUR DESKTOP</div>
-    </div>
-
-
+  <div class="info-card primary">
+    <div class="description">SEND FILE TO FTP SERVER OR DOWNLOAD IN YOUR DESKTOP</div>
   </div>
-  <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-    <mat-card-content class="p-0">
-      <mat-table [dataSource]="dataSource" matSort>
+</div>
 
+<mat-accordion>
+  <!-- Port Expansion Panel -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Port Expansion Panel
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="p-0">
+      <mat-card-content class="p-0">
+        <mat-table [dataSource]="portFiles" matSort>
   
-        <ng-container matColumnDef="bankName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> bankName </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="bankName"> {{row.bankName}} </mat-cell>
-        </ng-container>
+          <!-- Define table columns -->
+          <ng-container matColumnDef="bankName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> bankName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="bankName"> {{row.bankName}} </mat-cell>
+          </ng-container>
   
-        <ng-container matColumnDef="fileName">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> fileName </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="fileName"> {{row.fileName}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="fileName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> fileName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="fileName"> {{row.fileName}} </mat-cell>
+          </ng-container>
   
-        <ng-container matColumnDef="generatedBy">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> generatedBy </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.generatedBy}} </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="generatedBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> generatedBy </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.generatedBy}} </mat-cell>
+          </ng-container>
   
-        <ng-container matColumnDef="createdAt">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> createdAt </mat-header-cell>
-          <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.createdAt | date:'dd/MM/yyyy' }}  </mat-cell>
-        </ng-container>
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> createdAt </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.createdAt | date:'dd/MM/yyyy' }}  </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Send">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Send </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.sent ? 'green' : 'red'" data-label="Sent">
+              {{ row.sent ? 'Sent' : 'Not Sent' }}
+            </mat-cell>
+          </ng-container>
+          
   
-  
-  
-        <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-            <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="uploadFiles(row.fileId)">
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="uploadFiles(row.fileId)">
                 <mat-icon>send</mat-icon>
-            </button>
-            <button mat-icon-button mat-sm-button color="warn" (click)="download(row.fileName)">
+              </button>
+              <button mat-icon-button mat-sm-button color="warn" (click)="download(row.fileName)">
                 <mat-icon>download</mat-icon>
-            </button>
-          </mat-cell>
-        </ng-container>
+              </button>
+            </mat-cell>
+          </ng-container>
+       
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+          <!-- Define table row with ngStyle -->
+          <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </mat-expansion-panel>
   
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
   
-    </mat-card-content>
-  </mat-card>
+
+  <!-- PBF Expansion Panel -->
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+      PBF Expansion Panel
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="p-0">
+      <mat-card-content class="p-0">
+        <mat-table [dataSource]="pbfFiles" matSort>
+  
+          <!-- Define table columns -->
+          <ng-container matColumnDef="bankName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> bankName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="bankName"> {{row.bankName}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="fileName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> fileName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="fileName"> {{row.fileName}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="generatedBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> generatedBy </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.generatedBy}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> createdAt </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.createdAt | date:'dd/MM/yyyy' }}  </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Send">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Send </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.sent ? 'green' : 'red'" data-label="Sent">
+              {{ row.sent ? 'Sent' : 'Not Sent' }}
+            </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="uploadFiles(row.fileId)">
+                <mat-icon>send</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="warn" (click)="download(row.fileName)">
+                <mat-icon>download</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+  
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+          <!-- Define table row with ngStyle -->
+          <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        CAF Expansion Panel
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card class="p-0">
+      <mat-card-content class="p-0">
+        <mat-table [dataSource]="cafFiles" matSort>
+  
+          <!-- Define table columns -->
+          <ng-container matColumnDef="bankName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> bankName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="bankName"> {{row.bankName}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="fileName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> fileName </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="fileName"> {{row.fileName}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="generatedBy">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> generatedBy </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.generatedBy}} </mat-cell>
+          </ng-container>
+  
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> createdAt </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="color"> {{row.createdAt | date:'dd/MM/yyyy' }}  </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Send">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Send </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.sent ? 'green' : 'red'" data-label="Sent">
+              {{ row.sent ? 'Sent' : 'Not Sent' }}
+            </mat-cell>
+          </ng-container>
+          
+          <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="uploadFiles(row.fileId)">
+                <mat-icon>send</mat-icon>
+              </button>
+              <button mat-icon-button mat-sm-button color="warn" (click)="download(row.fileName)">
+                <mat-icon>download</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        
+          <!-- Define table row with ngStyle -->
+          <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+      </mat-card-content>
+    </mat-card>
+  </mat-expansion-panel>
+  
+</mat-accordion>

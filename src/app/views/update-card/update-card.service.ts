@@ -62,15 +62,16 @@ export class UpdateCardService {
       catchError(this.handleError)
     );
   }
-
+ 
 
 
   getConfirmedCardHolders(): Observable<CardHolder[]> {
     return this.getItems().pipe(
-      map(cardHolders => cardHolders.filter(holder => holder.confirmation === true))
+      map(cardHolders => cardHolders.filter(holder => 
+        (holder.cardgenerated === true)
+      ))
     );
   }
-  
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

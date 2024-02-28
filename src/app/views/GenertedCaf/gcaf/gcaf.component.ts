@@ -75,8 +75,12 @@ export class GcafComponent implements OnInit {
     return anyCardNotGenerated ? '#FFF9A6' : '#90EE90';
   }
   
-
-
+  getCardCountToGenerate(group: string): number {
+    const dataSet = this.groupedData[group];
+    return dataSet.reduce((sum, row) => sum + (row.cardgenerated ? 1 : 0), 1);
+  }
+  
+ 
 
   
   private formatDate(date: Date | string): string {
