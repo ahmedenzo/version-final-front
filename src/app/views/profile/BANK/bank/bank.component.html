@@ -3,10 +3,7 @@
     <mat-tab label=" Bank Settings">
       <br>
       <br>
-
-  
-        <button mat-raised-button color="primary" (click)="openPopUp({}, true )">Creat New Bank</button>  
-       
+        <button mat-raised-button color="primary" (click)="openPopUp({}, true )">CREATE New Bank</button>  
       <mat-card-content class="p-0" *ngIf="roles.includes('Admin_SMT') ">
           <mat-table [dataSource]="dataSource" matSort   >
       
@@ -43,7 +40,13 @@
               <mat-header-cell *matHeaderCellDef mat-sort-header> Country Code </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="countryCode"> {{row.countryCode}} </mat-cell>
             </ng-container>
-      
+
+            <ng-container matColumnDef="countryCode1">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> Country Code </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="countryCode"> {{row.countryCode}} </mat-cell>
+            </ng-container>
+
+       
       
       
             <ng-container matColumnDef="actions">
@@ -61,6 +64,7 @@
       
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          
           </mat-table>
           <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
       
@@ -81,7 +85,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
        
-            <button mat-raised-button color="primary" (click)="openPopUpbin(bank, {},true)">Creat New Bin</button>
+            <button mat-raised-button color="primary" (click)="openPopUpbin(bank, {},true)">CREATE New Bin</button>
 
  
             <mat-table *ngIf="bank.data && bank.data.length > 0" [dataSource]="bank.data">
@@ -143,7 +147,7 @@
               <mat-header-row *matHeaderRowDef="['binValue', 'expireRange', 'moneyCode', 'cardBrand', 'cardType','Configuration', 'actions']"></mat-header-row>
               <mat-row *matRowDef="let row; columns: ['binValue', 'expireRange', 'moneyCode', 'cardBrand', 'cardType','Configuration', 'actions']"></mat-row>
             </mat-table>
-      
+            
             <div *ngIf="!bank.data || bank.data.length === 0">No data available.</div>
           </mat-expansion-panel>
         </mat-accordion>
@@ -164,7 +168,7 @@
               </mat-panel-title>
             </mat-expansion-panel-header>
     
-            <button mat-raised-button color="primary" (click)="openPopUpbagency(bank , {},true)">Creat New Agency</button>
+            <button mat-raised-button color="primary" (click)="openPopUpbagency(bank , {},true)">CREATE New Agency</button>
     
             <mat-table *ngIf="bank.agencies && bank.agencies.length > 0" [dataSource]="bank.agencies">
               <ng-container matColumnDef="agenceName">
@@ -199,7 +203,7 @@
               <mat-header-row *matHeaderRowDef="['agenceName', 'agenceAdresse', 'contactEmail', 'contactPhone', 'actions'];"></mat-header-row>
               <mat-row *matRowDef="let row; columns: ['agenceName', 'agenceAdresse', 'contactEmail', 'contactPhone', 'actions'];"></mat-row>
             </mat-table>
-    
+        
             <div *ngIf="!bank.agencies || bank.agencies.length === 0">No agencies available.</div>
           </mat-expansion-panel>
         </mat-accordion>
@@ -207,5 +211,85 @@
     </mat-tab>
     
     
-  </mat-tab-group>
+    <mat-tab label="BankFTPConfig">
+      <mat-card-content class="card-content">
+        <mat-accordion>
+          <mat-expansion-panel *ngFor="let bank of banks" [expanded]="isPanelOpen(bank.bankId)" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ bank.bankName }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-raised-button color="primary" (click)="openPopUpconfiguration(bank, bank.bankFTPConfig || {}, !bank.bankFTPConfig)">
+              {{ bank.bankFTPConfig ? 'Update' : 'Create' }} FTP
+            </button>
+            
+            <!-- Add margin-top to create space -->
+  
+            
+            <div style="margin-top: 25px;">
+              <!-- Manual arrangement of items based on the specified order -->
+              <p *ngIf="bank.ftp.server"><span class="bold-key">Server:</span> {{ bank.ftp.server }}</p>
+              <p *ngIf="bank.ftp.port"><span class="bold-key">Port:</span> {{ bank.ftp.port }}</p>
+              <p *ngIf="bank.ftp.username"><span class="bold-key">Username:</span> {{ bank.ftp.username }}</p>
+              <p *ngIf="bank.ftp.password"><span class="bold-key">Password:</span> {{ bank.ftp.password }}</p>
+              <p *ngIf="bank.ftp.remotePath"><span class="bold-key">Remote Path:</span> {{ bank.ftp.remotePath }}</p>
+              
+              <!-- Display delete button if FTP configuration exists -->
+
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card-content>
+    </mat-tab>
+    
+    <mat-tab label=" SMTP Settings">
+      <br>
+      <br>
+        <button mat-raised-button color="primary" (click)="openPopUpsmtp({}, true )"> SMTP Configuration</button> 
+        
+  
+
+      <mat-card-content class="p-0" *ngIf="roles.includes('Admin_SMT') ">
+          <mat-table [dataSource]="dataSource6" matSort   >
+      
+
+      
+            <ng-container matColumnDef="host">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> host </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="host"> {{row.host}} </mat-cell>
+            </ng-container>
+      
+            
+           <ng-container matColumnDef="port">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> port </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="port"> {{row.port}} </mat-cell>
+            </ng-container>
+      
+            <ng-container matColumnDef="username">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> username </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="username"> {{row.username}} </mat-cell>
+            </ng-container>
+     
+            <ng-container matColumnDef="password">
+              <mat-header-cell *matHeaderCellDef mat-sort-header> password </mat-header-cell>
+              <mat-cell *matCellDef="let row" data-label="password"> {{row.password}} </mat-cell>
+            </ng-container>
+
+            <mat-header-row *matHeaderRowDef="['host', 'port', 'username', 'password'];"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: ['host', 'port', 'username', 'password'];"></mat-row>
+          </mat-table>
+  
+      
+      </mat-card-content>
+    
+     
+    </mat-tab>
+  
+    
+    
+    
+    
+    
+      </mat-tab-group>
 </mat-card>

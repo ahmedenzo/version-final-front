@@ -116,27 +116,34 @@ groupFilesByDate(files: any[]) {
   return groupedFiles;
 }
 
-
-  uploadFiles(fileId: number) {
-    this.crudService.uploadFiles(fileId).subscribe(
-      response => {
-        // Handle success, show a snackbar message
-        this.snack.open('File uploaded successfully', 'Close', {
-          duration: 3000, // Duration for which the snackbar will be displayed (in milliseconds)
-          panelClass: ['snackbar-success'] // CSS class for styling the snackbar (optional)
-        });
-        console.log('File uploaded successfully:', response);
-      },
-      error => {
-        // Handle error, show a snackbar message
-        this.snack.open('Error uploading file. Please try again.', 'Close', {
-          duration: 3000, // Duration for which the snackbar will be displayed (in milliseconds)
-          panelClass: ['snackbar-error'] // CSS class for styling the snackbar (optional)
-        });
-        console.error('Error uploading file:', error);
+uploadFiles(fileId: number) {
+  this.crudService.uploadFiles(fileId).subscribe(
+    response => {
+      // Update the sent property of the file to 1
+      const fileToUpdate = this.dataSource.data.find((file: any) => file.fileId === fileId);
+      if (fileToUpdate) {
+        fileToUpdate.sent = 1;
+        this.dataSource.data = [...this.dataSource.data]; // Trigger MatTableDataSource update
       }
-    );
-  }
+
+      // Handle success, show a snackbar message
+      this.snack.open('File uploaded successfully', 'Close', {
+        duration: 3000, // Duration for which the snackbar will be displayed (in milliseconds)
+        panelClass: ['snackbar-success'] // CSS class for styling the snackbar (optional)
+      });
+      console.log('File uploaded successfully:', response);
+    },
+    error => {
+      // Handle error, show a snackbar message
+      this.snack.open('Error uploading file. Please try again.', 'Close', {
+        duration: 3000, // Duration for which the snackbar will be displayed (in milliseconds)
+        panelClass: ['snackbar-error'] // CSS class for styling the snackbar (optional)
+      });
+      console.error('Error uploading file:', error);
+    }
+  );
+}
+
 
 
   download(filename: string) {

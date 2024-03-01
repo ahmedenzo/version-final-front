@@ -24,7 +24,7 @@
 
         <div fxFlex="50" class="pr-16">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-label>numAccount</mat-label>
+                <mat-label>CardNumber</mat-label>
                 <input matInput name="numAccount" formControlName="numAccount" placeholder="numAccount">
                 <mat-error *ngIf="itemForm.get('numAccount').hasError('required')">Field is required</mat-error>
                 <mat-error *ngIf="itemForm.get('numAccount').hasError('pattern')">Must be numeric</mat-error>

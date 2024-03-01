@@ -38,6 +38,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatStepperModule} from '@angular/material/stepper';
 import { BinpopupComponent } from './BANK/bank/binpopup/binpopup/binpopup.component';
 import { AgencypopupComponent } from './BANK/bank/agencepopup/agencypopup/agencypopup.component';
+import { ConfComponent } from './BANK/bank/conf/conf.component';
+import { SmptppopupComponent } from './BANK/bank/smptppopup/smptppopup.component';
 
 @NgModule({
   imports: [
@@ -83,7 +85,7 @@ import { AgencypopupComponent } from './BANK/bank/agencepopup/agencypopup/agency
     FormsModule,
     RouterModule.forChild(ProfileRoutes)
   ],
-  declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent, PopUpComponent, BankComponent, BankpopupComponent, ConfigurationComponent, BinpopupComponent, AgencypopupComponent],
+  declarations: [ProfileComponent, ProfileOverviewComponent, ProfileSettingsComponent, ProfileBlankComponent, PopUpComponent, BankComponent, BankpopupComponent, ConfigurationComponent, BinpopupComponent, AgencypopupComponent, ConfComponent, SmptppopupComponent],
   providers: [Service]
 })
 export class ProfileModule { }

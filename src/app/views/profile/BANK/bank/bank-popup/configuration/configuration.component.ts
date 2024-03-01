@@ -15,82 +15,79 @@ export class ConfigurationComponent implements OnInit {
   public itemForm4: FormGroup;
  
   public  isLinear = false;
-  constructor( @Inject(MAT_DIALOG_DATA) public data1: any,
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<ConfigurationComponent>,
   private fb: FormBuilder,public jwtAuth: JwtAuthService, ) { }
 
-  ngOnInit(): void {
-    
-    this.buildItemForm(this.data1.payload);
-    
+ngOnInit(): void {
+  if (this.data.payload) {
+    this.buildItemForm(this.data.payload);
+    console.log(this.data.payload);
+  } else {
+    console.error("Payload is undefined or null.");
   }
+}
+
 
   buildItemForm(item): void {
    
-        this.itemForm1 = this.fb.group({
-       
-          lgth: [item.lgth || '0042', Validators.required],
-          useLimit: [item.useLimit || '50000', Validators.required],
-          totalWithdrawalLimit: [item.totalWithdrawalLimit || '100000', Validators.required],
-          offlineWithdrawalLimit: [item.offlineWithdrawalLimit || '50000', Validators.required],
-          totalCashAdvanceLimit: [item.totalCashAdvanceLimit || '5000', Validators.required],
-          offlineCashAdvanceLimit: [item.offlineCashAdvanceLimit || '2000', Validators.required],
-          maximumDepositCreditAmount: [item.maximumDepositCreditAmount || '50000', Validators.required],
-          lastUsed: [item.lastUsed || '', Validators.required],
-          issuerTransactionProfile: [item.issuerTransactionProfile || 'Standard', Validators.required],
-        });
-   
-        this.itemForm2 = this.fb.group({
-        
-          segxLgth: [item.segxLgth || '1234', Validators.required],
-          atcLimit: [item.atcLimit || '5678', Validators.required],
-          sendCardBlock: [item.sendCardBlock || 'Yes', Validators.required],
-          sendPutData: [item.sendPutData || 'No', Validators.required],
-          velocityLimitsLowerConsecutiveLimit: [item.velocityLimitsLowerConsecutiveLimit || '1000', Validators.required],
-          userField2: [item.userField2 || 'SomeValue', Validators.required],
-          dataTag: [item.dataTag || 'Tag123', Validators.required],
-          sendPinUnblock: [item.sendPinUnblock || 'Yes', Validators.required],
-          sendPinChange: [item.sendPinChange || 'No', Validators.required],
-          pinSyncAct: [item.pinSyncAct || 'Sync', Validators.required],
-          accessScriptMgmtSubSys: [item.accessScriptMgmtSubSys || 'System123', Validators.required],
-          issApplDataFmt: [item.issApplDataFmt || 'FormatA', Validators.required],
-          actionTableIndex: [item.actionTableIndex || 'Index123', Validators.required],
-        });
-     
+    this.itemForm1 = this.fb.group({
+      lgth: [item.lgth || '0042', Validators.required],
+      useLimit: [item.configuredAtmData?.useLimit || '', Validators.required],
+      totalWithdrawalLimit: [item.configuredAtmData?.totalWithdrawalLimit || '100000', Validators.required],
+      offlineWithdrawalLimit: [item.configuredAtmData?.offlineWithdrawalLimit || '50000', Validators.required],
+      totalCashAdvanceLimit: [item.configuredAtmData?.totalCashAdvanceLimit || '5000', Validators.required],
+      offlineCashAdvanceLimit: [item.configuredAtmData?.offlineCashAdvanceLimit || '2000', Validators.required],
+      maximumDepositCreditAmount: [item.configuredAtmData?.maximumDepositCreditAmount || '', Validators.required],
+      lastUsed: [item.configuredAtmData?.lastUsed || '', Validators.required],
+      issuerTransactionProfile: [item.configuredAtmData?.issuerTransactionProfile || 'Standard', Validators.required],
+  });
 
-        this.itemForm3 = this.fb.group({
-        
-         
-          segxLgth: [item.segxLgth || '0300', Validators.required],
-          ttlFloat: [item.ttlFloat || '12345', Validators.required],
-          daysDelinq: [item.daysDelinq || '30', Validators.required],
-          monthsActive: [item.monthsActive || '12', Validators.required],
-          cycle1: [item.cycle1 || 'Cycle1Value', Validators.required],
-          cycle2: [item.cycle2 || 'Cycle2Value', Validators.required],
-          cycle3: [item.cycle3 || 'Cycle3Value', Validators.required],
-          unknown: [item.unknown || 'UnknownValue', Validators.required],
-          userFld2: [item.userFld2 || 'UserFld2Value', Validators.required],
-        });
+  this.itemForm2 = this.fb.group({
+      segxLgth: [item.configuredEmvData?.segxLgth || '1234', Validators.required],
+      atcLimit: [item.configuredEmvData?.atcLimit || '5678', Validators.required],
+      sendCardBlock: [item.configuredEmvData?.sendCardBlock || 'Yes', Validators.required],
+      sendPutData: [item.configuredEmvData?.sendPutData || 'No', Validators.required],
+      velocityLimitsLowerConsecutiveLimit: [item.configuredEmvData?.velocityLimitsLowerConsecutiveLimit || '1000', Validators.required],
+      userField2: [item.configuredEmvData?.userField2 || 'SomeValue', Validators.required],
+      dataTag: [item.configuredEmvData?.dataTag || 'Tag123', Validators.required],
+      sendPinUnblock: [item.configuredEmvData?.sendPinUnblock || 'Yes', Validators.required],
+      sendPinChange: [item.configuredEmvData?.sendPinChange || 'No', Validators.required],
+      pinSyncAct: [item.configuredEmvData?.pinSyncAct || 'Sync', Validators.required],
+      accessScriptMgmtSubSys: [item.configuredEmvData?.accessScriptMgmtSubSys || 'System123', Validators.required],
+      issApplDataFmt: [item.configuredEmvData?.issApplDataFmt || 'FormatA', Validators.required],
+      actionTableIndex: [item.configuredEmvData?.actionTableIndex || 'Index123', Validators.required],
+  });
 
-        this.itemForm4 = this.fb.group({
-         
-          segxLgth: [item.segxLgth || '0042', Validators.required],
-          totalPurchaseLimit: [item.totalPurchaseLimit || '999999999999999', Validators.required],
-          offlinePurchaseLimit: [item.offlinePurchaseLimit || '8888', Validators.required],
-          totalCashAdvanceLimit: [item.totalCashAdvanceLimit || '7777', Validators.required],
-          offlineCashAdvanceLimit: [item.offlineCashAdvanceLimit || '6666', Validators.required],
-          totalWithdrawalLimit: [item.totalWithdrawalLimit || '5555', Validators.required],
-          offlineWithdrawalLimit: [item.offlineWithdrawalLimit || '4444', Validators.required],
-          useLimit: [item.useLimit || '3333', Validators.required],
-          totalRefundCreditLimit: [item.totalRefundCreditLimit || '2222', Validators.required],
-          offlineRefundCreditLimit: [item.offlineRefundCreditLimit || '1111', Validators.required],
-          reasonCode: [item.reasonCode || 'Reason123', Validators.required],
-          lastUsed: [item.lastUsed || 'LastUsedValue', Validators.required],
-          userField2: [item.userField2 || '', Validators.required],
-          issuerTransactionProfile: [item.issuerTransactionProfile || 'Profile123', Validators.required],
-        });
- 
-    }
+       this.itemForm3 = this.fb.group({
+  segxLgth: [item.segxLgth || '0300', Validators.required],
+  ttlFloat: [item.configuredPOSPBFXD?.ttlFloat || '12345', Validators.required],
+  daysDelinq: [item.configuredPOSPBFXD?.daysDelinq || '30', Validators.required],
+  monthsActive: [item.configuredPOSPBFXD?.monthsActive || '12', Validators.required],
+  cycle1: [item.configuredPOSPBFXD?.cycle1 || 'Cycle1Value', Validators.required],
+  cycle2: [item.configuredPOSPBFXD?.cycle2 || 'Cycle2Value', Validators.required],
+  cycle3: [item.configuredPOSPBFXD?.cycle3 || 'Cycle3Value', Validators.required],
+  unknown: [item.configuredPOSPBFXD?.unknown || 'UnknownValue', Validators.required],
+  userFld2: [item.configuredPOSPBFXD?.userFld2 || 'UserFld2Value', Validators.required],
+});
+
+this.itemForm4 = this.fb.group({
+  segxLgth: [item.configuredPosData?.segxLgth || '0300', Validators.required],
+  totalPurchaseLimit: [item.configuredPosData?.totalPurchaseLimit || '999999999999999', Validators.required],
+  offlinePurchaseLimit: [item.configuredPosData?.offlinePurchaseLimit || '8888', Validators.required],
+  totalCashAdvanceLimit: [item.configuredPosData?.totalCashAdvanceLimit || '7777', Validators.required],
+  offlineCashAdvanceLimit: [item.configuredPosData?.offlineCashAdvanceLimit || '6666', Validators.required],
+  totalWithdrawalLimit: [item.configuredPosData?.totalWithdrawalLimit || '5555', Validators.required],
+  offlineWithdrawalLimit: [item.configuredPosData?.offlineWithdrawalLimit || '4444', Validators.required],
+  useLimit: [item.configuredPosData?.useLimit || '3333', Validators.required],
+  totalRefundCreditLimit: [item.configuredPosData?.totalRefundCreditLimit || '2222', Validators.required],
+  offlineRefundCreditLimit: [item.configuredPosData?.offlineRefundCreditLimit || '1111', Validators.required],
+  reasonCode: [item.configuredPosData?.reasonCode || 'Reason123', Validators.required],
+  lastUsed: [item.configuredPosData?.lastUsed || 'LastUsedValue', Validators.required],
+  userField2: [item.configuredPosData?.userField2 || '', Validators.required],
+  issuerTransactionProfile: [item.configuredPosData?.issuerTransactionProfile || 'Profile123', Validators.required],
+});
+  }
   
   toggleLinearMode(): void {
     this.isLinear = !this.isLinear;
@@ -160,6 +157,7 @@ export class ConfigurationComponent implements OnInit {
     };
   
     this.dialogRef.close(formData);
+    console.log("5roj",formData)
   }
   
  

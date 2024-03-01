@@ -4,8 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Bank,ConfigureDataRequest,Bin, agence } from 'app/shared/models/bank';
-import { User } from 'app/shared/models/user.model';
+import { Bank,ConfigureDataRequest,Bin, agence,confftp,SMTPCONF } from 'app/shared/models/bank';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { Subscription, Observable } from 'rxjs';
@@ -14,9 +13,10 @@ import { Service } from '../../profile.service';
 import { BankpopupComponent } from './bank-popup/bankpopup/bankpopup.component';
 import { ConfigurationComponent } from './bank-popup/configuration/configuration.component';
 import { BinpopupComponent } from './binpopup/binpopup/binpopup.component';
-import { ChangeDetectorRef } from '@angular/core';
 import { AgencypopupComponent } from './agencepopup/agencypopup/agencypopup.component';
-
+import { ConfComponent } from './conf/conf.component';
+import { SmptppopupComponent } from './smptppopup/smptppopup.component';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-bank',
   templateUrl: './bank.component.html',
@@ -33,20 +33,22 @@ export class BankComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<Bank>;
   panelStates: { [key: string]: boolean } = {};
   public dataSource3: MatTableDataSource<Bin>;
+  public dataSource6: MatTableDataSource<SMTPCONF>;
+  public dataSource5: MatTableDataSource<confftp>;
   public dataSource4: MatTableDataSource<agence>;
   public dataSource1: MatTableDataSource<ConfigureDataRequest>;
-  public displayedColumns: string[] = ['bankName', 'bankIdCode', 'bankLocation', 'contactEmail', 'contactPhone', 'countryCode','actions'];
-  displayedColumns1: string[] = ['binValue', 'expireRange', 'moneyCode', 'cardBrand', 'cardType','Configuration', 'actions'];
-  displayedColumnsAgence: string[] = ['agenceName', 'agenceAdresse', 'contactEmail', 'contactPhone', 'actions'];
-
+  public displayedColumns: string[] = ['bankName', 'bankIdCode', 'bankLocation', 'contactEmail', 'contactPhone', 'countryCode',,'actions'];
+  public confbins : ConfigureDataRequest [];
+  public confbanksid: any[] = [];
   public banks: Bank[] = [];
   public openedPanels: number[] = [];
   public openedPanels1: number[] = [];
   public getItemSub: Subscription;
   private subscriptions: Subscription[] = [];
   roles: string[] = [];
-
+  isNew: boolean = true; 
   constructor(
+    
     private jwtAuthService: JwtAuthService,
     private dialog: MatDialog,
     private snack: MatSnackBar,
@@ -56,32 +58,33 @@ export class BankComponent implements OnInit, OnDestroy {
 
   ) {
     this.dataSource = new MatTableDataSource<Bank>([]);
+    this.dataSource3= new MatTableDataSource<Bin>([]);
+    this.dataSource6= new MatTableDataSource<SMTPCONF>([]);
+    this.dataSource5= new MatTableDataSource<confftp>([]);
+    this.dataSource4= new MatTableDataSource<agence>([]);
+    this.dataSource1= new MatTableDataSource<ConfigureDataRequest>([]);
   }
 
   ngOnInit() {
-  
-
     this.displayedColumns = this.getDisplayedColumns();
-    this.getItems()
-    this.getItemss()
+    this.getItems();
+    this.getItemss();
+    this.getIsmtp();
     
-   
-
-    console.log(this.banks)
+  
     const storedRoles = localStorage.getItem('roles');
     if (storedRoles) {
-      this.roles=this.jwtAuthService.roles;
+      this.roles = this.jwtAuthService.roles;
       this.roles = JSON.parse(storedRoles);
     } else {
       this.roles = this.jwtAuthService.roles;
     }
+  }
     
 
 
-      
-  }
 
-
+  
   getItemss() {
     this.getItemSub = this.Service.getItemsbanks()
       .subscribe((data: any) => {
@@ -89,44 +92,102 @@ export class BankComponent implements OnInit, OnDestroy {
           return {
             bankId: bank.bankId,
             bankName: bank.bankName,
-            // Add other properties you need here
-            data: [], // Initialize data property as an empty array for each bank
-            agencies: [] // Initialize agencies property as an empty array for each bank
+            bankFTPConfig: bank.bankFTPConfig,
+            server: bank.server,
+            username: bank.username,
+            data: [],
+            ftp: [] , // Initialize data property as an empty array for each bank
+            agencies: [], // Initialize agencies property as an empty array for each bank
+            // Initialize configurations property as an empty array for each bank
           };
         });
   
-        // Fetch bins for each bank
+        // Fetch additional information for each bank
         this.banks.forEach((bank, index) => {
+          // Fetch bins for each bank
           this.Service.getBinsByBank(bank.bankName).subscribe((bins: any) => {
             this.banks[index].data = bins; // Assign fetched bins to the respective bank
+            console.log('Bins for bank ' + bank.bankName + ':', bins); // Log the bins for each bank
           });
   
           // Fetch agencies for each bank
           this.Service.getAgenciesByBank(bank.bankName).subscribe((agencies: any) => {
             this.banks[index].agencies = agencies; // Assign fetched agencies to the respective bank
+            console.log('Agencies for bank ' + bank.bankName + ':', agencies); // Log the agencies for each bank
+            this.Service.getConfigureDataByBinId(bank.bankId)
+          });
+  
+          // Fetch FTP configurations for each bank
+          this.Service.getFTPConfigurationByBank(bank.bankId).subscribe((conf: any) => {
+            this.banks[index].ftp = conf; // Assign fetched configurations to the respective bank
+            console.log('Configuration for bank ' + bank.bankName + ':', conf); // Log the configurations for each bank
+           
           });
         });
-  
+        
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       });
   }
   
-  
-  getItems() { 
-      
+  getItems() {
     this.getItemSub = this.Service.getItemsbanks()
-      .subscribe((data:any)  => {
+      .subscribe((data: any) => {
         this.dataSource = new MatTableDataSource(data);
-        
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-        console.log(data)
-      })
+        console.log(data);
+      });
+  }
 
+  getIsmtp() {
+    this.getItemSub = this.Service.getSmtpConfig().subscribe({
+      next: (response: any) => {
+  
+        this.dataSource6 = new MatTableDataSource([response.body]);
+        console.log(response);
+      },
+      error: (error) => console.error(error)
+    });
   }
   
+openPopUpsmtp(data?: any, isNew?: boolean) {
+    const title = isNew ? 'Add new ConfigurationSMTP' : 'Update ConfigurationSMTP';
+ 
+        const dialogRef: MatDialogRef<any> = this.dialog.open(SmptppopupComponent, {
+            width: '720px',
+            disableClose: true,
+            data: { title: title, payload: data } // Passing the extracted response data to the dialog
+        });
+    
+        dialogRef.afterClosed().subscribe(res => {
+            if (!res) {
+                return;
+            }
+            // Update the SMTP configuration
+            const updateObservable = isNew ? this.Service.updateSmtpConfig(res) : this.Service.updateSmtpConfig(res);
+            updateObservable.subscribe((response: any) => {
+                // Update dataSource6
+                this.dataSource6 = new MatTableDataSource(response);
+                // Close loader
+                this.loader.close();
+                // Display success message
+                const actionMessage = isNew ? 'Added' : 'Updated';
+                this.snack.open(`ConfigurationSMTP ${actionMessage}!`, 'OK', { duration: 2000 });
+                // Refresh data
+                this.getIsmtp(); 
+            }, error => {
+                // Handle error
+                console.error(error);
+            });
+        });
+    
+}
+
+
+
+
   ngOnDestroy() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
@@ -160,7 +221,8 @@ export class BankComponent implements OnInit, OnDestroy {
     return ['bankName','bankIdCode','bankLocation','contactEmail','contactPhone','countryCode','actions'];
   }
 
- 
+
+
 
   ngAfterViewInit() {
     this.subscriptions.forEach(sub => sub.unsubscribe());
@@ -229,30 +291,35 @@ export class BankComponent implements OnInit, OnDestroy {
         setTimeout(() => {
             if (isNew) {
                 this.Service.createBin(res, bank.bankName).subscribe((response: any) => {
-                  this.dataSource3=response
+                    this.dataSource3 = response;
                     this.loader.close();
                     this.snack.open('Bin Added!', 'OK', { duration: 2000 });
                     this.getItemss();
                     this.panelStates[bank.bankId] = true;
-                  
+                    this.showWarningMessage(); // Call the function to display the warning message
+                    
                 });
             } else {
                 this.Service.updateBin(data.binId, res).subscribe((response: any) => {
-                  this.dataSource3=response
+                    this.dataSource3 = response;
                     this.loader.close();
                     this.snack.open('Bin Updated!', 'OK', { duration: 2000 });
                     this.getItemss();
                     this.panelStates[bank.bankId] = true;
-                    
+                    this.showWarningMessage(); // Call the function to display the warning message
                 });
             }
         });
     });
 }
 
+showWarningMessage() {
+    // Display a warning message to remind the user to configure the bin
+    this.snack.open('Don\'t forget to configure your bin!', 'OK', { duration: 5000 });
+}
 
 deleteItembin(data) {
-  this.confirmService.confirm({ message: `Delete ${data.name}?` })
+  this.confirmService.confirm({ message: `Delete Bin Value ${data.binValue}?` })
       .subscribe(confirm => {
           if (confirm) {
               this.loader.open('Deleting Item');
@@ -272,12 +339,47 @@ deleteItembin(data) {
       });
 }
 
-  openPopUpconf(data: any, isNew?) {
-    let title = isNew ? 'Add new Config' : 'Update Config';
+openPopUpconf(data1: any, isNew?) {
+  let title = isNew ? 'Add new Config' : 'Update Config';
+  
+  if (!isNew && data1 && data1.binId) {
+    this.loader.open('Fetching Config Data');
+    this.Service.getConfigureDataByBinId(data1.binId).subscribe((response: any) => {
+      this.loader.close();
+      let configData = response; // Assuming response contains the configuration data
+      let dialogRef: MatDialogRef<ConfigurationComponent> = this.dialog.open(ConfigurationComponent, {
+        width: '720px',
+        disableClose: true,
+        data: { title: title, payload: configData },
+      });
+  
+      dialogRef.afterClosed().subscribe(formData => {
+        if (!formData) {
+          return;
+        }
+        console.log("request",formData)
+        this.loader.open('Updating Config');
+        this.Service.configureData(formData, data1.binId).subscribe((response: any) => {
+          this.loader.close();
+         
+          this.snack.open('Config Updated!', 'OK', { duration: 2000 });
+          this.getItems();
+        }, error => {
+          console.error(error);
+          // Handle error
+        });
+      });
+    }, error => {
+      this.loader.close();
+      console.error(error);
+      // Handle error
+    });
+  } else {
+    // For new configurations or if binId is not provided, simply open the dialog without fetching data
     let dialogRef: MatDialogRef<ConfigurationComponent> = this.dialog.open(ConfigurationComponent, {
       width: '720px',
       disableClose: true,
-      data: { title: title, payload: data },
+      data: { title: title, payload: null },
     });
   
     dialogRef.afterClosed().subscribe(formData => {
@@ -285,29 +387,28 @@ deleteItembin(data) {
         return;
       }
   
-      console.log(formData);
-      console.log(data.binId);
-  
+      this.loader.open('Adding Config');
+      // Assuming data1.binId is provided for new configurations
+      this.Service.configureData(formData, data1.binId).subscribe((response: any) => {
+        this.loader.close();
+        this.snack.open('Config Added!', 'OK', { duration: 2000 });
+        this.getItems();
+      }, error => {
+        console.error(error);
+        // Handle error
+      });
+    });
+  }
+}
 
-        this.loader.open('Adding Config');
-        this.Service.configureData(formData, data.binId).subscribe((response: any) => {
-          console.log("subc")
-          this.loader.close();
-          this.snack.open('Config Added!', 'OK', { duration: 2000 });
-          console.log("succeeded");
-          this.getItems();
-        });
-      
-    
-      })}
-  
+
   
 
     
   
   deleteItem(row) {
    
-    this.confirmService.confirm({message: `Delete ${row.name}?`})
+    this.confirmService.confirm({message: `Delete ${row.bankname}?`})
       .subscribe(res => {
         if (res) {
           this.loader.open('Deleting Bank');
@@ -315,7 +416,7 @@ deleteItembin(data) {
             .subscribe((data:any)=> {
               this.dataSource = data;
               this.loader.close();
-              this.snack.open('Partner Bank!', 'OK', { duration: 2000 });
+              this.snack.open('deleting Bank!', 'OK', { duration: 2000 });
               this.getItems();
               this.getItemss();
             })
@@ -330,7 +431,7 @@ deleteItembin(data) {
  }
 
  openPopUpbagency(bank?: any, data?: any, isNew?) {
-  let title = isNew ? 'Add new Bin' : 'Update Bin';
+  let title = isNew ? 'Add new agency' : 'Update agency';
   let dialogRef: MatDialogRef<any> = this.dialog.open(AgencypopupComponent, {
       width: '720px',
       disableClose: true,
@@ -371,7 +472,7 @@ deleteItembin(data) {
 
 
 deleteItemagence(data) {
-  this.confirmService.confirm({ message: `Delete ${data.name}?` })
+  this.confirmService.confirm({ message: `Delete ${data.agenceName}?` })
       .subscribe(confirm => {
           if (confirm) {
               this.loader.open('Deleting Item');
@@ -394,4 +495,64 @@ deleteItemagence(data) {
           }
       });
 }
+
+
+openPopUpconfiguration(bank?: any, data?: any, isNew?) {
+  const title = isNew ? 'Add new ConfigurationFTP' : 'Update ConfigurationFTP';
+  const dialogRef: MatDialogRef<any> = this.dialog.open(ConfComponent, {
+      width: '720px',
+      disableClose: true,
+      data: { title: title, payload: data }
+  });
+
+  dialogRef.afterClosed().subscribe(res => {
+      if (!res) {
+          // If user presses cancel or closes the dialog
+          return;
+      }
+
+      this.loader.open(isNew ? 'Adding new configuration for ' + bank.bankName : 'Updating configuration ' + bank.bankName);
+
+      setTimeout(() => {
+          const serviceCall = isNew ? this.Service.createAndAssignFTPConfiguration(bank.bankId, res) : this.Service.updateFTPConfiguration(res.id, res);
+          
+          serviceCall.subscribe((response: any) => {
+              this.dataSource5 = response;
+              this.loader.close();
+              const actionMessage = isNew ? 'Added' : 'Updated';
+              this.snack.open('Configuration ' + actionMessage + '!', 'OK', { duration: 2000 });
+              this.getItemss();
+              this.panelStates[bank.bankId] = true;
+          });
+      });
+  });
+}
+
+deleteIteconfigurationftp(data) {
+  this.confirmService.confirm({ message: `Delete ${data.server}?` })
+      .subscribe(confirm => {
+          if (confirm) {
+              this.loader.open('Deleting configurationft');
+              this.Service.deleteFTPConfiguration(data.id) // Assuming 'id' is the identifier for the item
+                  .subscribe(() => {
+                    this.dataSource5 = data;
+                      this.loader.close();
+                      this.snack.open('configurationftp Deleted!', 'OK', { duration: 2000 });
+                  
+                      this.getItemss()
+                         
+                      this.panelStates[data.bankId] = true;
+                  
+                  }, error => {
+                      this.loader.close();
+                      this.snack.open('Error deleting configurationftp.', 'OK', { duration: 2000 });
+                      console.error(error); // Handle the error appropriately
+                      this.getItemss()
+                  });
+          }
+      });
+}
+
+
+
 }

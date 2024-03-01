@@ -1,0 +1,67 @@
+<h1 matDialogTitle>{{data.title}}</h1>
+{{"Add" | translate }} {{"Configuration" | translate }}
+  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+  <div fxLayout="row wrap" fxLayout.lt-sm="column">
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="server"
+        [formControl]="itemForm.controls['server']"
+        placeholder="server">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+    
+        name="port"
+        [formControl]="itemForm.controls['port']"
+        placeholder="port">
+      </mat-form-field>
+    </div>
+
+    <div fxFlex="50"  class="pr-16">
+        <mat-form-field class="full-width">
+          <input
+          matInput
+          name="username"
+          [formControl]="itemForm.controls['username']"
+          placeholder="username">
+        </mat-form-field>
+      </div>
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        
+        name="password"
+        [formControl]="itemForm.controls['password']"
+        placeholder="password">
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="50"  class="pr-16">
+      <mat-form-field class="full-width">
+        <input
+        matInput
+        name="remotePath"
+        [formControl]="itemForm.controls['remotePath']"
+        placeholder="remotePath">
+      </mat-form-field>
+    </div>
+
+
+
+    <div fxFlex="100" class="mt-16">
+      <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE" | translate }}</button>
+      <span fxFlex></span>
+      <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
+    </div>
+  </div>
+  </form>

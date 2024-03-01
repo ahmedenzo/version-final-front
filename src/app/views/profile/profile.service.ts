@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Observable,  throwError } from 'rxjs';
 import { catchError, tap,finalize  } from 'rxjs/operators';
-import { Bank,Bin,agence ,ConfigureDataRequest} from 'app/shared/models/bank';
+import { Bank,Bin,agence ,ConfigureDataRequest,confftp} from 'app/shared/models/bank';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as countrycitystatejson from 'countrycitystatejson';
 import { environment } from 'environments/environment.prod';
@@ -12,6 +12,7 @@ export class Service {
   private apiUrl = environment.port+'/api/auth/banks';
   private apiUrlagence = environment.port+'/api/auth/agencies';
   private apiUrlbin = environment.port+'/api/auth/bins';
+  private apiurlsmtp = environment.port+'/api/auth/smtp'
 
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient,private snackBar: MatSnackBar)
@@ -156,6 +157,41 @@ export class Service {
       getStatesByCountry(name: string) {
         return this.countryData.getStatesByShort(name);
       }
+      createAndAssignFTPConfiguration(bankId: number, bankFTPConfig: any): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/ftpsave/${bankId}`, bankFTPConfig);
+      }
+    
+      getFTPConfigurationByBank(bankId: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/getftp-by-bank/${bankId}`);
+      }
+    
+      updateFTPConfiguration(ftpConfigId: number, bankFTPConfig: any): Observable<any> {
+        return this.http.put<any>(`${this.apiUrl}/ftpsave/${ftpConfigId}`, bankFTPConfig);
+      }
+    
+      deleteFTPConfiguration(ftpConfigId: number): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/ftpelete/${ftpConfigId}`);
+      }
+
+      getConfigureDataByBinId(BinID: number): Observable<any> {
+        const url = `${this.apiUrl}/configureData/${BinID}`;
+        return this.http.get<any>(url);
+      }
 
 
-}
+
+
+      getSmtpConfig(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(`${this.apiurlsmtp}/config`, { observe: 'response' });
+  }
+
+  updateSmtpConfig(data: any): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(`${this.apiurlsmtp}/update`, data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      observe: 'response'
+    });
+  }
+    
+    }

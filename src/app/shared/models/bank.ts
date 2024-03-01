@@ -6,12 +6,26 @@ export interface Bank {
    countryCode?:number;
     contactEmail?:string;
     contactPhone?:number;
-    mainOfficeAddress?:string
+    mainOfficeAddress?:string;
+    bankFTPConfig?: confftp;
     bins?: Bin[];
     data: any[]; 
     agencies: any[]; 
+    ftp?: any[];
 
   
+  }
+ 
+  export interface confftp {
+    id?:number;
+    server?: string;
+    port?:number;
+    username?: string;
+    password?:string;
+    remotePath?:string;
+   
+
+    
   }
   export interface agence {
     agenceId?:number;
@@ -34,83 +48,92 @@ export interface Bank {
     
   }
 
-  
- 
-  export interface AtmData  {
-    atmDataId?:number;
+  export interface confftp {
+    id?:number;
+    server?: string;
+    port?:number;
+    username?: string;
+    password?:string;
+    remotePath?:string;
+   
+
+    
+  }
+
+  export interface AtmData {
+    atmDataId?: number;
     lgth?: string;
-    useLimit?:string;
+    useLimit?: string;
     totalWithdrawalLimit?: string;
-    offlineWithdrawalLimit?:string;
-    totalCashAdvanceLimit?:string;
-    offlineCashAdvanceLimit?:string;
+    offlineWithdrawalLimit?: string;
+    totalCashAdvanceLimit?: string;
+    offlineCashAdvanceLimit?: string;
     maximumDepositCreditAmount?: string;
-    lastUsed?:string;
-    issuerTransactionProfile?:string;
-    
+    lastUsed?: string;
+    issuerTransactionProfile?: string;
   }
-
-
-  export interface EmvData   {
-    emvDataId?:number;
+  
+  export interface EmvData {
+    emvDataId?: number;
     segxLgth?: string;
-    atcLimit?:string;
+    atcLimit?: string;
     sendCardBlock?: string;
-    sendPutData?:string;
-    velocityLimitsLowerConsecutiveLimit?:string;
-    userField2?:string;
+    sendPutData?: string;
+    velocityLimitsLowerConsecutiveLimit?: string;
+    userField2?: string;
     dataTag?: string;
-    sendPinUnblock?:string;
-    sendPinChange?:string;
-    pinSyncAct?:string;
+    sendPinUnblock?: string;
+    sendPinChange?: string;
+    pinSyncAct?: string;
     accessScriptMgmtSubSys?: string;
-    issApplDataFmt?:string;
-    actionTableIndex?:string;
-  
+    issApplDataFmt?: string;
+    actionTableIndex?: string;
   }
-
   
-  export interface POSPBFXD    {
-    emvDataId?:number;
-    posPbfXdId: string;
-    segxLgth: string;
-    ttlFloat: string;
-    daysDelinq: string;
-    monthsActive: string;
-    cycle1: string;
-    cycle2: string;
-    cycle3: string;
-    unknown: string;
-    userFld2: string;
-  
+  export interface POSPBFXD {
+    posPbfXdId?: number;
+    segxLgth?: string;
+    ttlFloat?: string;
+    daysDelinq?: string;
+    monthsActive?: string;
+    cycle1?: string;
+    cycle2?: string;
+    cycle3?: string;
+    unknown?: string;
+    userFld2?: string;
   }
-
-    
-  export interface PosData     {
-    posDataId: string;
-    segxLgth: string;
-    totalPurchaseLimit: string;
-    offlinePurchaseLimit: string;
-    totalCashAdvanceLimit: string;
-    offlineCashAdvanceLimit: string;
-    totalWithdrawalLimit: string;
-    offlineWithdrawalLimit: string;
-    useLimit: string;
-    totalRefundCreditLimit: string;
-    offlineRefundCreditLimit: string;
-    reasonCode: string;
-    lastUsed: string;
-    userField2: string;
-    issuerTransactionProfile: string;
   
+  export interface PosData {
+    posDataId?: number;
+    segxLgth?: string;
+    totalPurchaseLimit?: string;
+    offlinePurchaseLimit?: string;
+    totalCashAdvanceLimit?: string;
+    offlineCashAdvanceLimit?: string;
+    totalWithdrawalLimit?: string;
+    offlineWithdrawalLimit?: string;
+    useLimit?: string;
+    totalRefundCreditLimit?: string;
+    offlineRefundCreditLimit?: string;
+    reasonCode?: string;
+    lastUsed?: string;
+    userField2?: string;
+    issuerTransactionProfile?: string;
   }
+  
+  export interface ConfigureDataRequest {
+    atmData?: AtmData;
+    emvData?: EmvData;
+    posData?: PosData;
+    pospbfxd?: POSPBFXD;
+  }
+  
+  export interface SMTPCONF     {
 
-  export interface ConfigureDataRequest     {
-
-    PosData:PosData;
-    POSPBFXD:POSPBFXD;
-    EmvData:EmvData;
-    AtmData:AtmData
+    host:string;
+    port:number;
+    username:string;
+    password:string
 
 
   

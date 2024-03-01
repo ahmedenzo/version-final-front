@@ -58,22 +58,39 @@ export class NavigationService {
       name: 'Card Management',
       type: 'dropDown',
       icon: 'list',
-      role: ['Admin_Agence','Simple_User'],
+      role: ['Admin_Agence'],
       sub: [
 
-        {name: 'Create New Card', state: 'create/create-card',role :['Simple_User']},
+     
         {name: 'Manage PBF Card', state: 'pbfcard/pbf-class',       role: ['Admin_Agence']},
         {name: 'Manage CAF Card', state: 'cafcard/caf-class', role: ['Admin_Agence']},
-        {name: 'Update Card Operations', state: 'update/update-card', role: ['Admin_Agence','Simple_User']},
+
 
      
       ]
     },
     {
+      name: 'Card Management',
+      type: 'dropDown',
+      icon: 'list',
+      role: ['Simple_User'],
+      sub: [
+
+        {name: 'Create New Card', state: 'create/create-card',role :['Simple_User']},
+     
+   
+        {name: 'Update Card Operations', state: 'update/update-card', role: ['Simple_User']},
+
+     
+      ]
+    },
+
+
+    {
       name: 'Card Files Management',
       type: 'dropDown',
       icon: 'list',
-      role: ['Admin_Bank','Admin_SMT'],
+      role: ['Admin_Bank'],
       sub: [
         {
           name: 'Generate Files',
@@ -87,10 +104,22 @@ export class NavigationService {
 
           ]
         },
-        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_SMT','Admin_Bank'],},
+        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_Bank'],},
     
       ]
     },  
+
+    {
+      name: 'Card Files Management',
+      type: 'dropDown',
+      icon: 'list',
+      role: ['Admin_SMT'],
+      sub: [
+
+        {name: 'Files LIst', state: 'list/listefile',  role: ['Admin_SMT'],},
+    
+      ]
+    }, 
 
   ];
 
