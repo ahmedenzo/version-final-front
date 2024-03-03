@@ -91,7 +91,7 @@ export class CaftableComponent implements OnInit {
     }
   
     getDisplayedColumns() {
-      return ['name','cardholderNumber','Account', 'Valid', 'cardStatus' ];
+      return ['name','cardholderNumber', 'Valid', 'cardStatus' ];
     }
   
 

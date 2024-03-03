@@ -1,0 +1,32 @@
+.indicator-progress {
+    display: none;
+
+    [data-kt-indicator="on"] > & {
+        display: inline-block;
+    }
+}
+
+.indicator-label {
+    [data-kt-indicator="on"] > & {
+        display: none;
+    }
+}
+
+.filter-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .today-filter {
+    margin-left: 20px;
+    padding: 15px;
+  }
+  .dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .no-button {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  

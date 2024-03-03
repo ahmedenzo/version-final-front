@@ -1,50 +1,44 @@
 <h1 matDialogTitle>{{data.title}}</h1>
 {{"Add" | translate }} {{"Configuration" | translate }}
-  <form [formGroup]="itemForm" (ngSubmit)="submit()">
+<form [formGroup]="itemForm" (ngSubmit)="submit()">
   <div fxLayout="row wrap" fxLayout.lt-sm="column">
-    <div fxFlex="50"  class="pr-16">
+    <div fxFlex="50" class="pr-16">
       <mat-form-field class="full-width">
-        <input
-        matInput
-        name="host"
-        [formControl]="itemForm.controls['host']"
-        placeholder="host">
+        <input matInput formControlName="host" placeholder="host">
       </mat-form-field>
     </div>
 
-    <div fxFlex="50"  class="pr-16">
+    <div fxFlex="50" class="pr-16">
       <mat-form-field class="full-width">
-        <input
-        matInput
-    
-        name="port"
-        [formControl]="itemForm.controls['port']"
-        placeholder="port">
+        <input matInput formControlName="port" placeholder="port">
       </mat-form-field>
     </div>
 
-    <div fxFlex="50"  class="pr-16">
-        <mat-form-field class="full-width">
-          <input
-          matInput
-          name="username"
-          [formControl]="itemForm.controls['username']"
-          placeholder="username">
-        </mat-form-field>
-      </div>
-
-    <div fxFlex="50"  class="pr-16">
+    <div fxFlex="50" class="pr-16">
       <mat-form-field class="full-width">
-        <input
-        matInput
-        
-        name="password"
-        [formControl]="itemForm.controls['password']"
-        placeholder="password">
+        <input matInput formControlName="username" placeholder="username">
       </mat-form-field>
     </div>
 
+    <div fxFlex="50" class="pr-16">
+      <mat-form-field class="full-width">
+        <input matInput formControlName="password" placeholder="password">
+      </mat-form-field>
+    </div>
 
+    <div fxFlex="100" class="mt-16">
+      <mat-radio-group formControlName="auth">
+        <mat-radio-button value="true">Auth</mat-radio-button>
+        <mat-radio-button value="false">No Auth</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div fxFlex="100" class="mt-16">
+      <mat-radio-group formControlName="starttls">
+        <mat-radio-button value="true">StartTLS</mat-radio-button>
+        <mat-radio-button value="false">No StartTLS</mat-radio-button>
+      </mat-radio-group>
+    </div>
 
     <div fxFlex="100" class="mt-16">
       <button mat-raised-button color="primary" [disabled]="itemForm.invalid">{{"SAVE" | translate }}</button>
@@ -52,4 +46,4 @@
       <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">Cancel</button>
     </div>
   </div>
-  </form>
+</form>

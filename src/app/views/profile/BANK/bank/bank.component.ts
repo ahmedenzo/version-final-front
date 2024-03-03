@@ -141,49 +141,43 @@ export class BankComponent implements OnInit, OnDestroy {
       });
   }
 
-  getIsmtp() {
-    this.getItemSub = this.Service.getSmtpConfig().subscribe({
-      next: (response: any) => {
-  
-        this.dataSource6 = new MatTableDataSource([response.body]);
-        console.log(response);
-      },
-      error: (error) => console.error(error)
-    });
-  }
-  
-openPopUpsmtp(data?: any, isNew?: boolean) {
-    const title = isNew ? 'Add new ConfigurationSMTP' : 'Update ConfigurationSMTP';
- 
-        const dialogRef: MatDialogRef<any> = this.dialog.open(SmptppopupComponent, {
-            width: '720px',
-            disableClose: true,
-            data: { title: title, payload: data } // Passing the extracted response data to the dialog
-        });
-    
-        dialogRef.afterClosed().subscribe(res => {
-            if (!res) {
-                return;
-            }
-            // Update the SMTP configuration
-            const updateObservable = isNew ? this.Service.updateSmtpConfig(res) : this.Service.updateSmtpConfig(res);
-            updateObservable.subscribe((response: any) => {
-                // Update dataSource6
-                this.dataSource6 = new MatTableDataSource(response);
-                // Close loader
-                this.loader.close();
-                // Display success message
-                const actionMessage = isNew ? 'Added' : 'Updated';
-                this.snack.open(`ConfigurationSMTP ${actionMessage}!`, 'OK', { duration: 2000 });
-                // Refresh data
-                this.getIsmtp(); 
-            }, error => {
-                // Handle error
-                console.error(error);
-            });
-        });
-    
+getIsmtp() {
+  this.getItemSub = this.Service.getSmtpConfig().subscribe({
+    next: (response: any) => {
+      // Wrap the response object in an array
+      const data = [response];
+      // Assign the data to the MatTableDataSource
+      this.dataSource6 = new MatTableDataSource(data);
+      console.log("getsmtp", response);
+    },
+    error: (error) => console.error(error)
+  });
 }
+
+  
+openPopUpsmtp() {
+  const dialogRef = this.dialog.open(SmptppopupComponent, {
+    width: '720px',
+    disableClose: true,
+    data: { title: 'Update SMTP Configuration', payload: this.dataSource6.data.length > 0 ? this.dataSource6.data[0] : null }
+  });
+
+  dialogRef.afterClosed().subscribe(res => {
+    if (res) {
+      if (this.dataSource6.data.length > 0) {
+        this.Service.updateSmtpConfig(res).subscribe(response => {
+          this.getIsmtp();
+        });
+      } else {
+        this.Service.createSmtpConfig(res).subscribe(response => {
+          this.getIsmtp();
+        });
+      }
+    }
+  });
+}
+
+
 
 
 
@@ -357,7 +351,7 @@ openPopUpconf(data1: any, isNew?) {
         if (!formData) {
           return;
         }
-        console.log("request",formData)
+     
         this.loader.open('Updating Config');
         this.Service.configureData(formData, data1.binId).subscribe((response: any) => {
           this.loader.close();

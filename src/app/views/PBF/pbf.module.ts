@@ -47,6 +47,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     MatChipsModule,
     MatSortModule,
+    MatDialogModule,
     MatStepperModule,
     MatListModule,
     MatPaginatorModule,

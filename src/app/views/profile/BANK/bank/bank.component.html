@@ -242,51 +242,28 @@
         </mat-accordion>
       </mat-card-content>
     </mat-tab>
+
+
+
+
+
+    <mat-tab label="SMTP Settings">
+      <br>
+      <br>
+      <button mat-raised-button color="primary" (click)="openPopUpsmtp()">SMTP Configuration</button>
     
-    <mat-tab label=" SMTP Settings">
-      <br>
-      <br>
-        <button mat-raised-button color="primary" (click)="openPopUpsmtp({}, true )"> SMTP Configuration</button> 
-        
-  
-
-      <mat-card-content class="p-0" *ngIf="roles.includes('Admin_SMT') ">
-          <mat-table [dataSource]="dataSource6" matSort   >
-      
-
-      
-            <ng-container matColumnDef="host">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> host </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="host"> {{row.host}} </mat-cell>
-            </ng-container>
-      
-            
-           <ng-container matColumnDef="port">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> port </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="port"> {{row.port}} </mat-cell>
-            </ng-container>
-      
-            <ng-container matColumnDef="username">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> username </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="username"> {{row.username}} </mat-cell>
-            </ng-container>
-     
-            <ng-container matColumnDef="password">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> password </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="password"> {{row.password}} </mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="['host', 'port', 'username', 'password'];"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: ['host', 'port', 'username', 'password'];"></mat-row>
-          </mat-table>
-  
-      
+      <mat-card-content class="p-0" *ngIf="roles.includes('Admin_SMT')">
+        <div style="margin-top: 25px; margin-left: 25px;">
+          <ng-container *ngFor="let item of dataSource6.data">
+            <p><span class="bold-key">Host:</span> {{ item.host }}</p>
+            <p><span class="bold-key">Port:</span> {{ item.port }}</p>
+            <p><span class="bold-key">Username:</span> {{ item.username }}</p>
+            <p><span class="bold-key">Password:</span> {{ item.password }}</p>
+            <!-- Add more fields as needed -->
+          </ng-container>
+        </div>
       </mat-card-content>
-    
-     
     </mat-tab>
-  
-    
     
     
     

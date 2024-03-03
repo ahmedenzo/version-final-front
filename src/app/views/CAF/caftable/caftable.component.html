@@ -30,14 +30,10 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pan }}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Account">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="Account"> {{ row.acctNum }}</mat-cell>
-        </ng-container>
   
         <ng-container matColumnDef="Valid">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Expiret date  </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="Valid"> {{row.cafCardHolder.date2}} </mat-cell>
+          <mat-cell *matCellDef="let row" data-label="Valid">{{row.cafCardHolder.date1}}-{{row.cafCardHolder.date2}} </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="cardStatus">

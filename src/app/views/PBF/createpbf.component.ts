@@ -21,7 +21,7 @@ export class CreatepbfComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   public dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
- 
+  showOnlyTodayCreated: boolean = false;
   public displayedColumns: any;
   public getItemSub: Subscription;
 
@@ -47,7 +47,7 @@ export class CreatepbfComponent implements OnInit {
     }
   
     getDisplayedColumns() {
-      return ['name','cardholderNumber','Account', 'Valid', 'available_balance', 'ledgBal','actions' ];
+      return ['name','cardholderNumber', 'Valid', 'available_balance', 'ledgBal','actions' ];
     }
   
 
@@ -109,7 +109,33 @@ export class CreatepbfComponent implements OnInit {
         return dataStr.indexOf(filter) !== -1;
       };
     }
+    applyTodayFilter() {
+      const today = new Date();
+      const todayFormatted = `${today.getFullYear()}-${(today.getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
   
+      // Filter the data source
+      this.dataSource.filterPredicate = (data: any) => {
+        const createdAt = new Date(data.createdAt);
+        const createdAtFormatted = `${createdAt.getFullYear()}-${(
+          createdAt.getMonth() + 1
+        )
+          .toString()
+          .padStart(2, '0')}-${createdAt.getDate().toString().padStart(2, '0')}`;
+        return createdAtFormatted === todayFormatted;
+      };
+  
+      // Apply the filter value
+      this.dataSource.filter = this.showOnlyTodayCreated ? 'showOnlyToday' : '';
+    }
+  
+    // Other existing methods...
+  
+    toggleTodayFilter() {
+      this.applyTodayFilter();
+    }
+    
 
   }
     

@@ -37,7 +37,7 @@ ngOnInit(): void {
       totalWithdrawalLimit: [item.configuredAtmData?.totalWithdrawalLimit || '100000', Validators.required],
       offlineWithdrawalLimit: [item.configuredAtmData?.offlineWithdrawalLimit || '50000', Validators.required],
       totalCashAdvanceLimit: [item.configuredAtmData?.totalCashAdvanceLimit || '5000', Validators.required],
-      offlineCashAdvanceLimit: [item.configuredAtmData?.offlineCashAdvanceLimit || '2000', Validators.required],
+      offlineCashAdvanceLimit: [item.configuredAtmData?.offlineCashAdvanceLimit || '2000' , Validators.required],
       maximumDepositCreditAmount: [item.configuredAtmData?.maximumDepositCreditAmount || '', Validators.required],
       lastUsed: [item.configuredAtmData?.lastUsed || '', Validators.required],
       issuerTransactionProfile: [item.configuredAtmData?.issuerTransactionProfile || 'Standard', Validators.required],
@@ -48,7 +48,7 @@ ngOnInit(): void {
       atcLimit: [item.configuredEmvData?.atcLimit || '5678', Validators.required],
       sendCardBlock: [item.configuredEmvData?.sendCardBlock || 'Yes', Validators.required],
       sendPutData: [item.configuredEmvData?.sendPutData || 'No', Validators.required],
-      velocityLimitsLowerConsecutiveLimit: [item.configuredEmvData?.velocityLimitsLowerConsecutiveLimit || '1000', Validators.required],
+      velocityLimitsLowerConsecutiveLimit: [item.configuredEmvData?.velocityLimitsLowerConsecutiveLimit  || '1000', Validators.required],
       userField2: [item.configuredEmvData?.userField2 || 'SomeValue', Validators.required],
       dataTag: [item.configuredEmvData?.dataTag || 'Tag123', Validators.required],
       sendPinUnblock: [item.configuredEmvData?.sendPinUnblock || 'Yes', Validators.required],
@@ -77,9 +77,9 @@ this.itemForm4 = this.fb.group({
   offlinePurchaseLimit: [item.configuredPosData?.offlinePurchaseLimit || '8888', Validators.required],
   totalCashAdvanceLimit: [item.configuredPosData?.totalCashAdvanceLimit || '7777', Validators.required],
   offlineCashAdvanceLimit: [item.configuredPosData?.offlineCashAdvanceLimit || '6666', Validators.required],
-  totalWithdrawalLimit: [item.configuredPosData?.totalWithdrawalLimit || '5555', Validators.required],
-  offlineWithdrawalLimit: [item.configuredPosData?.offlineWithdrawalLimit || '4444', Validators.required],
-  useLimit: [item.configuredPosData?.useLimit || '3333', Validators.required],
+  totalWithdrawalLimit: [item.configuredPosData?.totalWithdrawalLimit  || '5555', Validators.required],
+  offlineWithdrawalLimit: [item.configuredPosData?.offlineWithdrawalLimit  || '4444', Validators.required],
+  useLimit: [item.configuredPosData?.useLimit|| '3333' , Validators.required],
   totalRefundCreditLimit: [item.configuredPosData?.totalRefundCreditLimit || '2222', Validators.required],
   offlineRefundCreditLimit: [item.configuredPosData?.offlineRefundCreditLimit || '1111', Validators.required],
   reasonCode: [item.configuredPosData?.reasonCode || 'Reason123', Validators.required],
@@ -106,7 +106,6 @@ this.itemForm4 = this.fb.group({
     };
   
     const emvData = {
-      segxLgth: this.itemForm2.value.segxLgth,
       atcLimit: this.itemForm2.value.atcLimit,
       sendCardBlock: this.itemForm2.value.sendCardBlock,
       sendPutData: this.itemForm2.value.sendPutData,
@@ -122,42 +121,48 @@ this.itemForm4 = this.fb.group({
     };
   
     const posData = {
-      segxLgth: this.itemForm3.value.segxLgth,
-      totalPurchaseLimit: this.itemForm3.value.totalPurchaseLimit,
-      offlinePurchaseLimit: this.itemForm3.value.offlinePurchaseLimit,
-      totalCashAdvanceLimit: this.itemForm3.value.totalCashAdvanceLimit,
-      offlineCashAdvanceLimit: this.itemForm3.value.offlineCashAdvanceLimit,
-      totalWithdrawalLimit: this.itemForm3.value.totalWithdrawalLimit,
-      offlineWithdrawalLimit: this.itemForm3.value.offlineWithdrawalLimit,
-      useLimit: this.itemForm3.value.useLimit,
-      totalRefundCreditLimit: this.itemForm3.value.totalRefundCreditLimit,
-      offlineRefundCreditLimit: this.itemForm3.value.offlineRefundCreditLimit,
-      reasonCode: this.itemForm3.value.reasonCode,
-      lastUsed: this.itemForm3.value.lastUsed,
-      issuerTransactionProfile: this.itemForm3.value.issuerTransactionProfile,
+     
+      totalPurchaseLimit: this.itemForm4.value.totalPurchaseLimit,
+      offlinePurchaseLimit: this.itemForm4.value.offlinePurchaseLimit,
+      totalCashAdvanceLimit: this.itemForm4.value.totalCashAdvanceLimit,
+      offlineCashAdvanceLimit: this.itemForm4.value.offlineCashAdvanceLimit,
+      totalWithdrawalLimit: this.itemForm4.value.totalWithdrawalLimit,
+      offlineWithdrawalLimit: this.itemForm4.value.offlineWithdrawalLimit,
+      useLimit: this.itemForm4.value.useLimit,
+      totalRefundCreditLimit: this.itemForm4.value.totalRefundCreditLimit,
+      offlineRefundCreditLimit: this.itemForm4.value.offlineRefundCreditLimit,
+      reasonCode: this.itemForm4.value.reasonCode,
+      lastUsed: this.itemForm4.value.lastUsed,
+      issuerTransactionProfile: this.itemForm4.value.issuerTransactionProfile,
     };
   
     const pospbfxd = {
-      segxLgth: this.itemForm4.value.segxLgth,
-      ttlFloat: this.itemForm4.value.ttlFloat,
-      daysDelinq: this.itemForm4.value.daysDelinq,
-      monthsActive: this.itemForm4.value.monthsActive,
-      cycle1: this.itemForm4.value.cycle1,
-      cycle2: this.itemForm4.value.cycle2,
-      cycle3: this.itemForm4.value.cycle3,
-      unknown: this.itemForm4.value.unknown,
-      userFld2: this.itemForm4.value.userFld2,
+      segxLgth: this.itemForm3.value.segxLgth,
+      ttlFloat: this.itemForm3.value.ttlFloat,
+      daysDelinq: this.itemForm3.value.daysDelinq,
+      monthsActive: this.itemForm3.value.monthsActive,
+      cycle1: this.itemForm3.value.cycle1,
+      cycle2: this.itemForm3.value.cycle2,
+      cycle3: this.itemForm3.value.cycle3,
+      unknown: this.itemForm3.value.unknown,
+      userFld2: this.itemForm3.value.userFld2,
     };
+
   
+    // Get the form values
+
+
+    // Create the form data object
     const formData = {
       atmData: atmData,
       emvData: emvData,
       posData: posData,
       pospbfxd: pospbfxd,
     };
-  
+
+    // Close the dialog with the form data
     this.dialogRef.close(formData);
-    console.log("5roj",formData)
+
   }
   
  

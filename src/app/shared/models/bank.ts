@@ -128,13 +128,13 @@ export interface Bank {
     pospbfxd?: POSPBFXD;
   }
   
-  export interface SMTPCONF     {
-
-    host:string;
-    port:number;
-    username:string;
-    password:string
-
-
-  
+  export interface SMTPCONF {
+    id?: number;
+    host: string;
+    port: number;
+    username: string;
+    password: string;
+    auth?: boolean; // Add auth property as optional
+    starttls?: boolean; // Add starttls property as optional
   }
+  

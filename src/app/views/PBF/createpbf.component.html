@@ -1,17 +1,20 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
-
-    <div class="info-card primary">
-      <div class="description">PBF CARD</div>
-
-
-
+  <div class="info-card primary">
+    <div class="description">PBF CARD</div>
   </div>
   <div class="filter-container">
     <mat-form-field class="filter-input">
       <input matInput (keyup)="applyFilter($event)" [placeholder]="'Search' | translate">
-
     </mat-form-field>
+    <div class="today-filter">
+      <mat-slide-toggle [(ngModel)]="showOnlyTodayCreated" (change)="toggleTodayFilter()">
+        {{ "Show Only Today's Cards Created" | translate }}
+      </mat-slide-toggle>
+    </div>
   </div>
+</div>
+ 
+
   <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
     <mat-card-content class="p-0">
       <mat-table [dataSource]="dataSource" matSort>
@@ -27,10 +30,7 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pbfCardHolder.cardholderNumber }}</mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Account">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
-          <mat-cell *matCellDef="let row" data-label="Account"> {{ row.numAccount}}</mat-cell>
-        </ng-container>
+
   
         <ng-container matColumnDef="Valid">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Valid </mat-header-cell>

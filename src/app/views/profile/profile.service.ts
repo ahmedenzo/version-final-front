@@ -180,18 +180,35 @@ export class Service {
 
 
 
-
-      getSmtpConfig(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(`${this.apiurlsmtp}/config`, { observe: 'response' });
-  }
-
-  updateSmtpConfig(data: any): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(`${this.apiurlsmtp}/update`, data, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      observe: 'response'
-    });
-  }
+      getSmtpConfig(): Observable<any> {
+        return this.http.get<any>(`${this.apiurlsmtp}/config`)
+          .pipe(
+            catchError(this.handleErrorSmtp)
+          );
+      }
     
+      updateSmtpConfig(newConfig: any): Observable<any> {
+        return this.http.put<any>(`${this.apiurlsmtp}/update`, newConfig)
+          .pipe(
+            catchError(this.handleErrorSmtp)
+          );
+      }
+    
+      createSmtpConfig(newConfig: any): Observable<any> {
+        return this.http.post<any>(`${this.apiurlsmtp}/create`, newConfig)
+          .pipe(
+            catchError(this.handleErrorSmtp)
+          );
+      }
+    
+      private handleErrorSmtp(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+          console.error('An error occurred:', error.error.message);
+        } else {
+          console.error(
+            `Backend returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+        }
+        return throwError('Something bad happened while processing SMTP configuration; please try again later.');
+      }
     }
