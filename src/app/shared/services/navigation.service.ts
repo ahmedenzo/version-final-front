@@ -62,8 +62,8 @@ export class NavigationService {
       sub: [
 
      
-        {name: 'Manage PBF Card', state: 'pbfcard/pbf-class',       role: ['Admin_Agence']},
-        {name: 'Manage CAF Card', state: 'cafcard/caf-class', role: ['Admin_Agence']},
+        {name: 'Manage Cards Balance', state: 'pbfcard/pbf-class',       role: ['Admin_Agence']},
+        {name: 'Manage Cards Status', state: 'cafcard/caf-class', role: ['Admin_Agence']},
 
 
      
@@ -98,8 +98,8 @@ export class NavigationService {
           role: ['Admin_Bank'],
           sub: [
             { name: 'Generate CardHolder File', state: 'gfile/generated-card', role: ['Admin_Bank'] },
-            { name: 'Generate PBF File', state: 'cafcard/generated-pbf' , role: ['Admin_Bank']},
-            { name: 'Generate CaF File', state: 'cafgen/generated-caf', role: ['Admin_Bank'] },
+            { name: 'Generate Cards Balance File', state: 'cafcard/generated-pbf' , role: ['Admin_Bank']},
+            { name: 'Generate Cards Status File', state: 'cafgen/generated-caf', role: ['Admin_Bank'] },
           
 
           ]

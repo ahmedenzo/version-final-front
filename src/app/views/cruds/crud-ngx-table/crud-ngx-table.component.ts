@@ -122,24 +122,28 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       if (isNew) {
         const loaderMessage = this.translate.instant('ADD_NEW_CARD');
         this.loader.open(loaderMessage);
-    console.log("res",res)
+        console.log("res",res)
         this.crudService.addItem2(res.bin, res).subscribe(data => {
-          console.log("binid1", res.bin);
           this.dataSource.data = data;
-          console.log("binid2", res.bin);
           this.loader.close(); // Close the loader when the request is complete
-          
           const snackMessage = this.translate.instant('CARD_ADDED');
           this.snack.open(snackMessage, 'OK', { duration: 4000 });
           this.getItems();
         }, error => {
           console.error('Error occurred', error);
           this.loader.close(); // Close the loader in case of an error
-          // Handle error if necessary
+          if (error.status === 400 && error.error === "User already has a card") {
+            // Display a snack bar message for the "User already has a card" error
+            const errorMessage = this.translate.instant('USER ALREADY HAS CARD WITH THIS PASSPORT');
+            this.snack.open(errorMessage, 'OK', { duration: 8000 }); // Show for 5 seconds
+            // Close the dialog after 5 seconds
+            setTimeout(() => {
+              dialogRef.close();
+            }, 5000); // Adjust the time as needed
+          } else {
+            // Handle other errors if necessary
+          }
         });
-      
-    
-
 
       } else {
         const loaderMessage = this.translate.instant('UPDATE_CARD');
