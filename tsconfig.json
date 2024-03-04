@@ -9,6 +9,7 @@
     "outDir": "./dist/out-tsc",
     "baseUrl": "src",
     "sourceMap": true,
+    "removeComments": true,
     "declaration": false,
     "moduleResolution": "node",
     "experimentalDecorators": true,

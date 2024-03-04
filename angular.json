@@ -61,6 +61,7 @@
               "node_modules/intl-tel-input/build/js/utils.js",
               "node_modules/intl-tel-input/build/js/intlTelInput.js"
             ]
+      
           },
           "configurations": {
             "production": {
