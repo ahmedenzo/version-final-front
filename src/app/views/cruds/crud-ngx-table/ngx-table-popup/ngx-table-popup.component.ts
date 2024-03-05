@@ -597,7 +597,7 @@ export class NgxTablePopupComponent implements OnInit {
 
       }
     
-      console.log("TerritoryCode Code Values:", this.TerritoryCodevalue);
+      
     }
     generateValuerenewoption() {
       const formValue = this.basicForm.get("renewOption").value.toString();

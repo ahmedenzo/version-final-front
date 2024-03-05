@@ -122,7 +122,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       if (isNew) {
         const loaderMessage = this.translate.instant('ADD_NEW_CARD');
         this.loader.open(loaderMessage);
-        console.log("res",res)
+       
         this.crudService.addItem2(res.bin, res).subscribe(data => {
           this.dataSource.data = data;
           this.loader.close(); // Close the loader when the request is complete
@@ -149,10 +149,9 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
         const loaderMessage = this.translate.instant('UPDATE_CARD');
         this.loader.open(loaderMessage);
        
-        console.log("Form bin:", res.cardHolder.bin);
+       
         this.crudService.updateCardHolderData(data.customerId,res.cardHolder.bin,res.cardHolder).subscribe(data => {
-          console.log("Form bin:", res.cardHolder.bin);
-          console.log("update work");
+       
           this.dataSource.data = data;
           this.loader.close();
           const snackMessage = this.translate.instant('CARD_UPDATED');
@@ -279,7 +278,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       });
   
       this.dataSource.data = data;
-          console.log(data)
+         
       // Calculate the counts of confirmed and not confirmed cards
       this.confirmedCardCount = data.filter(item => item.confirmation).length;
       this.notConfirmedCardCount = data.filter(item => !item.confirmation).length;
@@ -323,7 +322,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
     this.crudService.confirmDataInputCart(customerId).subscribe(
       (response: any) => {
         
-        console.log(response);
+       
       },
       (error: any) => {
         

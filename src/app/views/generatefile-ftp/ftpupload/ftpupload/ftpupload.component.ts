@@ -93,7 +93,7 @@ export class FtpuploadComponent  {
     const dialogRef = this.dialog.open(HistoryComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog was closed');
+      
     });
   }
   

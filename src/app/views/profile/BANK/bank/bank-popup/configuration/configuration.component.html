@@ -5,6 +5,11 @@
             <ng-template matStepLabel>ATM Data</ng-template>
   
             <mat-form-field style="margin-bottom: 20px;">
+              <mat-label>lgth</mat-label>
+              <input matInput formControlName="lgth" required>
+            </mat-form-field>
+
+            <mat-form-field style="margin-bottom: 20px;">
               <mat-label>Use Limit</mat-label>
               <input matInput formControlName="useLimit" required>
             </mat-form-field>
@@ -58,6 +63,10 @@
 <mat-step [stepControl]="itemForm2">
   <ng-template matStepLabel>EMV Data</ng-template>
   <form [formGroup]="itemForm2">
+    <mat-form-field>
+      <mat-label>Segment Length</mat-label>
+      <input matInput formControlName="segxLgth" required>
+    </mat-form-field>
 
     <mat-form-field>
       <mat-label>ATC Limit</mat-label>
@@ -78,6 +87,17 @@
       <mat-label>Velocity Limits Lower Consecutive Limit</mat-label>
       <input matInput formControlName="velocityLimitsLowerConsecutiveLimit" required>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>userField2</mat-label>
+      <input matInput formControlName="userField2" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>dataTag</mat-label>
+      <input matInput formControlName="dataTag" required>
+    </mat-form-field>
+
     <mat-form-field>
       <mat-label>Send Pin Unblock</mat-label>
       <input matInput formControlName="sendPinUnblock" required>
@@ -107,6 +127,8 @@
       <mat-label>Action Table Index</mat-label>
       <input matInput formControlName="actionTableIndex" required>
     </mat-form-field>
+
+
 
     <div>
       <button mat-button matStepperNext>Next</button>
@@ -157,7 +179,23 @@
       <mat-label>Cycle 3</mat-label>
       <input matInput formControlName="cycle3" required>
     </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>unknown</mat-label>
+      <input matInput formControlName="unknown" required>
+    </mat-form-field>
+
+    
+    <mat-form-field>
+      <mat-label>userFld2</mat-label>
+      <input matInput formControlName="userFld2" required>
+    </mat-form-field>
+
+
+
     <div>
+
+      
       <button mat-button matStepperNext>Next</button>
       <button mat-icon-button class="circle-button" color="warn" type="button" (click)="dialogRef.close(false)">
         <mat-icon>close</mat-icon>
@@ -169,7 +207,11 @@
 <mat-step [stepControl]="itemForm4">
   <ng-template matStepLabel>PosData</ng-template>
   <form [formGroup]="itemForm4">
-  
+    <mat-form-field>
+
+      <mat-label>segxLgth</mat-label>
+      <input matInput formControlName="segxLgth" required>
+    </mat-form-field>
 
     <mat-form-field>
       <mat-label>Total Purchase Limit</mat-label>
@@ -219,6 +261,21 @@
     <mat-form-field>
       <mat-label>Issuer Transaction Profile</mat-label>
       <input matInput formControlName="issuerTransactionProfile" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>reasonCode</mat-label>
+      <input matInput formControlName="reasonCode" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>lastUsed</mat-label>
+      <input matInput formControlName="lastUsed" required>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>userField2</mat-label>
+      <input matInput formControlName="userField2" required>
     </mat-form-field>
 
     <div>

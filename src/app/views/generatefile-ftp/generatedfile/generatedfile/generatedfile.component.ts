@@ -49,8 +49,7 @@ export class GeneratedfileComponent implements OnInit, OnDestroy {
     this.displayedColumns = this.getDisplayedColumns();
     this.getItemSub = this.GeneratedfileService.getConfirmedCardHolders()
     .subscribe(data => {
-      console.log('Service data:', data);
-    
+      
 
       this.groupedData = groupBy(data, item => {
         if (item.updatedAt && new Date(item.updatedAt).getTime() > new Date(item.createdAt).getTime()) {
@@ -59,7 +58,7 @@ export class GeneratedfileComponent implements OnInit, OnDestroy {
         return this.formatDate(item.createdAt);
       });
     
-      console.log('Grouped Data:', this.groupedData);
+   
     
       
       this.groupedDataKeys = Object.keys(this.groupedData).sort((a, b) => {
@@ -119,7 +118,7 @@ export class GeneratedfileComponent implements OnInit, OnDestroy {
     if (!this.openedPanels.includes(panelNumber)) {
         this.openedPanels.push(panelNumber);
     }
-    console.log("Panel Opened with data:", this.groupedData[this.groupedDataKeys[panelNumber]]);
+    
 }
 
 

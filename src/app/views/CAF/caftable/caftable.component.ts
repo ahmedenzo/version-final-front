@@ -160,8 +160,7 @@ export class CaftableComponent implements OnInit {
         }
       );
   
-      console.log('Original Card Status:', row.originalCardStatus);
-      console.log('Updated Card Status:', numericCardStatus);
+    
     }
   
     openSnackBar(message: string, action: string) {

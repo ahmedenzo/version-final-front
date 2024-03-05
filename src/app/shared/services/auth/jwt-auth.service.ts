@@ -131,7 +131,7 @@ export class JwtAuthService {
     this.ls.setItem(this.JWT_TOKEN, token);
     this.ls.setItem(this.APP_USER, user);
     this.ls.setItem(this.APP_Role, JSON.stringify(roles));
-    console.log(this.user)
+    
   }
   private clearLocalStorage(): void {
     this.ls.clear();
@@ -150,8 +150,7 @@ export class JwtAuthService {
     const url = `${this.baseUrl}/Updateid/${customerId}/role?roleName=${roleName}`;
     const token = localStorage.getItem('JWT_TOKEN');
     const headers = { Authorization: `Bearer ${token}` };
-    console.log(headers)
-    console.log(roleName)
+   
     return this.http.put<ApiResponse>(url, null, { headers });
   }
 
@@ -165,7 +164,7 @@ export class JwtAuthService {
     
     // Get the authentication token from your authentication service
     const authToken = localStorage.getItem('JWT_TOKEN');
-console.log(authToken)
+
     // Set the headers with the authentication token
     const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
     
@@ -275,7 +274,7 @@ console.log(authToken)
     // Method to check if the token is expired
     isTokenExpired(): boolean {
       const tokenExpirationThresholdInSeconds = 10;
-      console.log("tokenExpirationThreshold (in seconds)", tokenExpirationThresholdInSeconds);
+     
   
       // Check if the user has any activity
       if (this.isAuthenticated && this.lastActivityTime) {
@@ -284,7 +283,7 @@ console.log(authToken)
         const timeDifferenceInSeconds = Math.floor((currentTime - this.lastActivityTime) / 1000);
   
         // Log the time difference
-        console.log("Time difference (in seconds):", timeDifferenceInSeconds);
+      
   
         // If the time difference is greater than the token expiration threshold,
         // sign out the user and return true (token expired)
