@@ -106,6 +106,7 @@ this.itemForm4 = this.fb.group({
     };
   
     const emvData = {
+      segxLgth: this.itemForm2.value.segxLgth,
       atcLimit: this.itemForm2.value.atcLimit,
       sendCardBlock: this.itemForm2.value.sendCardBlock,
       sendPutData: this.itemForm2.value.sendPutData,

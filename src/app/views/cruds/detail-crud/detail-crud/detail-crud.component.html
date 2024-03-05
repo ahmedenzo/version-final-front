@@ -45,7 +45,8 @@
 
     <div class="card-item">
       <label class="card-label">{{ 'ValidCard' | translate }}:</label>
-      <div class="card-value">{{ cardHolder.date1 | date:'MM/yy' }}--{{ cardHolder.date2 | date:'MM/yy' }}</div>
+      <div class="card-value">{{ cardHolder.date1.substring(0, 2) }}/{{ cardHolder.date1.substring(2, 4) }} - {{ cardHolder.date2.substring(0, 2) }}/{{ cardHolder.date2.substring(2, 4) }}</div>
+      
     </div>
     <div class="card-item">
       <label class="card-label">{{ 'CardType' | translate }}:</label>

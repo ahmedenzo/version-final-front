@@ -88,6 +88,8 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
         // Sort data by createdAt in descending order
         data.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
 }
 
