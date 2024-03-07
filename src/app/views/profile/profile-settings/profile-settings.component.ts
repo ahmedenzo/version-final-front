@@ -3,7 +3,8 @@ import { FileUploader } from 'ng2-file-upload';
 import { JwtAuthService } from "app/shared/services/auth/jwt-auth.service";
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ProfileComponent } from '../profile.component';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile-settings',
@@ -26,7 +27,11 @@ export class ProfileSettingsComponent implements OnInit {
   userr: any;
   userData: any;
   submitted: boolean = false;
-  constructor(private JwtAuthService :JwtAuthService,private formBuilder: FormBuilder,private ProfileComponent:ProfileComponent) { }
+  hideOldPassword: boolean = true;
+  hideNewPassword: boolean = true;
+  hideConfirmPassword: boolean = true;
+ 
+  constructor(private JwtAuthService :JwtAuthService,private formBuilder: FormBuilder,private ProfileComponent:ProfileComponent,private snackBar:MatSnackBar) { }
 
   ngOnInit() {
     const storedRoles = localStorage.getItem('roles');
@@ -59,11 +64,12 @@ export class ProfileSettingsComponent implements OnInit {
         confirmPassword: ['', Validators.required],
       }, {
         validators: this.passwordsMatchValidator
+      
       });
     
       
   }
-  
+
   passwordsMatchValidator(formGroup: FormGroup) {
     const newPassword = formGroup.get('newPassword').value;
     const confirmPassword = formGroup.get('confirmPassword').value;
@@ -84,19 +90,20 @@ export class ProfileSettingsComponent implements OnInit {
     if (!this.appPasswordStrength) {
       return null; // Don't perform the check if the directive is not enabled
     }
-
+  
     const password = control.value;
-    const hasAlphabet = /[a-zA-Z]/.test(password);
-    const hasDigit = /\d/.test(password);
-    const hasSymbol = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password);
-
+    const hasAlphabet = /[a-zA-Z]/.test(password); // Check for at least one alphabet character
+    const hasDigit = /\d/.test(password); // Check for at least one digit
+    const hasSymbol = /[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password); // Check for at least one special character
+  
     if (!hasAlphabet || !hasDigit || !hasSymbol) {
       return { weakPassword: true };
     }
-
+  
     return null;
   }
-
+  
+  
 
   // ... other methods for changePassword and forgotPassword
 
@@ -131,24 +138,29 @@ export class ProfileSettingsComponent implements OnInit {
       this.JwtAuthService.changePassword(oldPassword, newPassword, confirmPassword)
         .subscribe(
           response => {
-            // Password changed successfully, handle the response as needed
             console.log('Password changed successfully:', response);
-            // You can also reset the form or redirect the user to another page
             this.passwordChangeForm.reset();
+            this.openSnackBar('Password changed successfully');
           },
           error => {
-            // Handle error response, show error message to the user, etc.
-            console.error('Error changing password:', error);
+            if (error === 'Old password is incorrect') {
+              this.openSnackBar('Old password is incorrect');
+            } else {
+              console.error('Error changing password:', error);
+              this.openSnackBar('Old password is incorrect'); // Display a generic error message for other errors
+            }
           }
         );
-    } else {
-      // Form is invalid, mark all fields as touched to show validation errors
-      this.passwordChangeForm.markAllAsTouched();
+    
     }
   }
   
   
-  
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000, // Duration in milliseconds
+    });
+  }
 
 
   uploadImage() {
@@ -197,6 +209,6 @@ export class ProfileSettingsComponent implements OnInit {
   forgotPassword() {
    
 
-console.log(this.JwtAuthService.getUser().value())
+
   }
   }

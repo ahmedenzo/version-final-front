@@ -26,7 +26,10 @@ export class ProfileComponent implements OnInit {
   fullname:any
 
   limitedAccessPermissions: { [key: string]: string[] } = {
-    'Simple_User': ['Add Card', 'Confirmed Card'],
+    'Simple_User': ['Add Card', 'Confirmed Card','Update Card Operation'],
+    'Admin_Bank': ['Generated CAF PBF Files', 'Send File'],
+    'Admin_Agence': ['Manage Cards Balance', 'Manage Cards Status'],
+   
    
   };
 

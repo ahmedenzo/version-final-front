@@ -155,22 +155,43 @@ export class JwtAuthService {
   }
 
 
-  changePassword(oldPassword: string, newPassword: string, confirmPassword: string): Observable<any> {
-    const body = {
-      oldPassword: oldPassword,
-      newPassword: newPassword,
-      confirmPassword: confirmPassword
-    };
-    
-    // Get the authentication token from your authentication service
+  changePassword(oldPassword: string, newPassword: string, confirmPassword: string): Observable<string> {
     const authToken = localStorage.getItem('JWT_TOKEN');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${authToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
 
-    // Set the headers with the authentication token
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${authToken}`);
-    
-    return this.http.post(`${this.baseUrl}/change-password`, body, { headers: headers });
+    // Prepare the data as URL encoded form data
+    const body = `oldPassword=${encodeURIComponent(oldPassword)}&newPassword=${encodeURIComponent(newPassword)}&confirmPassword=${encodeURIComponent(confirmPassword)}`;
+
+    return this.http.post<any>(`${this.baseUrl}/change-password`, body, { headers: headers, observe: 'response' })
+      .pipe(
+        map((response: HttpResponse<any>) => {
+          // Extract the message from the response body
+          const message = response.body?.message;
+          if (message === 'Old password is incorrect') {
+            throw new Error('Old password is incorrect');
+          } else if (message === 'Password changed successfully') {
+            return message;
+          } else {
+            throw new Error('Unknown response message');
+          }
+        }),
+        catchError(err => {
+          console.error('Error changing password:', err);
+          if (err.message === 'Old password is incorrect') {
+            return throwError(() => 'Old password is incorrect');
+          } else if (err.message === 'Unknown response message') {
+            return throwError(() => 'Unknown response message');
+          } else {
+            return throwError(() => 'Error changing password');
+          }
+        })
+      );
   }
-
+  
+  
   
 
 

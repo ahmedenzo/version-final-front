@@ -57,4 +57,43 @@
   .medium-width {
     width: 300px; /* You can adjust the width according to your preference */
   }
-  
+  /* Form field container */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Individual form field */
+.form-field {
+  width: 100%;
+}
+
+/* Button container */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Error message */
+.text-danger {
+  color: #f44336; /* Red color for error message */
+  font-size: 0.875rem; /* Adjust font size */
+  margin-top: 8px; /* Add some space above the error message */
+}
+.example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}

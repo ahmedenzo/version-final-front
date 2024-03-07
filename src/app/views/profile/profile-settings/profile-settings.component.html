@@ -59,44 +59,47 @@
         <mat-card-content class="mt-16">
           <form [formGroup]="passwordChangeForm" (ngSubmit)="changePassword()">
             <div class="grid-container">
-              <div class="form-field">
+              <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>Old Password</mat-label>
-                  <input matInput type="text" formControlName="oldPassword">
+                  <input matInput [type]="hideOldPassword ? 'password' : 'text'" formControlName="oldPassword" placeholder="Enter old password">
+                  <button mat-icon-button matSuffix (click)="hideOldPassword = !hideOldPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideOldPassword">
+                    <mat-icon>{{hideOldPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
                 </mat-form-field>
               </div>
-        
-              <div class="form-field">
+    
+              <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>New Password</mat-label>
-                  <input matInput type="text" formControlName="newPassword">
-                  <mat-error *ngIf="passwordChangeForm.get('newPassword').hasError('required')">New Password is required</mat-error>
-                  <mat-error *ngIf="passwordChangeForm.get('newPassword').hasError('weakPassword')">Password must contain at least one alphabet character, one digit, and one symbol</mat-error>
+                  <input matInput [type]="hideNewPassword ? 'password' : 'text'" formControlName="newPassword" placeholder="Enter newPassword">
+                  <button mat-icon-button matSuffix (click)="hideNewPassword = !hideNewPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNewPassword">
+                    <mat-icon>{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
                 </mat-form-field>
               </div>
-        
-              <div class="form-field">
+    
+              <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>Confirm New Password</mat-label>
-                  <input matInput type="text" formControlName="confirmPassword">
-                  <mat-error *ngIf="passwordChangeForm.get('confirmPassword').hasError('required')">Confirm Password is required</mat-error>
+                  <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Enter confirmPassword">
+                  <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
+                    <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
                 </mat-form-field>
               </div>
-        
+    
               <div class="button-container">
                 <button mat-raised-button color="primary" type="submit" [disabled]="passwordChangeForm.invalid">Change Password</button>
               </div>
             </div>
           </form>
         </mat-card-content>
-        
-        
       </mat-card>
-      
-      
-      
-      
     </mat-tab>
+    
+    
+    
     
   </mat-tab-group>
 </mat-card>

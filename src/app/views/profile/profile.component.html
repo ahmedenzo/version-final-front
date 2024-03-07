@@ -99,21 +99,31 @@
     </mat-card>
 
 
-
-
     <mat-card class="default" *ngIf="roles && !roles.includes('Admin_SMT')">
-      <h3 class="mx-80 my-27">Permission List</h3>
+      <h3 class="mx-50 my-24">Permission List</h3>
       <mat-card-content class="pt-0">
         <mat-list>
           <mat-list-item><mat-icon class="mr-16">Role</mat-icon> {{roles}}</mat-list-item>
-          <ng-container *ngIf="roles.includes('Admin_Bank'); else limitedAccess">
-            <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon> Full Access</mat-list-item>
+          <ng-container *ngIf="roles.includes('Simple_User') || roles.includes('Admin_Bank') || roles.includes('Admin_Agence'); else limitedAccess">
+            <ng-container *ngIf="roles.includes('Simple_User')">
+              <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon></mat-list-item>
+              <ng-container *ngIf="roles.includes('Simple_User'); then role1Permissions else emptyTemplate"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="roles.includes('Admin_Bank')">
+              <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon></mat-list-item>
+              <ng-container *ngIf="roles.includes('Admin_Bank'); then role2Permissions else emptyTemplate"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="roles.includes('Admin_Agence')">
+              <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon></mat-list-item>
+              <ng-container *ngIf="roles.includes('Admin_Agence'); then role3Permissions else emptyTemplate"></ng-container>
+            </ng-container>
           </ng-container>
           <ng-template #limitedAccess>
             <mat-list-item><mat-icon class="mr-16">Access Permissions</mat-icon>
               <ul>
                 <ng-container *ngIf="roles.includes('Simple_User'); then role1Permissions else emptyTemplate"></ng-container>
-                
+                <ng-container *ngIf="roles.includes('Admin_Bank'); then role2Permissions else emptyTemplate"></ng-container>
+                <ng-container *ngIf="roles.includes('Admin_Agence'); then role3Permissions else emptyTemplate"></ng-container>
               </ul>
             </mat-list-item>
           </ng-template>
@@ -125,15 +135,21 @@
       </ng-template>
     
       <ng-template #role2Permissions>
-        <li *ngFor="let permission of limitedAccessPermissions['Role2']">{{ permission }}</li>
+        <li *ngFor="let permission of limitedAccessPermissions['Admin_Bank']">{{ permission }}</li>
       </ng-template>
     
       <ng-template #role3Permissions>
-        <li *ngFor="let permission of limitedAccessPermissions['Role3']">{{ permission }}</li>
+        <li *ngFor="let permission of limitedAccessPermissions['Admin_Agence']">{{ permission }}</li>
       </ng-template>
     
-      <ng-template #emptyTemplate></ng-template>
+      <ng-template #emptyTemplate>
+        <!-- Placeholder template if the user role is not found -->
+      </ng-template>
     </mat-card>
+    
+    
+    
+    
     
     
     

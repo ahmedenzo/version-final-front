@@ -97,9 +97,9 @@ export class NavigationService {
           type: 'dropDown',
           role: ['Admin_Bank'],
           sub: [
-            { name: 'Generate CardHolder File', state: 'gfile/generated-card', role: ['Admin_Bank'] },
-            { name: 'Generate Cards Balance File', state: 'cafcard/generated-pbf' , role: ['Admin_Bank']},
-            { name: 'Generate Cards Status File', state: 'cafgen/generated-caf', role: ['Admin_Bank'] },
+            { name: 'GenerateCardHolder', state: 'gfile/generated-card', role: ['Admin_Bank'] },
+            { name: 'GenerateCardsBalance ', state: 'cafcard/generated-pbf' , role: ['Admin_Bank']},
+            { name: 'GenerateCardsStatus', state: 'cafgen/generated-caf', role: ['Admin_Bank'] },
           
 
           ]
