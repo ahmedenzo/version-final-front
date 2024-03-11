@@ -26,7 +26,8 @@ export class GcafComponent implements OnInit {
   public displayedColumns: any;
   public getItemSub: Subscription;
   public panelsWithGeneratedFiles: number[] = [];
-
+  pageSize = 10; // Initial page size
+  pageIndex = 0; // Initial page index
   constructor( private loader: AppLoaderService,
     private snack: MatSnackBar,
     private GcafService:GcafService,
@@ -77,8 +78,10 @@ export class GcafComponent implements OnInit {
   
   getCardCountToGenerate(group: string): number {
     const dataSet = this.groupedData[group];
-    return dataSet.reduce((sum, row) => sum + (row.cardgenerated ? 1 : 0), 1);
-  }
+    return dataSet.reduce((sum, row) => sum + (row.cardgenerated === 1 ? 0 : 1), 0);
+}
+
+
   
  
 
@@ -102,7 +105,7 @@ export class GcafComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['name','cardholderNumber','Account', 'Valid','cardStatus' ];
+    return ['name','cardholderNumber', 'Valid','cardStatus' ];
   }
 
   panelOpened(panelNumber: number): void {
@@ -155,7 +158,14 @@ export class GcafComponent implements OnInit {
       }
     );
   }
-  
+  onPaginatorChange(event: any, group: string) {
+    // Update the page size and index
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    // You might need to update the data source for the current group here
+    // For example, if you're using MatTableDataSource, you can use its 'slice' method
+    // this.groupedData[group].data = this.groupedData[group].data.slice(event.pageIndex * event.pageSize, (event.pageIndex + 1) * event.pageSize);
+  }
   
   convertNumericToEnum(value: any): CardStatus {
     switch (value) {

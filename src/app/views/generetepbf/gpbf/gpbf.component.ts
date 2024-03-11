@@ -25,7 +25,8 @@ export class GpbfComponent implements OnInit {
   public displayedColumns: any;
   public getItemSub: Subscription;
   public panelsWithGeneratedFiles: number[] = [];
-
+  pageSize = 10; // Initial page size
+  pageIndex = 0; // Initial page index
   constructor( private loader: AppLoaderService,
     private snack: MatSnackBar,
    private GpbfService:GpbfService,
@@ -77,9 +78,18 @@ export class GpbfComponent implements OnInit {
 
   getCardCountToGenerate(group: string): number {
     const dataSet = this.groupedData[group];
-    return dataSet.reduce((sum, row) => sum + (row.cardgenerated ? 1 : 0), 1);
-  }
-  
+    return dataSet.reduce((sum, row) => sum + (row.cardgenerated === 1 ? 0 : 1), 0);
+}
+
+
+onPaginatorChange(event: any, group: string) {
+  // Update the page size and index
+  this.pageSize = event.pageSize;
+  this.pageIndex = event.pageIndex;
+  // You might need to update the data source for the current group here
+  // For example, if you're using MatTableDataSource, you can use its 'slice' method
+  // this.groupedData[group].data = this.groupedData[group].data.slice(event.pageIndex * event.pageSize, (event.pageIndex + 1) * event.pageSize);
+}
   
   private formatDate(date: Date | string): string {
     const d = new Date(date);
@@ -100,7 +110,7 @@ export class GpbfComponent implements OnInit {
   }
 
   getDisplayedColumns() {
-    return ['name','cardholderNumber','Account', 'Valid','available_balance','ledgBal' ];
+    return ['name','cardholderNumber', 'Valid','available_balance','ledgBal' ];
   }
 
   panelOpened(panelNumber: number): void {

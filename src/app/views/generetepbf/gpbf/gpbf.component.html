@@ -25,17 +25,14 @@
           
   
             <ng-container matColumnDef="name">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
                 <mat-cell *matCellDef="let row" data-label="name"> {{row.pbfCardHolder.name}} </mat-cell>
               </ng-container>
             <ng-container matColumnDef="cardholderNumber">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
+              <mat-header-cell *matHeaderCellDef mat-sort-header> cardNumber </mat-header-cell>
               <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pbfCardHolder.cardholderNumber.substr(0, 8) +'*******' + row.pbfCardHolder.cardholderNumber.substr(-4) }}</mat-cell>
             </ng-container>
-            <ng-container matColumnDef="Account">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> Account </mat-header-cell>
-              <mat-cell *matCellDef="let row" data-label="Account"> {{ row.numAccount.substr(0, 4) +'*******' + row.numAccount.substr(-4) }}</mat-cell>
-            </ng-container>
+
       
             <ng-container matColumnDef="Valid">
               <mat-header-cell *matHeaderCellDef mat-sort-header> Valid </mat-header-cell>
@@ -65,19 +62,23 @@
                       <mat-chip mat-sm-chip [color]="getStatusChipColor(row.statuscard)" [selected]="row.statuscard">{{ getStatusTranslationKey(row.statuscard) | translate }}</mat-chip>
                     </mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="available_balance">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> available_balance </mat-header-cell>
-                    <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="available_balance"> {{row.availBal}} </mat-cell>
-                  </ng-container>
-            
-                  <ng-container matColumnDef="ledgBal">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> ledgBal </mat-header-cell>
-                    <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="ledgBal"> {{row.ledgBal}} </mat-cell>
-                  </ng-container>
+<ng-container matColumnDef="available_balance">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> available_balance </mat-header-cell>
+    <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="available_balance"> ${{ row.availBal / 100 | number:'1.2-2' }} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="ledgBal">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> ledgBal </mat-header-cell>
+    <mat-cell *matCellDef="let row" [style.color]="row.color" data-label="ledgBal"> ${{ row.ledgBal / 100 | number:'1.2-2' }} </mat-cell>
+</ng-container>
+
+                
+                
   
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
+          <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="pageSize" [length]="groupedData[group]?.length" [pageIndex]="pageIndex" (page)="onPaginatorChange($event, group)"></mat-paginator>
         </mat-card-content>
       </mat-expansion-panel>
     </ng-container>

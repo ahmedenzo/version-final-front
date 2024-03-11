@@ -11,7 +11,7 @@ import { CardHolder, updatecode } from 'app/shared/models/Cardholder';
 import { ChangeDetectorRef } from '@angular/core';
 import { AppLoaderService } from 'app/shared/services/app-loader/app-loader.service';
 import { TranslateService } from '@ngx-translate/core';
-
+import { PageEvent } from '@angular/material/paginator';
 @Component({
   selector: 'app-generatedfile',
   templateUrl: './generatedfile.component.html',
@@ -240,6 +240,12 @@ isAllGenerated(dateKey: string): boolean {
 isPartiallyGenerated(dateKey: string): boolean {
   const dataSet = this.groupedData[dateKey];
   return dataSet.some(row => Number(row.cardgenerated) === 0);
+}
+paginatorChanged(event: PageEvent, group: string): void {
+  // Assuming you're using MatTableDataSource
+  const startIndex = event.pageIndex * event.pageSize;
+  const endIndex = startIndex + event.pageSize;
+  this.groupedData[group] = this.groupedData[group].slice(startIndex, endIndex);
 }
 
 }

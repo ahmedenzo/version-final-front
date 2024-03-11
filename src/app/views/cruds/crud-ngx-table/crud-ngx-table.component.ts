@@ -294,7 +294,7 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
 
   openConfirmationDialog() {
     const title = this.translate.instant('CONFIRMATION');
-  const text = this.translate.instant('do you want confirm this card');
+  const text = this.translate.instant('Do You Want Confirm This Card');
     const dialogRef = this.dialog.open(FileConfirmationDialogComponent, {
       width: '400px',
       data: { title, text }
@@ -310,8 +310,6 @@ export class CrudNgxTableComponent implements OnInit, OnDestroy {
       
       }
       
-      
-
     });
     
   }

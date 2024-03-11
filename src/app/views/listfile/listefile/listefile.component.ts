@@ -31,6 +31,8 @@ interface GroupedFiles {
 export class ListefileComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+
+
   @ViewChild(MatSort) sort: MatSort;
   public cafFiles: any[] = [];
   public pbfFiles: any[] = [];
@@ -48,12 +50,17 @@ export class ListefileComponent implements OnInit {
 
   ngOnInit() {
     this.displayedColumns = this.getDisplayedColumns();
+    
     this.getItems()
   }
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    if (this.dataSource) {
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
+  
   ngOnDestroy() {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()

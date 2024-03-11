@@ -1,75 +1,52 @@
-
-
-
 <mat-accordion>
   <ng-container *ngFor="let group of groupedDataKeys; let i = index">
     <mat-expansion-panel [class.all-generated]="isAllGenerated(group)" [class.partially-generated]="isPartiallyGenerated(group)">
-
-
-
-
       <mat-expansion-panel-header>
         <mat-panel-title>
           {{ getCardCountToGenerate(group) }} {{ 'CARD TO GENERATE' | translate }}: {{ group }} 
         </mat-panel-title>
       </mat-expansion-panel-header>
-      
       <mat-card-content class="p-0">
         <button mat-raised-button color="primary" (click)="generateFileForData(group)">{{ 'GENERATE_FILE' | translate }}</button>
-                                                         
-     
-      
-
         <mat-table [dataSource]="groupedData[group]" matSort>
-
-        
-
-
-                     <ng-container matColumnDef="CardholderNumber" style="width:100%">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardholderNumber" | translate }} </mat-header-cell>
-                  <mat-cell *matCellDef="let row" data-label="CardholderNumber"> {{ row.cardholderNumber.substr(0, 8) +'*******' + row.cardholderNumber.substr(-4) }} </mat-cell>
-                </ng-container>
-          
-                <ng-container matColumnDef="Valid">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Valid" | translate }} </mat-header-cell>
-                  <mat-cell *matCellDef="let row" data-label="Valid">
-                    {{ row.date1.substring(0, 2) }}/{{ row.date1.substring(2, 4) }} - {{ row.date2.substring(0, 2) }}/{{ row.date2.substring(2, 4) }}
-                  </mat-cell>
-                </ng-container>
-                
-                <ng-container matColumnDef="CardHolderName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Name" | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let row" data-label="Name"> {{ row.name }} </mat-cell>
-                </ng-container>
-          
-
-                
-    
-                
-                <ng-container matColumnDef="createdAt">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "createdAt" | translate }}  </mat-header-cell>
-                  <mat-cell *matCellDef="let row" [style.color]="row.createdAt" data-label="createdAt">
-                    {{ row.createdAt | date:'dd/MM/yyyy' }}
-                  </mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="updatedAt">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>   {{ "UpdateddAt" | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let row" [style.color]="row.updatedAt" data-label="updatedAt">
-                    {{ row.updatedAt | date:'dd/MM/yyyy' }}
-                  </mat-cell>
-                </ng-container>
-      
-                <ng-container matColumnDef="status">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "status" | translate }}</mat-header-cell>
-                  <mat-cell *matCellDef="let row" [style.color]="getStatusColor(row.statuscard)" data-label="color">
-                    <mat-chip mat-sm-chip [color]="getStatusChipColor(row.statuscard)" [selected]="row.statuscard">{{ getStatusTranslationKey(row.statuscard) | translate }}</mat-chip>
-                  </mat-cell>
-                </ng-container>
-                
-
+          <!-- Define table columns -->
+          <ng-container matColumnDef="CardholderNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardholderNumber" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="CardholderNumber"> {{ row.cardholderNumber.substr(0, 8) +'*******' + row.cardholderNumber.substr(-4) }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Valid">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Valid" | translate }} </mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Valid">
+              {{ row.date1.substring(0, 2) }}/{{ row.date1.substring(2, 4) }} - {{ row.date2.substring(0, 2) }}/{{ row.date2.substring(2, 4) }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CardHolderName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "Name" | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row" data-label="Name"> {{ row.name }} </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="createdAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "createdAt" | translate }}  </mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.createdAt" data-label="createdAt">
+              {{ row.createdAt | date:'dd/MM/yyyy' }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="updatedAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>   {{ "UpdateddAt" | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="row.updatedAt" data-label="updatedAt">
+              {{ row.updatedAt | date:'dd/MM/yyyy' }}
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>  {{ "status" | translate }}</mat-header-cell>
+            <mat-cell *matCellDef="let row" [style.color]="getStatusColor(row.statuscard)" data-label="color">
+              <mat-chip mat-sm-chip [color]="getStatusChipColor(row.statuscard)" [selected]="row.statuscard">{{ getStatusTranslationKey(row.statuscard) | translate }}</mat-chip>
+            </mat-cell>
+          </ng-container>
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <!-- Add paginator for the current group -->
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="groupedData[group]?.length" [pageIndex]="0" (page)="paginatorChanged($event, group)"></mat-paginator>
       </mat-card-content>
     </mat-expansion-panel>
   </ng-container>
@@ -77,6 +54,3 @@
 <div class="no-data-container" *ngIf="groupedDataKeys.length === 0">
   <div class="no-data-message">No DATA Available</div>
 </div>
-<mat-accordion *ngIf="groupedDataKeys.length > 0">
-  <!-- Your existing code for mat-accordion goes here -->
-</mat-accordion>
