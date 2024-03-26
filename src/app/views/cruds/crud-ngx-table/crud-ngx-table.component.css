@@ -139,21 +139,18 @@ button.apply-button, button.clear-button {
   color: red !important; /* Change the label color to red */
 }
 
-.greent {
-  background-color: #90EE90 !important;
-}
-.confirmed-and-generated {
-  background-color: blueviolet;
+
+
+.generated-and-confirmed .mat-chip {
+  background-color: green;
+  color: white;
 }
 
-.confirmed {
-  background-color: blue; /* Or any other color for confirmed */
+.confirmed .mat-chip {
+  background-color: #64b5f6; /* Adjust color code as needed */
+  color: white;
 }
 
-.warn {
-  background-color: red; /* Or any other color for not confirmed */
-}
-
-.red-dialog {
-  color: red;
+.default-color .mat-chip {
+  /* Define default styles for other statuses */
 }

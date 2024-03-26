@@ -276,7 +276,14 @@ export class NgxTablePopupComponent implements OnInit {
         nameValidator,
       ]),
    
-      phoneNumber: new FormControl(  this.getFormDataValue('phoneNumber') || '', [Validators.required]),
+      phoneNumber: new FormControl(this.getFormDataValue('phoneNumber') || '', [
+        Validators.required,
+        Validators.pattern(/^[0-9]+$/)
+      ]),
+
+     
+
+
       countryPhonecode: new UntypedFormControl( this.getFormDataValue('countryPhonecode') || '', [Validators.required]),
     
       birthDate : new UntypedFormControl(this.getFormDataValue('birthDate') || '',[Validators.required]),
@@ -299,6 +306,7 @@ export class NgxTablePopupComponent implements OnInit {
       email: new UntypedFormControl(this.getFormDataValue('email') || '', [Validators.required, Validators.email]),
    
     });
+
   }
 
   

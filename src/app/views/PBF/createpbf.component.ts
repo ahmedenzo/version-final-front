@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { PbfService } from './pbf.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { PbfpopupComponent } from './pbf-popup/pbfpopup/pbfpopup.component';
-
+import { JwtAuthService } from 'app/shared/services/auth/jwt-auth.service';
 
 @Component({
   selector: 'app-createpbf',
@@ -19,7 +19,9 @@ import { PbfpopupComponent } from './pbf-popup/pbfpopup/pbfpopup.component';
 export class CreatepbfComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  totalBalance: number = 0;
+  todayBalance: number = 0;
+  public tokenExpirySubscription: Subscription;
   public dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   showOnlyTodayCreated: boolean = false;
   public displayedColumns: any;
@@ -27,13 +29,18 @@ export class CreatepbfComponent implements OnInit {
 
 
   constructor(  private dialog: MatDialog,
-    private snack: MatSnackBar,  private confirmService: AppConfirmService,private PbfService:PbfService ,
+    private snack: MatSnackBar,  private confirmService: AppConfirmService,private PbfService:PbfService ,private JwtAuthService:JwtAuthService,
     private loader: AppLoaderService)
     { }
 
     ngOnInit() {
       this.displayedColumns = this.getDisplayedColumns();
       this.getitems()
+      this.tokenExpirySubscription = this.JwtAuthService.onTokenExpiry().subscribe(() => {
+   
+        this.closeAllPopupsAndSnacks();
+      });
+  
     
     }
     ngAfterViewInit() {
@@ -44,27 +51,101 @@ export class CreatepbfComponent implements OnInit {
       if (this.getItemSub) {
         this.getItemSub.unsubscribe()
       }
+      this.tokenExpirySubscription.unsubscribe();
     }
   
     getDisplayedColumns() {
       return ['name','cardholderNumber', 'Valid', 'available_balance', 'ledgBal','actions' ];
     }
-  
-
-    getitems(){
-
-   this.getItemSub = this.PbfService.getItems().subscribe(data => {
-
-    this.dataSource = new MatTableDataSource(data);
-    console.log(this.dataSource.data)
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-   
-
-   })
-
+    closeAllPopups() {
+      // Close any open dialogs/popups
+      const openedDialogs = this.dialog.openDialogs;
+      openedDialogs.forEach((dialog: MatDialogRef<any>) => {
+        dialog.close();
+      });
+    }
+    
+    closeAllSnacks() {
+      // Dismiss any open snack bars
+      this.snack.dismiss();
+    }
+    closeAllPopupsAndSnacks() {
+      this.closeAllPopups();
+      this.closeAllSnacks();
     }
 
+    getitems(): void {
+      this.getItemSub = this.PbfService.getItems().subscribe(data => {
+        // Sort the data array by the updatedAt field in descending order
+        data.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+    
+        this.dataSource = new MatTableDataSource(data);
+        console.log(this.dataSource.data);
+    
+        // Calculate total balance for all cards
+        this.totalBalance = this.calculateTotalAvailableBalance(data);
+    
+        // Calculate total balance for today
+        this.todayBalance = this.calculateTotalBalanceForToday(data);
+    
+        // Update HTML with total balance
+        this.updateTotalBalance();
+    
+        // Update HTML with balance for today
+        this.updateTodayBalance();
+    
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
+    }
+    
+  
+  calculateTotalAvailableBalance(data: any[]): number {
+      // Calculate total available balance for all cards
+      return data.reduce((sum, item) => sum + item.availBal, 0);
+  }
+  
+  calculateTotalBalanceForToday(data: any[]): number {
+      // Get today's date
+      const today = new Date();
+  
+      // Filter items based on createdAt or updatedAt being today
+      const todayItems = data.filter(item => {
+          const itemDate = new Date(item.updatedAt); // Change this line if you want to use createdAt
+          return itemDate.getDate() === today.getDate() &&
+                 itemDate.getMonth() === today.getMonth() &&
+                 itemDate.getFullYear() === today.getFullYear();
+      });
+  
+      // Calculate total balance for today
+      return this.calculateTotalAvailableBalance(todayItems);
+  }
+
+  
+  updateTotalBalance(): void {
+    // Format totalBalance with two decimal places
+    const formattedTotalBalance = (this.totalBalance / 100).toFixed(2);
+  
+    // Update HTML element with the total balance
+    const totalBalanceElement = document.querySelector('.Total-Balance');
+    if (totalBalanceElement) {
+      totalBalanceElement.textContent = `TotalBalance: ${formattedTotalBalance}$`;
+    }
+  }
+  
+  updateTodayBalance(): void {
+    // Format todayBalance with two decimal places
+    const formattedTodayBalance = (this.todayBalance / 100).toFixed(2);
+  
+    // Update HTML element with the balance for today
+    const todayBalanceElement = document.querySelector('.Balance-Today');
+    if (todayBalanceElement) {
+      todayBalanceElement.textContent = `Balance'sToday: ${formattedTodayBalance}$`;
+    }
+  }
+  
+  
+  
 
     openPopUp(data:any ) { 
      

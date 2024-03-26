@@ -17,7 +17,7 @@ export class HeaderSideComponent implements OnInit {
   roles: string[] = [];
   public availableLangs = [
     { name: 'EN', code: 'en', flag: 'us' },
-    { name: 'AR', code: 'ar', flag: 'ly' }
+   
  
    
   ];

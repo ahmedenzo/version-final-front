@@ -45,10 +45,10 @@ export class ProfileOverviewComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return ["image", "username","fullName","Email", "Phone","Bank", "roles", "confirme", "actions"];
+    return [ "username","Email","Bank", "roles", "confirme", "actions"];
   }
   getDisplayedColumns1() {
-    return ["image", "username","fullName","Email", "Phone","Agence", "roles", "confirme", "actions"];
+    return [ "username","Email", "Agence", "roles", "confirme", "actions"];
   }
   ngOnInit(): void {
     const storedRoles = localStorage.getItem('roles');

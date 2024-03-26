@@ -17,7 +17,7 @@ export class UserRoleGuard implements CanActivate {
     const roles = JSON.parse(this.jwtAuth.getLocalStorage().getItem(this.jwtAuth.APP_Role)) || [];
 
 
-    if (user && roles.includes('ROLE_Admin')) {
+    if (user && roles.includes('Admin_Bank')|| roles.includes('Admin_SMT') ) {
       return true;
     } else {
       this.snack.open('You do not have access to this page!', 'OK');

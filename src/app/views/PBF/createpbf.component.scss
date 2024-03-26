@@ -29,4 +29,28 @@
   .no-button {
     margin-right: 10px; /* Adjust the margin as needed */
   }
-  
+  .right-values {
+    display: flex;
+    justify-content: flex-end; /* Aligns items horizontally to the right */
+    align-items: flex-end; /* Aligns items vertically to the bottom */
+    flex-direction: column; /* Stacks items vertically */
+}
+.Balance-Today,
+.Total-Balance {
+    font-family: Arial, sans-serif; /* Example font */
+    font-size: 16px; /* Example font size */
+    color: #333; /* Example text color */
+    color: blue;
+    margin-bottom: 5px; /* Example margin for spacing between items */
+}
+.right-values {
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+.currency-value {
+  color: green; /* Set the text color of the currency values to green */
+  margin-right: 15px; /* Adjust the margin as needed */
+}
+

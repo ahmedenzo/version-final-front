@@ -170,6 +170,7 @@
   <mat-form-field class="large-input">
     <mat-label>{{ 'PHONE_NUMBER' | translate }}</mat-label>
     <input matInput type="tel" formControlName="phoneNumber" />
+    <small *ngIf="basicForm.controls['phoneNumber'].hasError('required') && basicForm.controls['phoneNumber'].touched" class="form-error-msg">{{'Only numbers are accepted'}}</small>
   </mat-form-field>
 </div>
 <div fxFlex="45" class="pr-16">

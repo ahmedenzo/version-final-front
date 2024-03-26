@@ -5,6 +5,7 @@ import { ProfileOverviewComponent } from "./profile-overview/profile-overview.co
 import { ProfileSettingsComponent } from "./profile-settings/profile-settings.component";
 import { ProfileBlankComponent } from "./profile-blank/profile-blank.component";
 import { UserRoleGuard } from 'app/shared/guards/user-role.guard'; 
+import { AdminGuard } from 'app/shared/guards/admin.guard';
 import { BankComponent } from './BANK/bank/bank.component';
 
 
@@ -16,8 +17,11 @@ export const ProfileRoutes: Routes = [
     children: [{
       path: 'overview',
       component: ProfileOverviewComponent,
+       canActivate: [UserRoleGuard],
+      
       data: { title: 'Overview', breadcrumb: 'OVERVIEW' }
     }, 
+
     {
       path: 'settings',
       component: ProfileSettingsComponent,
@@ -26,12 +30,9 @@ export const ProfileRoutes: Routes = [
     {
       path: 'SMT',
       component: BankComponent,
-      data: { title: 'SMT', breadcrumb: 'SMT' }
+      canActivate: [AdminGuard],
+      data: { title: 'Overview', breadcrumb: 'OVERVIEW'}
     }, 
-    {
-      path: 'blank',
-      component: ProfileBlankComponent,
-      data: { title: 'Blank', breadcrumb: 'BLANK' }
-    }]
+    ]
   }
 ];

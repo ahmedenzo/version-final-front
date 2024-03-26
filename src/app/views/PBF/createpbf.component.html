@@ -11,9 +11,23 @@
         {{ "Show Only Today's Cards Created" | translate }}
       </mat-slide-toggle>
     </div>
+    <div class="right-values ml-auto">
+      <div class="Balance-Today currency-value">Balance'sToday: {{ (todayBalance / 100) | number:'1.2-2' }}</div>
+      <div class="Total-Balance currency-value">TotalBalance: {{ (totalBalance / 100) | number:'1.2-2' }}</div>
+    </div>
+    
+    
+    
+  
+  
+  
   </div>
-</div>
+  
+
+
+
  
+
 
   <mat-card class="p-0" [@animate]="{value:'*',params:{y:'50px',delay:'300ms'}}">
     <mat-card-content class="p-0">
@@ -27,7 +41,7 @@
             <mat-cell *matCellDef="let row" data-label="name"> {{row.pbfCardHolder.name}} </mat-cell>
           </ng-container>
         <ng-container matColumnDef="cardholderNumber">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> cardholderNumber </mat-header-cell>
+          <mat-header-cell *matHeaderCellDef mat-sort-header> cardNumber </mat-header-cell>
           <mat-cell *matCellDef="let row" data-label="cardholderNumber">  {{ row.pbfCardHolder.cardholderNumber }}</mat-cell>
         </ng-container>
 

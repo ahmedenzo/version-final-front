@@ -7,8 +7,6 @@ import { Subject } from 'rxjs';
 import { AppLoaderService } from '../../../shared/services/app-loader/app-loader.service';
 import { JwtAuthService } from '../../../shared/services/auth/jwt-auth.service';
 
-// ... [imports]
-
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
@@ -34,14 +32,17 @@ export class SigninComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.signinForm = new UntypedFormGroup({
-      username: new UntypedFormControl( '', Validators.required),
-      password: new UntypedFormControl( '', Validators.required),
-      qrcode : new UntypedFormControl('', Validators.pattern(/^\d+$/)), // Only a pattern validator
-      rememberMe: new UntypedFormControl(true)
+      username: new UntypedFormControl('', Validators.required),
+      password: new UntypedFormControl('', Validators.required),
     });
-}
 
-    
+    // Reset form values to empty string
+    this.signinForm.patchValue({
+      username: '',
+      password: ''
+    });
+  }
+
   ngAfterViewInit() {
     this.autoSignIn();
   }
@@ -53,15 +54,15 @@ export class SigninComponent implements OnInit, AfterViewInit, OnDestroy {
 
   signin() {
     const signinData = this.signinForm.value;
-  
+
     this.submitButton.disabled = true;
     this.progressBar.mode = 'indeterminate';
-  
+
     this.jwtAuth.signin(signinData.username, signinData.password)
       .subscribe(
         (response: any) => {
           const roles = this.jwtAuth.roles;
-          localStorage.setItem('roles', JSON.stringify(roles))
+          localStorage.setItem('roles', JSON.stringify(roles));
           console.log(this.jwtAuth.getUser());
           this.router.navigateByUrl('profile/settings');
         },
@@ -73,16 +74,16 @@ export class SigninComponent implements OnInit, AfterViewInit, OnDestroy {
       );
     console.log(this.signinForm.value);
   }
-  
-  autoSignIn() {    
-    if(this.jwtAuth.return === '/') {
-      return
+
+  autoSignIn() {
+    if (this.jwtAuth.return === '/') {
+      return;
     }
-    this.egretLoader.open(`Automatically Signing you in! \n Return url: ${this.jwtAuth.return.substring(0, 20)}...`, {width: '320px'});
+    this.egretLoader.open(`Automatically Signing you in! \n Return url: ${this.jwtAuth.return.substring(0, 20)}...`, { width: '320px' });
     setTimeout(() => {
       this.signin();
       console.log('autoSignIn');
-      this.egretLoader.close()
+      this.egretLoader.close();
     }, 2000);
   }
 

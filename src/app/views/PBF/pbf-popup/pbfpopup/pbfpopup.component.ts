@@ -56,7 +56,7 @@ export class PbfpopupComponent implements OnInit {
 @Component({
   selector: 'confirmation-dialog',
   template: `
-  <h1 mat-dialog-title class="warning-title">Confirmation</h1>
+  
   <div mat-dialog-content class="warning-message">
     Are you sure you want to proceed:<br>
     <span class="blue-text">Avail Bal:</span> <span class="dollar-sign">$</span><span class="value">{{ data.availBal }}</span><br>
@@ -68,47 +68,48 @@ export class PbfpopupComponent implements OnInit {
   </div>
   `,
   styles: [`
-    .mat-dialog-container {
-      width: 400px; /* Set the width to your desired value */
-    }
-
-    .warning-title {
-      color: #ff9800; /* Orange color */
-      font-size: 24px; /* Larger font size */
-    }
-
-    .value {
-      color: #008000; /* Green color */
-    }
-
-    .blue-text {
-      color: #0000FF; /* Blue color */
-    }
-
-    .dollar-sign {
-      color: #008000; /* Green color */
-    }
-    
-    .warning-message {
-      color: #ff5722; /* Deep orange color */
-      font-size: 20px; /* Font size adjusted */
-      font-weight: bold;
-    }
-
-    .dialog-buttons {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px; /* Adjusted margin between the buttons and the message */
-    }
-
-    .no-button {
-      margin-right: 20px; /* Adjusted margin between the buttons */
-    }
-
-    .yes-button {
-      background-color: #ff9800; /* Orange color */
-      color: white;
-    }
+  .mat-dialog-container {
+    width: 400px; /* Set the width to your desired value */
+  }
+  
+  .warning-title {
+    color: red; /* Red color */
+    font-size: 24px; /* Larger font size */
+  }
+  
+  .value {
+    color: #008000; /* Green color */
+  }
+  
+  .blue-text {
+    color: #0000FF; /* Blue color */
+  }
+  
+  .dollar-sign {
+    color: #008000; /* Green color */
+  }
+  
+  .warning-message {
+    color: #ff5722; /* Deep orange color */
+    font-size: 20px; /* Font size adjusted */
+    font-weight: bold;
+  }
+  
+  .dialog-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px; /* Adjusted margin between the buttons and the message */
+  }
+  
+  .no-button {
+    margin-right: 20px; /* Adjusted margin between the buttons */
+  }
+  
+  .yes-button {
+    background-color: #ff9800; /* Orange color */
+    color: white;
+  }
+  
   `]
 })
 export class ConfirmationDialogComponent {

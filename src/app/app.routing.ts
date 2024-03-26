@@ -3,6 +3,9 @@ import { AdminLayoutComponent } from './shared/components/layouts/admin-layout/a
 import { AuthLayoutComponent } from './shared/components/layouts/auth-layout/auth-layout.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { PermissionGuard } from './shared/guards/permission.guard';
+import { AdminbankGuard } from './shared/guards/adminbank.guard';
+import { SimpleuserGuard } from './shared/guards/simpleuser.guard';
+import { ChefagenceGuard } from './shared/guards/chefagence.guard';
 
 export const rootRouterConfig: Routes = [
   {
@@ -25,20 +28,15 @@ export const rootRouterConfig: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
-      {
-        path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'Dashboard', breadcrumb: 'DASHBOARD', role: ['Admin_SMT','Admin_Bank','Admin_Agence','Simple_User'] }
-      },
+
 
       {
         path: 'create',
         loadChildren: () => import('./views/cruds/cruds.module').then(m => m.CrudsModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'Card', breadcrumb: 'Card', role: ['Admin_SMT','Admin_Bank','Simple_User']}
+        canActivate: [SimpleuserGuard],
+        data: { title: 'Card', breadcrumb: 'Card'}
       },
 
       
@@ -46,56 +44,57 @@ export const rootRouterConfig: Routes = [
       {
         path: 'update',
         loadChildren: () => import('./views/update-card/update-card.module').then(m => m.UpdateCardModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'Card', breadcrumb: 'Card', role: ['Simple_User','Admin_Bank']}
+        canActivate: [SimpleuserGuard],
+        data: { title: 'Card', breadcrumb: 'Card'}
       },
 
       
       {
         path: 'pbfcard',
         loadChildren: () => import('./views/PBF/pbf.module').then(m => m.PbfModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_Agence','Admin_Bank']}
+        canActivate: [ChefagenceGuard],
+        data: { title: 'pbf', breadcrumb: 'pbf'}
       },
       {
         path: 'cafcard',
         loadChildren: () => import('./views/CAF/caf.module').then(m => m.CafModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_Agence','Admin_Bank']}
+        canActivate: [ChefagenceGuard],
+        data: { title: 'pbf', breadcrumb: 'pbf'}
       },
       {
         path: 'list',
         loadChildren: () => import('./views/listfile/listefile.module').then(m => m.ListefileModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
+        canActivate: [AdminbankGuard],
+        data: { title: 'pbf', breadcrumb: 'pbf'}
       },
       {
         path: 'cafcard',
         loadChildren: () => import('./views/generetepbf/gpbf.module').then(m => m.GpbfModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
+        canActivate: [AdminbankGuard],
+        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_Bank']}
       },
       {
         path: 'cafgen',
         loadChildren: () => import('./views/GenertedCaf/gcaf.module').then(m => m.GcafModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'pbf', breadcrumb: 'pbf', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
+        canActivate: [AdminbankGuard],
+        data: { title: 'pbf', breadcrumb: 'pbf'}
       },
 
       {
         path: 'gfile',
         loadChildren: () => import('./views/generatefile-ftp/generatedfile.module').then(m => m.GeneratedfileModule),
         canActivate: [PermissionGuard],
-        data: { title: 'Card', breadcrumb: 'Card', role: ['Admin_SMT','Admin_Bank','Admin_Agence']}
+        data: { title: 'Card', breadcrumb: 'Card'}
       },
       
       {
         path: 'profile',
         loadChildren: () => import('./views/profile/profile.module').then(m => m.ProfileModule),
-        canActivate: [PermissionGuard],
-        data: { title: 'Profile', breadcrumb: 'PROFILE', role: ['Admin_SMT','Admin_Bank','Simple_User','Admin_Agence']}
-      },
   
+        data: { title: 'Profile', breadcrumb: 'PROFILE'}
+      },
+
+
 
     ]
   },

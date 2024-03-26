@@ -2,7 +2,7 @@
   <mat-tab-group>
     <mat-tab label="Account Settings">
       <mat-card-content class="mt-16">
-        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="profileForm">
           <div class="grid-container">
             <div class="form-field">
               <mat-form-field class="medium-width">
@@ -16,31 +16,13 @@
               </mat-form-field>
             </div>
           
-            <div class="form-field" *ngIf="roles && !roles.includes('Admin_SMT')">
-              <mat-form-field class="medium-width">
-                <input matInput formControlName="fullname" placeholder="Fullname">
-              </mat-form-field>
-            </div>
+
+
           
-            <div class="form-field" *ngIf="roles && !roles.includes('Admin_SMT')">
-              <mat-form-field class="medium-width" >
-                <input matInput formControlName="phone" placeholder="Phone">
-              </mat-form-field>
-            </div>
+
           
-            <div class="upload-container" *ngIf="roles && !roles.includes('Admin_SMT')">
-              <input type="file" (change)="onFileSelected($event)" accept="image/*" />
-              <button mat-button color="primary" (click)="uploadImage()">Upload</button>
-            </div>
-          
-            <div class="progress-container" *ngIf="uploadProgress !== null">
-          
-            </div>
-          
-            <div class="button-container" *ngIf="roles && !roles.includes('Admin_SMT')">
-              <button *ngIf="!submitted" mat-raised-button color="primary" type="submit">Save</button>
-              <button *ngIf="submitted" mat-raised-button color="accent" type="button" (click)="onUpdate()">Update</button>
-            </div>
+
+
           </div>
           
         </form>
@@ -50,7 +32,6 @@
     ********************
  
 
-
     <mat-tab label="Privacy Settings">
       <mat-card>
         <mat-card-header>
@@ -59,7 +40,7 @@
         <mat-card-content class="mt-16">
           <form [formGroup]="passwordChangeForm" (ngSubmit)="changePassword()">
             <div class="grid-container">
-              <div class="example-container">
+              <div class="example-container" >
                 <mat-form-field appearance="fill">
                   <mat-label>Old Password</mat-label>
                   <input matInput [type]="hideOldPassword ? 'password' : 'text'" formControlName="oldPassword" placeholder="Enter old password">
@@ -69,20 +50,21 @@
                 </mat-form-field>
               </div>
     
-              <div class="example-container">
+              <div class="example-container" >
                 <mat-form-field appearance="fill">
                   <mat-label>New Password</mat-label>
-                  <input matInput [type]="hideNewPassword ? 'password' : 'text'" formControlName="newPassword" placeholder="Enter newPassword">
+                  <input matInput [type]="hideNewPassword ? 'password' : 'text'" formControlName="newPassword" placeholder="Enter new password">
                   <button mat-icon-button matSuffix (click)="hideNewPassword = !hideNewPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideNewPassword">
                     <mat-icon>{{hideNewPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
+                  <mat-hint *ngIf="passwordChangeForm.get('newPassword').invalid && passwordChangeForm.get('newPassword').touched && passwordChangeForm.get('newPassword').errors?.minlength">Password must be at least 8 characters long</mat-hint>
                 </mat-form-field>
               </div>
     
-              <div class="example-container">
+              <div class="example-container" >
                 <mat-form-field appearance="fill">
                   <mat-label>Confirm New Password</mat-label>
-                  <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Enter confirmPassword">
+                  <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword" placeholder="Confirm new password">
                   <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPassword">
                     <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>

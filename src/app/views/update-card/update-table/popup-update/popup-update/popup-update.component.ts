@@ -84,7 +84,7 @@ export class PopupUpdateComponent implements OnInit {
   isLinear: any;
   av: any;
   ledgbals: any;
-
+  public isInputDisabled: boolean = true;
   constructor(
   @Inject(MAT_DIALOG_DATA) public data: any,
   public dialogRef: MatDialogRef<PopupUpdateComponent>,
@@ -123,10 +123,12 @@ export class PopupUpdateComponent implements OnInit {
       sourcecode : [this.initializesourcecodeControl() || '', Validators.required],
       territorycode : [this.initializerterritorycodeControl() || '', Validators.required],
       birthDate : [item.birthDate || ''],
-      cin : [item.cin || '', Validators.required],
-      passportId : [item.passportId || ''],
-      countryPhonecode : [item.countryPhonecode || '', Validators.required],
-      phoneNumber : [item.phoneNumber || '', Validators.required],
+      cin : [{ value: item.cin || '', disabled: this.isInputDisabled }],
+      passportId : [{ value: item.passportId || '', disabled: this.isInputDisabled }],
+
+  
+      countryPhonecode : [{ value: item.countryPhonecode || '', disabled: this.isInputDisabled }],
+      phoneNumber :  [{ value: item.phoneNumber || '', disabled: this.isInputDisabled }],
       cardProcessIndicator : [ this.initializerpac() || '', Validators.required],
       updatecode :[item.updatecode], 
       postalCode:  [item.postalCode ],

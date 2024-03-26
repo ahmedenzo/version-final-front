@@ -13,12 +13,7 @@
   <mat-card-content class="p-0">
     <mat-table [dataSource]="dataSource" matSort  >
 
-      <ng-container matColumnDef="image">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Image </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Image"> 
-          <img [src]="getImageUrl(row.id)" alt="Profile Image" width="70px"> 
-        </mat-cell>
-      </ng-container>>
+
       
 
 
@@ -30,14 +25,7 @@
 
       
 
-      <ng-container matColumnDef="fullName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> fullName </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="fullName"> {{row.fullname}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="Phone">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="Phone"> {{row.phone}} </mat-cell>
-      </ng-container>
+
       
       <ng-container matColumnDef="Email">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
