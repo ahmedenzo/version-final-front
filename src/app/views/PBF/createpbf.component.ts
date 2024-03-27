@@ -34,8 +34,10 @@ export class CreatepbfComponent implements OnInit {
     { }
 
     ngOnInit() {
+      
       this.displayedColumns = this.getDisplayedColumns();
       this.getitems()
+
       this.tokenExpirySubscription = this.JwtAuthService.onTokenExpiry().subscribe(() => {
    
         this.closeAllPopupsAndSnacks();
@@ -123,26 +125,27 @@ export class CreatepbfComponent implements OnInit {
 
   
   updateTotalBalance(): void {
-    // Format totalBalance with two decimal places
-    const formattedTotalBalance = (this.totalBalance / 100).toFixed(2);
+    // Format totalBalance with commas for thousands and two decimal places
+    const formattedTotalBalance = (this.totalBalance / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   
     // Update HTML element with the total balance
     const totalBalanceElement = document.querySelector('.Total-Balance');
     if (totalBalanceElement) {
-      totalBalanceElement.textContent = `TotalBalance: ${formattedTotalBalance}$`;
+      totalBalanceElement.textContent = `TotalBalance: $${formattedTotalBalance}`;
     }
   }
   
   updateTodayBalance(): void {
-    // Format todayBalance with two decimal places
-    const formattedTodayBalance = (this.todayBalance / 100).toFixed(2);
+    // Format todayBalance with commas for thousands and two decimal places
+    const formattedTodayBalance = (this.todayBalance / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   
     // Update HTML element with the balance for today
     const todayBalanceElement = document.querySelector('.Balance-Today');
     if (todayBalanceElement) {
-      todayBalanceElement.textContent = `Balance'sToday: ${formattedTodayBalance}$`;
+      todayBalanceElement.textContent = `Balance'sToday: $${formattedTodayBalance}`;
     }
   }
+  
   
   
   

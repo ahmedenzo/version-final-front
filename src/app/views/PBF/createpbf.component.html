@@ -13,12 +13,15 @@
     </div>
     <div class="right-values ml-auto">
       <div class="Balance-Today">
-        <span class="label">Balance'sToday: </span> <span class="currency-value">{{ (todayBalance / 100) | number:'1.2-2' }}</span>
+        <span class="label">Balance'sToday: </span>
+        <span [style.color]="'green'">{{ todayBalance }}</span>
       </div>
       <div class="Total-Balance">
-        <span class="label">TotaLBalance: </span> <span class="currency-value">{{ (totalBalance / 100) | number:'1.2-2' }}</span>
+        <span class="label">TotaLBalance: </span>
+        <span [style.color]="'green'">{{ totalBalance }}</span>
       </div>
     </div>
+    
     
     
     

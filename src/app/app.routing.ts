@@ -6,7 +6,8 @@ import { PermissionGuard } from './shared/guards/permission.guard';
 import { AdminbankGuard } from './shared/guards/adminbank.guard';
 import { SimpleuserGuard } from './shared/guards/simpleuser.guard';
 import { ChefagenceGuard } from './shared/guards/chefagence.guard';
-
+import { AdminGuard } from './shared/guards/admin.guard';
+import { UserRoleGuard } from './shared/guards/user-role.guard';
 export const rootRouterConfig: Routes = [
   {
     path: '',
@@ -64,7 +65,7 @@ export const rootRouterConfig: Routes = [
       {
         path: 'list',
         loadChildren: () => import('./views/listfile/listefile.module').then(m => m.ListefileModule),
-        canActivate: [AdminbankGuard],
+        canActivate: [UserRoleGuard],
         data: { title: 'pbf', breadcrumb: 'pbf'}
       },
       {
