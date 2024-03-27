@@ -16,7 +16,7 @@ import { Bank, agence } from "app/shared/models/bank";
 })
 export class JwtAuthService {
   token;
-  userActivityTimeout: number = 40000;
+  userActivityTimeout: number = 140000;
    lastActivityTime: number;
     countdown: number; // New property to store the countdown value
   interval: any;

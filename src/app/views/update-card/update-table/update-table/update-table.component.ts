@@ -13,6 +13,8 @@ import { PopupUpdateComponent } from '../popup-update/popup-update/popup-update.
 import { CardHolder, updatecode } from 'app/shared/models/Cardholder';
 import { Notifications2Service } from 'app/shared/components/egret-notifications2/notifications2.service';
 import { take } from 'rxjs/operators';
+import { JwtAuthService } from 'app/shared/services/auth/jwt-auth.service';
+
 import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-update-table',
@@ -25,9 +27,12 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<any> = new MatTableDataSource([]);
   public displayedColumns: any;
   public getItemSub: Subscription;
+  public isExpiringIn30Days: boolean = false;
   public isUpdateMode: boolean;
+  public tokenExpirySubscription: Subscription;
   updateCodeOptions: string[] = Object.values(updatecode);
   constructor(
+    private JwtAuthService :JwtAuthService,
     private dialog: MatDialog,
     private snack: MatSnackBar,
     private crudService: UpdateCardService,
@@ -39,7 +44,11 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
 
     this.displayedColumns = this.getDisplayedColumns();
     this.getItems()
-    console.log("data",this.dataSource.data.values())
+ 
+    this.tokenExpirySubscription = this.JwtAuthService.onTokenExpiry().subscribe(() => {
+   
+      this.closeAllPopupsAndSnacks();
+    });
 
   
   }
@@ -75,8 +84,25 @@ export class UpdateTableComponent implements OnInit, OnDestroy {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe()
     }
+    this.tokenExpirySubscription.unsubscribe();
   }
 
+  closeAllPopups() {
+    // Close any open dialogs/popups
+    const openedDialogs = this.dialog.openDialogs;
+    openedDialogs.forEach((dialog: MatDialogRef<any>) => {
+      dialog.close();
+    });
+  }
+  
+  closeAllSnacks() {
+    // Dismiss any open snack bars
+    this.snack.dismiss();
+  }
+  closeAllPopupsAndSnacks() {
+    this.closeAllPopups();
+    this.closeAllSnacks();
+  }
 
   getDisplayedColumns() {
     return ['CardholderNumber','CardHolderName','PASSPORT_ID','Valid','phoneNumber','createdAt', 'status','actions'];
@@ -143,14 +169,6 @@ openPopUp(data: any = {}, actionType: string) {
   });
 }
 
-
-
-
-
-
-
-
-
   getStatusColor(status: string): string {
     switch (status) {
       case 'Card_Update':
@@ -177,7 +195,6 @@ openPopUp(data: any = {}, actionType: string) {
     }
   }
 
-  
 
 
   getStatusTranslationKey(status: string): string {
@@ -195,10 +212,6 @@ openPopUp(data: any = {}, actionType: string) {
     }
   }
   
-
-
-
-  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -211,6 +224,10 @@ openPopUp(data: any = {}, actionType: string) {
     } else {
       this.dataSource.filter = '';
     }
+  } 
+  toggleExpiringIn30Days() {
+    this.isExpiringIn30Days = !this.isExpiringIn30Days;
+    this.getItems();
   }
   
 }

@@ -157,7 +157,7 @@ export class NgxTablePopupComponent implements OnInit {
         name: this.data.payload.name,
         birthDate: this.data.payload.birthDate,
         cityCode: this.data.payload.cityCode,
-        firstAccount: this.data.payload.firstAccount,
+      
         territorycode: this.data.payload.territorycode,
       
 
@@ -251,9 +251,6 @@ export class NgxTablePopupComponent implements OnInit {
    
  
 
-
-      firstAccount: new UntypedFormControl({ value: '', disabled: true },
-      ),
 
       address: new UntypedFormControl(this.getFormDataValue('address') || '', [
         Validators.required,

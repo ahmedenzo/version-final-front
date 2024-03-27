@@ -29,14 +29,16 @@ import { NgxTablePopupComponent } from '../cruds/crud-ngx-table/ngx-table-popup/
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSortModule } from '@angular/material/sort';
 import { MatStepperModule } from '@angular/material/stepper';
-
-
+import { FormsModule } from '@angular/forms'; 
+import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
 
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    
+    FormsModule,
     MatInputModule,
     MatIconModule,
     MatCardModule,
@@ -45,6 +47,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatButtonModule,
     MatChipsModule,
     MatSortModule,
+    MatRadioModule, 
     MatStepperModule,
     MatListModule,
     MatPaginatorModule,

@@ -50,9 +50,7 @@ export class PopupUpdateComponent implements OnInit {
   bins: any;
   binId: any;
   formData = {};
-
   currentDate: moment.Moment;
-
   countryCodes: Country[] = [];
   selectedCountry: string;
   phoneNumber: string;
@@ -61,7 +59,6 @@ export class PopupUpdateComponent implements OnInit {
   countries: Country[];
   states: string[];
   showPopup = false;
-
   console = console;
   renewOptionsvalue: number ;
   TerritoryCodevalue: number ;
@@ -71,8 +68,6 @@ export class PopupUpdateComponent implements OnInit {
   Sourcecodevalue: number ;
   PKIiNDICATORvalue: number ;
   operatorUserCode: any;
- 
-
   BankIdCode:any;
   birthDate: any;
   territorycode= Object.values(TerritoryCode);
@@ -96,46 +91,35 @@ export class PopupUpdateComponent implements OnInit {
     
     this.getBankName()
     
-    this.console.log(this.data.payload.cardProcessIndicator)
-
-    this.console.log(this.data.payload.actionType)
-    this.console.log(this.data.payload)
-    this.console.log(this.data.payload.customerId)
     this.buildItemForm(this.data.payload)
     this.SetOptionUpdate(this.data.payload.actionType)
-    this.getCountryCodes()
-
-
-
-
-   
+    this.getCountryCodes()  
   }
 
   buildItemForm(item){
+    const isRenewed = this.data.payload.actionType === 'renewed';
     this.itemForm = this.fb.group({
     
-      firstAccount : [item.firstAccount || '', Validators.required],
-      name : [item.name || '', Validators.required],
-      address : [item.address || '', Validators.required],
-      corporateName : [item.corporateName || ''],
-      email : [item.email || '', Validators.required],
-      renewOption : [this.initializerenewOptionControl() || '', Validators.required],
-      sourcecode : [this.initializesourcecodeControl() || '', Validators.required],
-      territorycode : [this.initializerterritorycodeControl() || '', Validators.required],
-      birthDate : [item.birthDate || ''],
-      cin : [{ value: item.cin || '', disabled: this.isInputDisabled }],
-      passportId : [{ value: item.passportId || '', disabled: this.isInputDisabled }],
-
-  
-      countryPhonecode : [{ value: item.countryPhonecode || '', disabled: this.isInputDisabled }],
-      phoneNumber :  [{ value: item.phoneNumber || '', disabled: this.isInputDisabled }],
-      cardProcessIndicator : [ this.initializerpac() || '', Validators.required],
-      updatecode :[item.updatecode], 
-      postalCode:  [item.postalCode ],
-      pinoffset: [item.pinoffset ],
-      freesCode:  [item.freesCode ],
-      statuscard:[item.freesCode ],
-      binId : ['']
+      firstAccount: [item.firstAccount || '', Validators.required],
+        name: [{ value: item.name || '', disabled: isRenewed }, Validators.required],
+        address: [{ value: item.address || '', disabled: isRenewed }, Validators.required],
+        corporateName: [{ value: item.corporateName || '', disabled: isRenewed }],
+        email: [{ value: item.email || '', disabled: isRenewed }, Validators.required],
+        renewOption: [{ value: this.initializerenewOptionControl() || '', disabled: isRenewed }],
+        sourcecode: [{ value: this.initializesourcecodeControl() || '', disabled: isRenewed }, Validators.required],
+        territorycode: [{ value: this.initializerterritorycodeControl() || '', disabled: isRenewed }, Validators.required],
+        birthDate: [{ value: item.birthDate || '', disabled: isRenewed }],
+        cin: [{ value: item.cin || '', disabled: isRenewed }],
+        passportId: [{ value: item.passportId || '', disabled: isRenewed }],
+        countryPhonecode: [{ value: item.countryPhonecode || '', disabled: isRenewed }],
+        phoneNumber: [{ value: item.phoneNumber || '', disabled: isRenewed }],
+        cardProcessIndicator: [{ value: this.initializerpac() || '', disabled: isRenewed }, Validators.required],
+        updatecode: [item.updatecode],
+        postalCode: [item.postalCode],
+        pinoffset: [item.pinoffset],
+        freesCode: [item.freesCode],
+        statuscard: [item.freesCode],
+        binId: ['']
   
     
       
@@ -165,14 +149,15 @@ export class PopupUpdateComponent implements OnInit {
         this.itemForm.controls['sourcecode'].enable();
         this.itemForm.controls['territorycode'].enable();
         this.itemForm.controls['birthDate'].enable();
-        this.itemForm.controls['cin'].enable();
-        this.itemForm.controls['passportId'].enable();
-        this.itemForm.controls['countryPhonecode'].enable();
-        this.itemForm.controls['phoneNumber'].enable();
+        this.itemForm.controls['cin'].disable();
+        this.itemForm.controls['passportId'].disable();
+        this.itemForm.controls['countryPhonecode'].disable();
+        this.itemForm.controls['phoneNumber'].disable();
         this.itemForm.controls['email'].enable();
        
       }
     });
+    
 
   }
 
@@ -197,6 +182,7 @@ export class PopupUpdateComponent implements OnInit {
       console.error("Bank name is not available.");
     }
   }
+
   
 
   submit() {

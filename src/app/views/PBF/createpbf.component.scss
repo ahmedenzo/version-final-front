@@ -34,23 +34,23 @@
     justify-content: flex-end; /* Aligns items horizontally to the right */
     align-items: flex-end; /* Aligns items vertically to the bottom */
     flex-direction: column; /* Stacks items vertically */
-}
-.Balance-Today,
-.Total-Balance {
+  }
+  
+  .Balance-Today,
+  .Total-Balance {
     font-family: Arial, sans-serif; /* Example font */
-    font-size: 16px; /* Example font size */
-    color: #333; /* Example text color */
-    color: blue;
-    margin-bottom: 5px; /* Example margin for spacing between items */
-}
-.right-values {
-  display: flex;
-  justify-content: flex-end;
-}
-
-
-.currency-value {
-  color: green; /* Set the text color of the currency values to green */
-  margin-right: 15px; /* Adjust the margin as needed */
-}
+    font-size: 15px; /* Example font size */
+    margin-bottom: 7px; /* Example margin for spacing between items */
+  }
+  
+  .Balance-Today .label,
+  .Total-Balance .label {
+    color: blue; /* Set text color of labels to blue */
+  }
+  
+  .currency-value {
+    color: green; /* Set the text color of the currency values to green */
+    margin-right: 15px; /* Adjust the margin as needed */
+  }
+  
 

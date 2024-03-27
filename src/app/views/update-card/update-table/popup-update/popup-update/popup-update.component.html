@@ -31,13 +31,8 @@
           <mat-option *ngFor="let option of cardProcessIndicator" [value]="option">{{ option }}</mat-option>
         </mat-select>
         <mat-error *ngIf="itemForm.get('cardProcessIndicator').hasError('required')">Card Process Indicator is required</mat-error>
-      </mat-form-field>
-      
+      </mat-form-field>  
     </div>
-
- 
-          
-
 
                 <div fxFlex="45"  class="pr-16" >
                   <mat-form-field class="full-width" >
@@ -49,7 +44,7 @@
                       placeholder=" {{ 'CardHolderName' | translate }}"
                       pattern="[a-zA-Z ]*"
                       value=""
-                      
+                 
                     >
                   </mat-form-field>
                   <small *ngIf="itemForm.controls['name'].hasError('required') && itemForm.controls['name'].touched" class="form-error-msg">{{ 'CARD_HOLDER_NAME_REQUIRED' | translate }}</small>
@@ -62,7 +57,7 @@
                       matInput
                       name="Address"
                       formControlName="address"
-                      placeholder="{{ 'ADDRESS1' | translate }}"
+                      placeholder="{{ 'ADDRESS' | translate }}"
                       value=""
                       pattern="[a-zA-Z0-9 ]*"
                       maxlength="32"
@@ -94,6 +89,7 @@
                       placeholder="{{ 'CORPORATE_NAME' | translate }}"
                       pattern="[a-zA-Z ]*"
                       value=""
+                    
                     >
                   </mat-form-field>
                   <small *ngIf="itemForm.controls['corporateName'].hasError('pattern') && itemForm.controls['corporateName'].touched" class="form-error-msg">{{ 'CORPORATE_NAME_PATTERN' | translate }}</small>
@@ -169,15 +165,7 @@
 
 
 <!-- Sourcecode Section -->
-<div fxFlex="45" class="pr-16">
-  <mat-form-field class="full-width">
-    <mat-label>{{ 'SOURCE_CODE' | translate }}</mat-label>
-    <mat-select formControlName="sourcecode">
-      <mat-option *ngFor="let option of sourcecode" [value]="option">{{ option }}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <small *ngIf="itemForm.controls['sourcecode'].hasError('required') && itemForm.controls['sourcecode'].touched" class="form-error-msg">{{ 'SOURCE_CODE_REQUIRED' | translate }}</small>
-</div>
+
 
 <!-- Phone Number Section -->
 <div fxFlex="45" class="pr-16">

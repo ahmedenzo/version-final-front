@@ -12,8 +12,12 @@
       </mat-slide-toggle>
     </div>
     <div class="right-values ml-auto">
-      <div class="Balance-Today currency-value">Balance'sToday: {{ (todayBalance / 100) | number:'1.2-2' }}</div>
-      <div class="Total-Balance currency-value">TotalBalance: {{ (totalBalance / 100) | number:'1.2-2' }}</div>
+      <div class="Balance-Today">
+        <span class="label">Balance'sToday: </span> <span class="currency-value">{{ (todayBalance / 100) | number:'1.2-2' }}</span>
+      </div>
+      <div class="Total-Balance">
+        <span class="label">TotaLBalance: </span> <span class="currency-value">{{ (totalBalance / 100) | number:'1.2-2' }}</span>
+      </div>
     </div>
     
     

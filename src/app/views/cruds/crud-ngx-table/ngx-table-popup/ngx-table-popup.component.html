@@ -20,19 +20,7 @@
       </ng-container>
       
     </div>
-    <div fxFlex="45"  class="pr-16">
-              <mat-form-field class="full-width" #inputField>
-                <input
-                  matInput
-                  name="firstAccount"
-                  formControlName="firstAccount"
-                  placeholder="{{ 'FIRST_ACCOUNT_LABEL' | translate }}"
-                  value=""
- 
-                >
-              </mat-form-field>
-            
-              </div>
+
           
 
 
@@ -59,7 +47,7 @@
                       matInput
                       name="Address"
                       formControlName="address"
-                      placeholder="{{ 'ADDRESS1' | translate }}"
+                      placeholder="{{ 'ADDRESS' | translate }}"
                       value=""
                       pattern="[a-zA-Z0-9 ]*"
                       maxlength="32"
@@ -144,6 +132,7 @@
                   <input matInput formControlName="birthDate" type="date" placeholder="{{ 'BIRTHDAY' | translate }}">
                 </mat-form-field>
                
+                
                   </div>
 
 
@@ -173,12 +162,14 @@
     <small *ngIf="basicForm.controls['phoneNumber'].hasError('required') && basicForm.controls['phoneNumber'].touched" class="form-error-msg">{{'Only numbers are accepted'}}</small>
   </mat-form-field>
 </div>
-<div fxFlex="45" class="pr-16">
-  <button mat-raised-button color="primary"  (click)="submitForm()">
+<div fxFlex="45" class="pr-16" style="margin: 15px;">
+  <button mat-raised-button color="primary" (click)="submitForm()">
     {{ 'SAVE' | translate }}
   </button>
-  
-    <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">{{ 'CANCEL' | translate }}</button>
-  </div>
+  <button mat-button color="warn" type="button" (click)="dialogRef.close(false)">
+    {{ 'CANCEL' | translate }}
+  </button>
+</div>
+
   </div>
   </form>

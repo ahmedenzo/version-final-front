@@ -1,9 +1,11 @@
 <div class="m-12" [@animate]="{value:'*',params:{y:'40px',delay:'300ms'}}">
 
+  
+  
  
   <div class="info-card primary">
     <mat-form-field appearance="fill" class="filter-input">
-      <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'FILTER' | translate }}">
+      <input matInput (keyup)="applyFilter($event)" placeholder="{{ 'Search' | translate }}">
     </mat-form-field>
     
     <mat-form-field appearance="fill" class="filter-input">
@@ -14,6 +16,8 @@
 
       </mat-select>
     </mat-form-field>
+
+    
   </div>
   
       
@@ -28,7 +32,7 @@
 
   
         <ng-container matColumnDef="CardholderNumber" style="width:100%">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardholderNumber" | translate }} </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{ "CardNumber" | translate }} </mat-header-cell>
             <mat-cell *matCellDef="let row" data-label="CardholderNumber"> {{ row.cardholderNumber.substr(0, 8) +'*******' + row.cardholderNumber.substr(-4) }} </mat-cell>
           </ng-container>
     
