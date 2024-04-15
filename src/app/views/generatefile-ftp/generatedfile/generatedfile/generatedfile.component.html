@@ -46,7 +46,7 @@
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
         <!-- Add paginator for the current group -->
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10" [length]="groupedData[group]?.length" [pageIndex]="0" (page)="paginatorChanged($event, group)"></mat-paginator>
+        <mat-paginator  [length]="groupedData[group]?.length" [pageIndex]="0" ></mat-paginator>
       </mat-card-content>
     </mat-expansion-panel>
   </ng-container>

@@ -9,7 +9,7 @@ import { Observable, Subscription } from 'rxjs';
 import { AppConfirmService } from 'app/shared/services/app-confirm/app-confirm.service'; 
 import { JwtAuthService } from 'app/shared/services/auth/jwt-auth.service';
 import { MatDialogRef, MatDialog } from '@angular/material/dialog';
-
+import { Service } from '../profile.service';
 import { ProfileBlankComponent } from '../profile-blank/profile-blank.component';
 import { PopUpComponent } from '../profile-deux/pop-up/pop-up.component';
 @Component({
@@ -33,11 +33,12 @@ export class ProfileOverviewComponent implements OnInit, OnDestroy {
   customerid: any;
   roles: string[];
   imageUrls: any = {}; // Define an object to store image URLs
-
+  userStatus: boolean = true;
   constructor(
     private snack: MatSnackBar,
     private dialog: MatDialog,
     private loader: AppLoaderService,
+    private Service:Service,
     private confirmService: AppConfirmService,
     private JwtAuthService: JwtAuthService
   ) {
@@ -45,10 +46,10 @@ export class ProfileOverviewComponent implements OnInit, OnDestroy {
   }
 
   getDisplayedColumns() {
-    return [ "username","Email","Bank", "roles", "confirme", "actions"];
+    return [ "username","Email","Bank", "roles", "confirme","activation", "actions"];
   }
   getDisplayedColumns1() {
-    return [ "username","Email", "Agence", "roles", "confirme", "actions"];
+    return [ "username","Email", "Agence", "roles", "confirme","activation", "actions"];
   }
   ngOnInit(): void {
     const storedRoles = localStorage.getItem('roles');
@@ -93,24 +94,32 @@ export class ProfileOverviewComponent implements OnInit, OnDestroy {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.items = data;
-  
         this.items.forEach((item) => {
-          this.loadImage(item.id);
+         
+          // Update isActive property based on the value received from the backend
+          item.isActive = item.active; // Assuming the backend sends 'active' property
         });
+      });
+   
+  
+    }
+  }
+  toggleActivation(row: any) {
+    if (this.roles && this.roles.includes('Admin_SMT')) {
+      this.Service.toggleBankAdminActive(row.id).subscribe(() => {
+        // Assuming you need to update the data source after toggling
+        this.getItems();
+      });
+    } else if (this.roles && this.roles.includes('Admin_Bank')) {
+      this.Service.toggleAgentBankActive(row.id).subscribe(() => {
+        // Assuming you need to update the data source after toggling
+        this.getItems();
       });
     }
   }
   
-  loadImage(itemId: any) {
-    this.JwtAuthService.getImage(itemId).subscribe((img) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(img);
-      reader.onloadend = () => {
-        const imageUrl = reader.result;
-        this.imageUrls[itemId] = imageUrl;
-      };
-    });
-  }
+  
+
   ngOnDestroy(): void {
     if (this.getItemSub) {
       this.getItemSub.unsubscribe();
@@ -148,7 +157,7 @@ export class ProfileOverviewComponent implements OnInit, OnDestroy {
 
   
   openPopUp(data: any, isNew?: boolean): void {
-    let title = isNew ? 'Add new CustomerUser' : 'Update CustomerUser';
+    let title = isNew ? 'Add new User' : 'Update User';
     let dialogRef: MatDialogRef<any> = this.dialog.open(PopUpComponent, {
       width: '720px',
       disableClose: true,
@@ -257,6 +266,9 @@ deleteItem(row) {
     }
   });
 }
+
+
+
 
 
 }

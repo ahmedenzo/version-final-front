@@ -78,7 +78,7 @@
             <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
           </mat-table>
-          <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="pageSize" [length]="groupedData[group]?.length" [pageIndex]="pageIndex" (page)="onPaginatorChange($event, group)"></mat-paginator>
+          <mat-paginator  [length]="groupedData[group]?.length" [pageIndex]="pageIndex" ></mat-paginator>
         </mat-card-content>
       </mat-expansion-panel>
     </ng-container>

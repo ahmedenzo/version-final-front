@@ -61,7 +61,7 @@
           <!-- Define table row with ngStyle -->
           <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
         </mat-table>
-        <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="portFiles.length" #portPaginator></mat-paginator>
+        <mat-paginator  [length]="portFiles.length" #portPaginator></mat-paginator>
 
       </mat-card-content>
     </mat-card>
@@ -123,7 +123,7 @@
         
           <!-- Define table row with ngStyle -->
           <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
-        </mat-table> <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="pbfFiles.length" #pbPaginator></mat-paginator>
+        </mat-table> <mat-paginator  [length]="pbfFiles.length" #pbPaginator></mat-paginator>
       </mat-card-content>
     </mat-card>
   </mat-expansion-panel>
@@ -182,7 +182,7 @@
           <!-- Define table row with ngStyle -->
           <mat-row *matRowDef="let row; columns: displayedColumns;" [ngStyle]="getStatusColor(row)"></mat-row>
         </mat-table>
-       <mat-paginator [pageSizeOptions]="[10, 25, 100]" [pageSize]="10" [length]="cafFiles.length" #pbPaginator></mat-paginator>
+       <mat-paginator  [length]="cafFiles.length" #pbPaginator></mat-paginator>
 
       </mat-card-content>
     </mat-card>

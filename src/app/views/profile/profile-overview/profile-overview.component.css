@@ -6,4 +6,11 @@
     overflow: hidden; /* Hide any overflowing content */
     text-overflow: ellipsis; /* Display ellipsis (...) for truncated text */
   }
+  .green-icon {
+    color: green;
+  }
+  
+  .red-icon {
+    color: red;
+  }
   

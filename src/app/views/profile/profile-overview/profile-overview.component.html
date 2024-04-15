@@ -1,38 +1,27 @@
-<div class="m-4" [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}">
-
-
-  <button mat-raised-button class="mb-2" style="float: right ;"  color="primary" (click)="openPopUp({}, true )">{{"ADD" | translate }}
-    User</button>
-
-  <mat-form-field  >
+<div class="m-4" [@animate]="{value:'*',params:{y:'50px',delay:'200ms'}}" style="margin-bottom: 20px;">
+  <button mat-raised-button class="mb-2" style="float: right;" color="primary" (click)="openPopUp({}, true)">
+    {{ "ADD" | translate }} User
+  </button>
+  <mat-form-field>
     <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
-    </mat-form-field> 
- 
+  </mat-form-field> 
 </div>
-<mat-card  style="border: 5px; "  [@animate]="{value:'*',params:{y:'15px',delay:'500ms'}}">
+
+
+<mat-card style="border: 5px;" [@animate]="{value:'*',params:{y:'15px',delay:'500ms'}}">
   <mat-card-content class="p-0">
-    <mat-table [dataSource]="dataSource" matSort  >
-
-
-      
-
+    <mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="username">
         <mat-header-cell *matHeaderCellDef mat-sort-header> username </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="username"> {{row.username}} </mat-cell>
       </ng-container>
 
-
-      
-
-
-      
       <ng-container matColumnDef="Email">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="Email"> {{row.email}} </mat-cell>
       </ng-container>
 
-      
       <ng-container matColumnDef="Agence" *ngIf="roles && roles.includes('Admin_Bank')">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Agence </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="Agence"> {{row.agence.agenceName}} </mat-cell>
@@ -42,11 +31,9 @@
         <mat-header-cell *matHeaderCellDef mat-sort-header> Bank </mat-header-cell>
         <mat-cell *matCellDef="let row" data-label="Bank"> {{row.bank.bankName}} </mat-cell>
       </ng-container>
-  
 
-
-      <ng-container matColumnDef="roles"  >
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Roles </mat-header-cell>
+      <ng-container matColumnDef="roles">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Role </mat-header-cell>
         <mat-cell *matCellDef="let item" data-label="Roles">
           <ng-container *ngFor="let role of item.roles">
             <ng-container *ngIf="role.name === 'Admin_SMT'; else otherRole">
@@ -58,29 +45,35 @@
           </ng-container>
         </mat-cell>
       </ng-container>
-      
-
-
-      
 
       <ng-container matColumnDef="confirme">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> confirme </mat-header-cell>
-        <mat-cell *matCellDef="let row" data-label="confirme"> {{row.confirme}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email Confirmation </mat-header-cell>
+        <mat-cell *matCellDef="let row" data-label="confirme">
+          <mat-icon [ngClass]="{ 'green-icon': row.confirme, 'red-icon': !row.confirme }">
+            {{ row.confirme ? 'check_circle' : 'cancel' }}
+          </mat-icon>
+        </mat-cell>
       </ng-container>
-
       
+
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
         <mat-cell *matCellDef="let row">
-          
-  
           <button mat-icon-button mat-sm-button color="primary" class="mr-16" (click)="openrole(row)" *ngIf="roles && !roles.includes('Admin_SMT')">
             <mat-icon>admin_panel_settings</mat-icon>
           </button>
 
-          <button mat-icon-button mat-sm-button color="warn" (click)="deleteItem(row.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
+        </mat-cell>
+
+
+      </ng-container>
+
+      
+      <ng-container matColumnDef="activation">
+        <mat-header-cell *matHeaderCellDef> Activation </mat-header-cell>
+        <mat-cell *matCellDef="let row" class="activate-cell">
+          <mat-slide-toggle [checked]="row.isActive" (change)="toggleActivation(row)">
+          </mat-slide-toggle>
         </mat-cell>
       </ng-container>
 
@@ -88,6 +81,8 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
     <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+
+    
 
   </mat-card-content>
 </mat-card>

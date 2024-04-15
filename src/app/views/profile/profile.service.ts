@@ -13,6 +13,8 @@ export class Service {
   private apiUrlagence = environment.port+'/api/auth/agencies';
   private apiUrlbin = environment.port+'/api/auth/bins';
   private apiurlsmtp = environment.port+'/api/auth/smtp'
+  private apiurlblock = environment.port+'/api/auth'
+
 
   private countryData = countrycitystatejson;
   constructor(private http: HttpClient,private snackBar: MatSnackBar)
@@ -211,4 +213,12 @@ export class Service {
         }
         return throwError('Something bad happened while processing SMTP configuration; please try again later.');
       }
+
+      toggleBankAdminActive(bankAdminId: number): Observable<any> {
+        return this.http.put(`${this.apiurlblock}/${bankAdminId}/toggle-activeadmin`, null);
+      }
+      
+  toggleAgentBankActive(bankAgentId: number): Observable<any> {
+    return this.http.put(`${this.apiurlblock}/${bankAgentId}/toggle-activeAgent`, null);
+  }
     }
